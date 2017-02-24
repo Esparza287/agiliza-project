@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.18
--- https://www.phpmyadmin.net
+-- version 4.5.2
+-- http://www.phpmyadmin.net
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 24-02-2017 a las 04:39:19
--- Versión del servidor: 5.5.54-cll
--- Versión de PHP: 5.6.30
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 24-12-2016 a las 20:26:03
+-- Versión del servidor: 5.7.9
+-- Versión de PHP: 5.6.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,18 +14,20 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `agiliza_project`
+-- Base de datos: `agiliza_db`
 --
 
 DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`agiliza`@`localhost` PROCEDURE `sp_cursos_letras`(in fecha_n int)
-BEGIN
+DROP PROCEDURE IF EXISTS `sp_cursos_letras`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cursos_letras` (IN `fecha_n` INT)  BEGIN
+
+
 
 declare id int;
 declare des varchar(45);
@@ -113,6 +115,7 @@ CLOSE cursos_cursor;
 
 select * from cursos_temp;
 
+
 END$$
 
 DELIMITER ;
@@ -123,13 +126,14 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `administrativo`
 --
 
+DROP TABLE IF EXISTS `administrativo`;
 CREATE TABLE IF NOT EXISTS `administrativo` (
   `id_administrativo` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) DEFAULT NULL,
   `vigencia` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id_administrativo`),
   KEY `fk_admin_user_idx` (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `administrativo`
@@ -146,8 +150,7 @@ INSERT INTO `administrativo` (`id_administrativo`, `id_usuario`, `vigencia`) VAL
 (11, 46, 1),
 (12, 51, 1),
 (13, 52, 1),
-(14, 53, 1),
-(15, 54, 1);
+(14, 53, 1);
 
 -- --------------------------------------------------------
 
@@ -155,6 +158,7 @@ INSERT INTO `administrativo` (`id_administrativo`, `id_usuario`, `vigencia`) VAL
 -- Estructura de tabla para la tabla `alumno`
 --
 
+DROP TABLE IF EXISTS `alumno`;
 CREATE TABLE IF NOT EXISTS `alumno` (
   `id_alumno` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_ingreso` date DEFAULT NULL,
@@ -166,22 +170,22 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   PRIMARY KEY (`id_alumno`),
   KEY `fk_alumno_nivel_idx` (`nivel_alumno`),
   KEY `fk_alumno_user_idx` (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `alumno`
 --
 
 INSERT INTO `alumno` (`id_alumno`, `fecha_ingreso`, `fecha_egreso`, `nivel_alumno`, `id_usuario`, `vigencia`, `asignado`) VALUES
-(2, NULL, NULL, 4, 3, 1, 1),
+(2, NULL, NULL, 4, 3, 1, 0),
 (3, NULL, NULL, 5, 4, 1, 0),
 (4, NULL, NULL, 1, 5, 1, 0),
 (8, NULL, NULL, 2, 32, 1, 0),
 (9, NULL, NULL, 1, 33, 1, 0),
-(10, NULL, NULL, 1, 38, 1, 1),
+(10, NULL, NULL, 1, 38, 1, 0),
 (11, NULL, NULL, 1, 39, 1, 0),
 (12, NULL, NULL, 1, 40, 1, 0),
-(13, NULL, NULL, 4, 44, 1, 1);
+(13, NULL, NULL, 3, 44, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -189,6 +193,7 @@ INSERT INTO `alumno` (`id_alumno`, `fecha_ingreso`, `fecha_egreso`, `nivel_alumn
 -- Estructura de tabla para la tabla `alumno_curso`
 --
 
+DROP TABLE IF EXISTS `alumno_curso`;
 CREATE TABLE IF NOT EXISTS `alumno_curso` (
   `id_alumno_curso` int(11) NOT NULL AUTO_INCREMENT,
   `id_curso_anual` int(11) DEFAULT NULL,
@@ -196,16 +201,7 @@ CREATE TABLE IF NOT EXISTS `alumno_curso` (
   PRIMARY KEY (`id_alumno_curso`),
   KEY `fk_alumno_curso_curso_anual_idx` (`id_curso_anual`),
   KEY `fk_alumno_curso_alumno_idx1` (`id_alumno`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
-
---
--- Volcado de datos para la tabla `alumno_curso`
---
-
-INSERT INTO `alumno_curso` (`id_alumno_curso`, `id_curso_anual`, `id_alumno`) VALUES
-(1, 8, 2),
-(2, 8, 13),
-(9, 1, 10);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -213,13 +209,14 @@ INSERT INTO `alumno_curso` (`id_alumno_curso`, `id_curso_anual`, `id_alumno`) VA
 -- Estructura de tabla para la tabla `apoderado`
 --
 
+DROP TABLE IF EXISTS `apoderado`;
 CREATE TABLE IF NOT EXISTS `apoderado` (
   `id_apoderado` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) DEFAULT NULL,
   `vigencia` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id_apoderado`),
   KEY `fk_apoderado_user_idx` (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `apoderado`
@@ -236,6 +233,7 @@ INSERT INTO `apoderado` (`id_apoderado`, `id_usuario`, `vigencia`) VALUES
 -- Estructura de tabla para la tabla `apoderado_alumno`
 --
 
+DROP TABLE IF EXISTS `apoderado_alumno`;
 CREATE TABLE IF NOT EXISTS `apoderado_alumno` (
   `id_apoderado_alumno` int(11) NOT NULL AUTO_INCREMENT,
   `id_apoderado` int(11) DEFAULT NULL,
@@ -245,18 +243,7 @@ CREATE TABLE IF NOT EXISTS `apoderado_alumno` (
   KEY `fk_apoderado_alumno_idx` (`id_apoderado`),
   KEY `fk_alumno_apoderado_idx` (`id_alumno`),
   KEY `fk_alumnoapd_year_idx` (`id_year`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- Volcado de datos para la tabla `apoderado_alumno`
---
-
-INSERT INTO `apoderado_alumno` (`id_apoderado_alumno`, `id_apoderado`, `id_alumno`, `id_year`) VALUES
-(1, 2, 2, 2),
-(2, 2, 13, 2),
-(3, 3, 10, 2),
-(4, 3, 11, 2),
-(5, 3, 11, 2);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -264,6 +251,7 @@ INSERT INTO `apoderado_alumno` (`id_apoderado_alumno`, `id_apoderado`, `id_alumn
 -- Estructura de tabla para la tabla `asignatura`
 --
 
+DROP TABLE IF EXISTS `asignatura`;
 CREATE TABLE IF NOT EXISTS `asignatura` (
   `id_asignatura` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_asignatura` varchar(45) NOT NULL,
@@ -272,24 +260,24 @@ CREATE TABLE IF NOT EXISTS `asignatura` (
   `vigencia` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id_asignatura`),
   KEY `fk_asignatura_especialidad_idx` (`id_especialidad`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `asignatura`
 --
 
 INSERT INTO `asignatura` (`id_asignatura`, `nombre_asignatura`, `descripcion_asignatura`, `id_especialidad`, `vigencia`) VALUES
-(1, 'Lenguaje', NULL, 1, 1),
+(1, 'Lenguaje y Comunicación', NULL, 1, 1),
 (2, 'Matemática', NULL, 1, 1),
-(3, 'Historia', NULL, 1, 1),
+(3, 'Historia y Ciencias Sociales', NULL, 1, 1),
 (4, 'Biología', NULL, 1, 1),
 (5, 'Quimica', NULL, 1, 1),
 (6, 'Física', NULL, 1, 1),
-(7, 'Ed. Física', NULL, 1, 1),
+(7, 'Educación Física', NULL, 1, 1),
 (8, 'Religión', NULL, 1, 1),
 (9, 'Tecnología', NULL, 1, 1),
 (10, 'Test', 'descripción de test', 1, 0),
-(11, 'D. Técnico', NULL, 1, 1);
+(11, 'Dibujo Técnico', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -297,6 +285,7 @@ INSERT INTO `asignatura` (`id_asignatura`, `nombre_asignatura`, `descripcion_asi
 -- Estructura de tabla para la tabla `asistencia`
 --
 
+DROP TABLE IF EXISTS `asistencia`;
 CREATE TABLE IF NOT EXISTS `asistencia` (
   `id_asistencia` int(11) NOT NULL AUTO_INCREMENT,
   `id_detalle_periodo` int(11) DEFAULT NULL,
@@ -306,23 +295,7 @@ CREATE TABLE IF NOT EXISTS `asistencia` (
   PRIMARY KEY (`id_asistencia`),
   KEY `fk_asistencia_alumno_curso_idx` (`id_alumno_curso`),
   KEY `fk_asistencia_periodo_d_idx` (`id_detalle_periodo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
-
---
--- Volcado de datos para la tabla `asistencia`
---
-
-INSERT INTO `asistencia` (`id_asistencia`, `id_detalle_periodo`, `id_alumno_curso`, `fecha_asistencia`, `estado_asistencia`) VALUES
-(1, 53, 1, '2016-03-07 00:00:00', '0'),
-(2, 53, 1, '2016-03-08 00:00:00', 'true'),
-(3, 53, 1, '2016-03-09 00:00:00', 'false'),
-(4, 53, 1, '2016-03-10 00:00:00', '0'),
-(5, 53, 1, '2016-03-11 00:00:00', '0'),
-(6, 53, 2, '2016-03-07 00:00:00', '0'),
-(7, 53, 2, '2016-03-08 00:00:00', 'true'),
-(8, 53, 2, '2016-03-09 00:00:00', 'true'),
-(9, 53, 2, '2016-03-10 00:00:00', '0'),
-(10, 53, 2, '2016-03-11 00:00:00', '0');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -330,6 +303,7 @@ INSERT INTO `asistencia` (`id_asistencia`, `id_detalle_periodo`, `id_alumno_curs
 -- Estructura de tabla para la tabla `bloque`
 --
 
+DROP TABLE IF EXISTS `bloque`;
 CREATE TABLE IF NOT EXISTS `bloque` (
   `id_bloque` int(11) NOT NULL AUTO_INCREMENT,
   `hora_inicio` datetime DEFAULT NULL,
@@ -338,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `bloque` (
   `hora_fin_mostrar` time DEFAULT NULL,
   `vigencia` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id_bloque`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `bloque`
@@ -362,6 +336,7 @@ INSERT INTO `bloque` (`id_bloque`, `hora_inicio`, `hora_fin`, `hora_inicio_mostr
 -- Estructura de tabla para la tabla `carro_compra`
 --
 
+DROP TABLE IF EXISTS `carro_compra`;
 CREATE TABLE IF NOT EXISTS `carro_compra` (
   `id_carro_compra` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_creacion` datetime DEFAULT NULL,
@@ -372,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `carro_compra` (
   `cantidad_cuotas` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_carro_compra`),
   KEY `fk_carro_usuario_idx` (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `carro_compra`
@@ -424,11 +399,8 @@ INSERT INTO `carro_compra` (`id_carro_compra`, `fecha_creacion`, `neto`, `estado
 (43, '2016-09-24 09:34:05', 6500, 0, 3, 'PayPal', 1),
 (44, '2016-09-24 10:10:49', 25000, 0, 3, 'PayPal', 1),
 (45, '2016-11-22 03:16:44', 5000, 1, 3, NULL, NULL),
-(46, '2016-11-24 16:38:09', 168000, 0, 2, 'PayPal', 1),
-(47, '2016-12-14 21:48:25', 50000, 0, 1, 'PayPal', 1),
-(48, '2016-12-27 19:35:20', 25000, 0, 1, 'PayPal', 1),
-(49, '2016-12-27 22:01:18', 34500, 1, 54, NULL, NULL),
-(50, '2017-01-29 18:47:59', 8000, 1, 2, NULL, NULL);
+(46, '2016-11-24 16:38:09', 93000, 1, 2, NULL, NULL),
+(47, '2016-12-14 21:48:25', 25000, 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -436,11 +408,12 @@ INSERT INTO `carro_compra` (`id_carro_compra`, `fecha_creacion`, `neto`, `estado
 -- Estructura de tabla para la tabla `categoria`
 --
 
+DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE IF NOT EXISTS `categoria` (
   `id_categoria` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_categoria` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_categoria`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `categoria`
@@ -458,6 +431,7 @@ INSERT INTO `categoria` (`id_categoria`, `nombre_categoria`) VALUES
 -- Estructura de tabla para la tabla `curso`
 --
 
+DROP TABLE IF EXISTS `curso`;
 CREATE TABLE IF NOT EXISTS `curso` (
   `id_curso` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion_curso` varchar(100) NOT NULL,
@@ -465,7 +439,7 @@ CREATE TABLE IF NOT EXISTS `curso` (
   `cantidad_letras` int(11) DEFAULT '1',
   `vigencia` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id_curso`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `curso`
@@ -484,6 +458,7 @@ INSERT INTO `curso` (`id_curso`, `descripcion_curso`, `limite_curso`, `cantidad_
 -- Estructura de tabla para la tabla `curso_anual`
 --
 
+DROP TABLE IF EXISTS `curso_anual`;
 CREATE TABLE IF NOT EXISTS `curso_anual` (
   `id_curso_anual` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_curso_anual` varchar(45) DEFAULT NULL,
@@ -498,7 +473,7 @@ CREATE TABLE IF NOT EXISTS `curso_anual` (
   KEY `fk_asignacion_curso_idx` (`id_curso`),
   KEY `fk_curso_anual_especialidad_idx` (`id_especialidad`),
   KEY `fk_curso_anual_profe_idx` (`id_profesor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `curso_anual`
@@ -512,16 +487,7 @@ INSERT INTO `curso_anual` (`id_curso_anual`, `nombre_curso_anual`, `fecha_curso_
 (5, '3° Medio A', 2016, NULL, 3, 2, 10, 'A', 1),
 (6, '3° Medio B', 2016, NULL, 3, 4, 11, 'B', 1),
 (7, '4° Medio A', 2016, NULL, 4, 2, 12, 'A', 1),
-(8, '4° Medio B', 2016, NULL, 4, 4, 6, 'B', 1),
-(9, '1° Medio C', 2016, NULL, 1, 1, 9, 'C', 1),
-(10, '1° Medio A', 2017, NULL, 1, 5, 6, 'A', 1),
-(11, '1° Medio B', 2017, NULL, 1, 1, 10, 'B', 1),
-(12, '2° Medio A', 2017, NULL, 2, 1, 10, 'A', 1),
-(13, '2° Medio B', 2017, NULL, 2, 1, 9, 'B', 1),
-(14, '3° Medio A', 2017, NULL, 3, 1, 8, 'A', 1),
-(15, '3° Medio B', 2017, NULL, 3, 1, 9, 'B', 1),
-(16, '4° Medio A', 2017, NULL, 4, 1, 9, 'A', 1),
-(17, '4° Medio B', 2017, NULL, 4, 1, 9, 'B', 1);
+(8, '4° Medio B', 2016, NULL, 4, 4, 13, 'B', 1);
 
 -- --------------------------------------------------------
 
@@ -529,6 +495,7 @@ INSERT INTO `curso_anual` (`id_curso_anual`, `nombre_curso_anual`, `fecha_curso_
 -- Estructura de tabla para la tabla `detalle_asignatura`
 --
 
+DROP TABLE IF EXISTS `detalle_asignatura`;
 CREATE TABLE IF NOT EXISTS `detalle_asignatura` (
   `id_detalle_asignatura` int(11) NOT NULL AUTO_INCREMENT,
   `id_curso` int(11) DEFAULT NULL,
@@ -537,7 +504,7 @@ CREATE TABLE IF NOT EXISTS `detalle_asignatura` (
   PRIMARY KEY (`id_detalle_asignatura`),
   KEY `fk_detalleasig_curso_idx` (`id_curso`),
   KEY `fk_detalleasig_asignatura_idx` (`id_asignatura`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=82 ;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `detalle_asignatura`
@@ -546,6 +513,10 @@ CREATE TABLE IF NOT EXISTS `detalle_asignatura` (
 INSERT INTO `detalle_asignatura` (`id_detalle_asignatura`, `id_curso`, `id_asignatura`, `horas_asignatura`) VALUES
 (17, 2, 10, 8),
 (18, 3, 10, 12),
+(28, 1, 1, 4),
+(29, 2, 1, 4),
+(30, 3, 1, 4),
+(31, 4, 1, 4),
 (32, 1, 9, 2),
 (33, 2, 9, 2),
 (42, 1, 4, 2),
@@ -554,26 +525,22 @@ INSERT INTO `detalle_asignatura` (`id_detalle_asignatura`, `id_curso`, `id_asign
 (45, 2, 6, 2),
 (46, 1, 5, 2),
 (47, 2, 5, 2),
+(48, 1, 7, 2),
+(49, 2, 7, 2),
+(50, 3, 7, 2),
+(51, 4, 7, 2),
 (52, 1, 8, 2),
 (53, 2, 8, 2),
+(58, 1, 3, 4),
+(59, 2, 3, 4),
+(60, 3, 3, 2),
+(61, 4, 3, 2),
 (62, 1, 2, 0),
 (63, 2, 2, 4),
 (64, 3, 2, 4),
 (65, 4, 2, 4),
-(68, 1, 1, 4),
-(69, 2, 1, 4),
-(70, 3, 1, 4),
-(71, 4, 1, 4),
-(72, 1, 3, 4),
-(73, 2, 3, 4),
-(74, 3, 3, 2),
-(75, 4, 3, 2),
-(76, 1, 7, 2),
-(77, 2, 7, 2),
-(78, 3, 7, 2),
-(79, 4, 7, 2),
-(80, 1, 11, 2),
-(81, 2, 11, 2);
+(66, 1, 11, 2),
+(67, 2, 11, 2);
 
 -- --------------------------------------------------------
 
@@ -581,6 +548,7 @@ INSERT INTO `detalle_asignatura` (`id_detalle_asignatura`, `id_curso`, `id_asign
 -- Estructura de tabla para la tabla `detalle_carro`
 --
 
+DROP TABLE IF EXISTS `detalle_carro`;
 CREATE TABLE IF NOT EXISTS `detalle_carro` (
   `id_detalle_carro` int(11) NOT NULL AUTO_INCREMENT,
   `id_carro` int(11) DEFAULT NULL,
@@ -590,7 +558,7 @@ CREATE TABLE IF NOT EXISTS `detalle_carro` (
   PRIMARY KEY (`id_detalle_carro`),
   KEY `fk_detalle_carro_idx` (`id_carro`),
   KEY `fk_detalle_implemento_idx` (`id_implemento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=93 ;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `detalle_carro`
@@ -649,13 +617,8 @@ INSERT INTO `detalle_carro` (`id_detalle_carro`, `id_carro`, `id_implemento`, `n
 (83, 45, 2, 5000, 1),
 (84, 46, 6, 8000, 1),
 (85, 46, 2, 5000, 2),
-(86, 47, 1, 25000, 2),
-(87, 46, 1, 25000, 6),
-(88, 48, 1, 25000, 1),
-(89, 49, 1, 25000, 1),
-(90, 49, 3, 6500, 1),
-(91, 49, 4, 3000, 1),
-(92, 50, 6, 8000, 1);
+(86, 47, 1, 25000, 1),
+(87, 46, 1, 25000, 3);
 
 -- --------------------------------------------------------
 
@@ -663,6 +626,7 @@ INSERT INTO `detalle_carro` (`id_detalle_carro`, `id_carro`, `id_implemento`, `n
 -- Estructura de tabla para la tabla `detalle_curso_anual`
 --
 
+DROP TABLE IF EXISTS `detalle_curso_anual`;
 CREATE TABLE IF NOT EXISTS `detalle_curso_anual` (
   `id_detalle_curso_anual` int(11) NOT NULL AUTO_INCREMENT,
   `id_asignatura` int(11) DEFAULT NULL,
@@ -672,7 +636,7 @@ CREATE TABLE IF NOT EXISTS `detalle_curso_anual` (
   KEY `fk_detalle_curso_asignatura_idx` (`id_asignatura`),
   KEY `fk_detalle_curso_curso_anual_idx` (`id_curso_anual`),
   KEY `fk_detalle_curso_profesor_idx` (`id_profesor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=303 ;
+) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `detalle_curso_anual`
@@ -742,123 +706,57 @@ INSERT INTO `detalle_curso_anual` (`id_detalle_curso_anual`, `id_asignatura`, `i
 (183, 3, 1, 11),
 (184, 4, 1, 14),
 (185, 5, 1, NULL),
-(186, 6, 1, 13),
+(186, 6, 1, 12),
 (187, 7, 1, NULL),
-(188, 8, 1, 8),
-(189, 9, 1, 10),
-(190, 11, 1, 9),
-(191, 1, 2, 7),
-(192, 2, 2, 13),
-(193, 3, 2, 11),
-(194, 4, 2, 14),
+(188, 8, 1, NULL),
+(189, 9, 1, NULL),
+(190, 11, 1, NULL),
+(191, 1, 2, NULL),
+(192, 2, 2, NULL),
+(193, 3, 2, NULL),
+(194, 4, 2, NULL),
 (195, 5, 2, NULL),
-(196, 6, 2, 13),
+(196, 6, 2, NULL),
 (197, 7, 2, NULL),
-(198, 8, 2, 8),
-(199, 9, 2, 10),
-(200, 11, 2, 9),
-(201, 1, 3, 7),
+(198, 8, 2, NULL),
+(199, 9, 2, NULL),
+(200, 11, 2, NULL),
+(201, 1, 3, NULL),
 (202, 2, 3, NULL),
-(203, 3, 3, 11),
-(204, 4, 3, 14),
+(203, 3, 3, NULL),
+(204, 4, 3, NULL),
 (205, 5, 3, NULL),
-(206, 6, 3, 12),
+(206, 6, 3, NULL),
 (207, 7, 3, NULL),
-(208, 8, 3, 8),
-(209, 9, 3, 10),
-(210, 11, 3, 9),
-(211, 1, 4, 7),
-(212, 2, 4, 6),
-(213, 3, 4, 11),
-(214, 4, 4, 14),
+(208, 8, 3, NULL),
+(209, 9, 3, NULL),
+(210, 11, 3, NULL),
+(211, 1, 4, NULL),
+(212, 2, 4, NULL),
+(213, 3, 4, NULL),
+(214, 4, 4, NULL),
 (215, 5, 4, NULL),
-(216, 6, 4, 12),
+(216, 6, 4, NULL),
 (217, 7, 4, NULL),
-(218, 8, 4, 8),
-(219, 9, 4, 10),
-(220, 11, 4, 9),
-(221, 1, 5, 7),
-(222, 2, 5, 6),
-(223, 3, 5, 11),
+(218, 8, 4, NULL),
+(219, 9, 4, NULL),
+(220, 11, 4, NULL),
+(221, 1, 5, NULL),
+(222, 2, 5, NULL),
+(223, 3, 5, NULL),
 (224, 7, 5, NULL),
-(225, 1, 6, 7),
-(226, 2, 6, 6),
-(227, 3, 6, 11),
+(225, 1, 6, NULL),
+(226, 2, 6, NULL),
+(227, 3, 6, NULL),
 (228, 7, 6, NULL),
-(229, 1, 7, 7),
-(230, 2, 7, 6),
-(231, 3, 7, 11),
+(229, 1, 7, NULL),
+(230, 2, 7, NULL),
+(231, 3, 7, NULL),
 (232, 7, 7, NULL),
-(233, 1, 8, 7),
-(234, 2, 8, 6),
-(235, 3, 8, 11),
-(236, 7, 8, NULL),
-(237, 4, 9, 14),
-(238, 9, 9, 10),
-(239, 3, 9, 11),
-(240, 2, 9, NULL),
-(241, 5, 9, NULL),
-(242, 1, 9, NULL),
-(243, 11, 9, NULL),
-(244, 6, 9, NULL),
-(245, 8, 9, NULL),
-(246, 7, 9, NULL),
-(247, 1, 10, 7),
-(248, 6, 10, 13),
-(249, 5, 11, NULL),
-(250, 11, 10, NULL),
-(251, 3, 11, NULL),
-(252, 9, 11, NULL),
-(253, 2, 10, NULL),
-(254, 7, 11, NULL),
-(255, 5, 10, NULL),
-(256, 4, 11, NULL),
-(257, 3, 10, NULL),
-(258, 9, 10, NULL),
-(259, 8, 11, NULL),
-(260, 7, 10, NULL),
-(261, 1, 11, NULL),
-(262, 6, 11, NULL),
-(263, 4, 10, NULL),
-(264, 11, 11, NULL),
-(265, 8, 10, NULL),
-(266, 2, 11, NULL),
-(267, 4, 12, NULL),
-(268, 11, 13, NULL),
-(269, 8, 12, NULL),
-(270, 2, 13, NULL),
-(271, 1, 12, NULL),
-(272, 6, 12, NULL),
-(273, 5, 13, NULL),
-(274, 11, 12, NULL),
-(275, 3, 13, NULL),
-(276, 9, 13, NULL),
-(277, 2, 12, NULL),
-(278, 7, 13, NULL),
-(279, 5, 12, NULL),
-(280, 4, 13, NULL),
-(281, 3, 12, NULL),
-(282, 9, 12, NULL),
-(283, 8, 13, NULL),
-(284, 7, 12, NULL),
-(285, 1, 13, NULL),
-(286, 6, 13, NULL),
-(287, 3, 14, NULL),
-(288, 7, 14, NULL),
-(289, 1, 15, NULL),
-(290, 2, 15, NULL),
-(291, 1, 14, NULL),
-(292, 3, 15, NULL),
-(293, 2, 14, NULL),
-(294, 7, 15, NULL),
-(295, 3, 17, NULL),
-(296, 2, 16, NULL),
-(297, 7, 17, NULL),
-(298, 3, 16, NULL),
-(299, 7, 16, NULL),
-(300, 1, 17, NULL),
-(301, 2, 17, NULL),
-(302, 1, 16, NULL);
+(233, 1, 8, NULL),
+(234, 2, 8, NULL),
+(235, 3, 8, NULL),
+(236, 7, 8, NULL);
 
 -- --------------------------------------------------------
 
@@ -866,6 +764,7 @@ INSERT INTO `detalle_curso_anual` (`id_detalle_curso_anual`, `id_asignatura`, `i
 -- Estructura de tabla para la tabla `detalle_implemento`
 --
 
+DROP TABLE IF EXISTS `detalle_implemento`;
 CREATE TABLE IF NOT EXISTS `detalle_implemento` (
   `id_detalle_implemento` int(11) NOT NULL AUTO_INCREMENT,
   `talla` varchar(45) DEFAULT NULL,
@@ -875,7 +774,7 @@ CREATE TABLE IF NOT EXISTS `detalle_implemento` (
   `descripcion_detalle` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id_detalle_implemento`),
   KEY `fk_detalle_implemento_idx` (`id_implemento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `detalle_implemento`
@@ -895,6 +794,7 @@ INSERT INTO `detalle_implemento` (`id_detalle_implemento`, `talla`, `id_implemen
 -- Estructura de tabla para la tabla `detalle_orden`
 --
 
+DROP TABLE IF EXISTS `detalle_orden`;
 CREATE TABLE IF NOT EXISTS `detalle_orden` (
   `id_detalle_orden` int(11) NOT NULL AUTO_INCREMENT,
   `id_orden` int(11) DEFAULT NULL,
@@ -912,7 +812,7 @@ CREATE TABLE IF NOT EXISTS `detalle_orden` (
   PRIMARY KEY (`id_detalle_orden`),
   KEY `fk_detalle_orden_idx` (`id_orden`),
   KEY `fk_detalle_material_idx` (`id_material`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=57 ;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `detalle_orden`
@@ -935,25 +835,9 @@ INSERT INTO `detalle_orden` (`id_detalle_orden`, `id_orden`, `id_material`, `can
 (35, 2, 1, 5, 'Test', 800, 900, 890, 1200, 0, NULL, NULL, NULL),
 (36, 2, 3, 3, 'Test', 1300, 1500, 1800, 1000, 0, NULL, NULL, NULL),
 (37, 2, 4, 2, 'Test', 2100, 2300, 1800, 1990, 0, NULL, NULL, NULL),
-(38, 3, 2, 3, NULL, 400, 500, 0, 0, 0, NULL, NULL, NULL),
-(39, 3, 3, 3, NULL, 800, 1200, 0, 0, 0, NULL, NULL, NULL),
-(40, 4, 2, 2, 'hola soy una observaciónb', 1000, 800, 900, 1200, 0, NULL, NULL, NULL),
-(41, 5, 5, 4, NULL, 32000, 28700, 46700, 0, 0, NULL, NULL, NULL),
-(42, 5, 19, 2, NULL, 1200, 1300, 1300, 0, 0, NULL, NULL, NULL),
-(43, 5, 20, 2, NULL, 900, 1000, 800, 0, 0, NULL, NULL, NULL),
-(44, 5, 22, 7, NULL, 100, 200, 500, 0, 0, NULL, NULL, NULL),
-(45, 5, 17, 7, NULL, 3200, 4000, 4300, 0, 0, NULL, NULL, NULL),
-(46, 5, 10, 3, NULL, 9000, 12000, 6400, 0, 0, NULL, NULL, NULL),
-(47, 5, 13, 2, NULL, 4000, 7000, 5000, 0, 0, NULL, NULL, NULL),
-(48, 6, 2, 1, NULL, 1000, 1200, 0, 0, 0, NULL, NULL, NULL),
-(49, 7, 9, 6, NULL, 1500, 1700, 0, 0, 0, NULL, NULL, NULL),
-(50, 8, 3, 0, 'cv', 500, 320, 550, 0, 0, NULL, NULL, NULL),
-(51, 9, 3, 1, NULL, 500, 600, 0, 0, 0, NULL, NULL, NULL),
-(52, 10, 5, 1, NULL, 500, 5000, 0, 0, 0, NULL, NULL, NULL),
-(53, 11, 5, 3, NULL, 11333, 23423, 34234, 0, 0, NULL, NULL, NULL),
-(54, 11, 4, 2, NULL, 424323, 2344230, 342342, 0, 0, NULL, NULL, NULL),
-(55, 11, 8, 3, NULL, 4234, 2340, 234, 0, 0, NULL, NULL, NULL),
-(56, 11, 3, 2, NULL, 234234, 234, 34234, 0, 0, NULL, NULL, NULL);
+(38, 3, 2, 3, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL),
+(39, 3, 3, 3, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL),
+(40, 4, 2, 2, 'hola soy una observaciónb', 0, 0, 0, 0, 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -961,6 +845,7 @@ INSERT INTO `detalle_orden` (`id_detalle_orden`, `id_orden`, `id_material`, `can
 -- Estructura de tabla para la tabla `detalle_proveedores`
 --
 
+DROP TABLE IF EXISTS `detalle_proveedores`;
 CREATE TABLE IF NOT EXISTS `detalle_proveedores` (
   `id_detalle_proveedores` int(11) NOT NULL AUTO_INCREMENT,
   `id_proveedor_material` int(11) DEFAULT NULL,
@@ -968,7 +853,7 @@ CREATE TABLE IF NOT EXISTS `detalle_proveedores` (
   PRIMARY KEY (`id_detalle_proveedores`),
   KEY `fk_detalle_p_orden_idx` (`id_orden_material`),
   KEY `fk_detalle_p_proveedor_idx` (`id_proveedor_material`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=106 ;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `detalle_proveedores`
@@ -981,30 +866,7 @@ INSERT INTO `detalle_proveedores` (`id_detalle_proveedores`, `id_proveedor_mater
 (71, 2, 2),
 (72, 5, 2),
 (73, 6, 2),
-(74, 7, 2),
-(75, 2, 4),
-(76, 5, 4),
-(77, 6, 4),
-(78, 7, 4),
-(81, 2, 3),
-(82, 5, 3),
-(89, 2, 5),
-(90, 5, 5),
-(91, 6, 5),
-(92, 2, 6),
-(93, 5, 6),
-(94, 2, 7),
-(95, 5, 7),
-(96, 2, 8),
-(97, 5, 8),
-(98, 6, 8),
-(99, 2, 9),
-(100, 5, 9),
-(101, 2, 10),
-(102, 5, 10),
-(103, 2, 11),
-(104, 5, 11),
-(105, 6, 11);
+(74, 7, 2);
 
 -- --------------------------------------------------------
 
@@ -1012,11 +874,12 @@ INSERT INTO `detalle_proveedores` (`id_detalle_proveedores`, `id_proveedor_mater
 -- Estructura de tabla para la tabla `especialidad`
 --
 
+DROP TABLE IF EXISTS `especialidad`;
 CREATE TABLE IF NOT EXISTS `especialidad` (
   `id_especialidad` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_especialidad` varchar(45) NOT NULL,
   PRIMARY KEY (`id_especialidad`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `especialidad`
@@ -1036,6 +899,7 @@ INSERT INTO `especialidad` (`id_especialidad`, `nombre_especialidad`) VALUES
 -- Estructura de tabla para la tabla `horario`
 --
 
+DROP TABLE IF EXISTS `horario`;
 CREATE TABLE IF NOT EXISTS `horario` (
   `id_horario` int(11) NOT NULL AUTO_INCREMENT,
   `id_curso_anual` int(11) DEFAULT NULL,
@@ -1048,7 +912,7 @@ CREATE TABLE IF NOT EXISTS `horario` (
   KEY `fk_horario_bloque_idx` (`id_bloque`),
   KEY `fk_horario_profe_idx` (`id_profesor`),
   KEY `fk_horario_asignatura_idx` (`id_asignatura`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=706 ;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `horario`
@@ -1112,416 +976,7 @@ INSERT INTO `horario` (`id_horario`, `id_curso_anual`, `id_bloque`, `dia_semana`
 (55, 39, NULL, 'pendientes', NULL, NULL),
 (56, 39, NULL, 'pendientes', NULL, NULL),
 (57, 39, NULL, 'pendientes', NULL, NULL),
-(58, 39, NULL, 'pendientes', NULL, NULL),
-(297, 1, 1, 'lunes', 9, 11),
-(298, 1, 2, 'lunes', 9, 11),
-(299, 1, 3, 'lunes', 12, 6),
-(300, 1, 4, 'lunes', 12, 6),
-(301, 1, 5, 'lunes', NULL, NULL),
-(302, 1, 6, 'lunes', NULL, NULL),
-(303, 1, 7, 'lunes', NULL, NULL),
-(304, 1, 8, 'lunes', NULL, NULL),
-(305, 1, 9, 'lunes', NULL, NULL),
-(306, 1, 10, 'lunes', NULL, NULL),
-(307, 1, 1, 'martes', 14, 4),
-(308, 1, 2, 'martes', 14, 4),
-(309, 1, 3, 'martes', NULL, NULL),
-(310, 1, 4, 'martes', NULL, NULL),
-(311, 1, 5, 'martes', NULL, NULL),
-(312, 1, 6, 'martes', NULL, NULL),
-(313, 1, 7, 'martes', NULL, NULL),
-(314, 1, 8, 'martes', NULL, NULL),
-(315, 1, 9, 'martes', 10, 9),
-(316, 1, 10, 'martes', 10, 9),
-(317, 1, 1, 'miercoles', 11, 3),
-(318, 1, 2, 'miercoles', NULL, NULL),
-(319, 1, 3, 'miercoles', 11, 3),
-(320, 1, 4, 'miercoles', NULL, NULL),
-(321, 1, 5, 'miercoles', NULL, NULL),
-(322, 1, 6, 'miercoles', NULL, NULL),
-(323, 1, 7, 'miercoles', NULL, NULL),
-(324, 1, 8, 'miercoles', NULL, NULL),
-(325, 1, 9, 'miercoles', NULL, NULL),
-(326, 1, 10, 'miercoles', NULL, NULL),
-(327, 1, 1, 'jueves', NULL, NULL),
-(328, 1, 2, 'jueves', NULL, NULL),
-(329, 1, 3, 'jueves', NULL, NULL),
-(330, 1, 4, 'jueves', NULL, NULL),
-(331, 1, 5, 'jueves', NULL, NULL),
-(332, 1, 6, 'jueves', NULL, NULL),
-(333, 1, 7, 'jueves', 8, 8),
-(334, 1, 8, 'jueves', NULL, NULL),
-(335, 1, 9, 'jueves', 8, 8),
-(336, 1, 10, 'jueves', NULL, NULL),
-(337, 1, 1, 'viernes', 7, 1),
-(338, 1, 2, 'viernes', 7, 1),
-(339, 1, 3, 'viernes', NULL, NULL),
-(340, 1, 4, 'viernes', NULL, NULL),
-(341, 1, 5, 'viernes', NULL, NULL),
-(342, 1, 6, 'viernes', NULL, NULL),
-(343, 1, 7, 'viernes', NULL, NULL),
-(344, 1, 8, 'viernes', NULL, NULL),
-(345, 1, 9, 'viernes', NULL, NULL),
-(346, 1, 10, 'viernes', NULL, NULL),
-(347, 1, NULL, 'pendientes', 7, 1),
-(348, 1, NULL, 'pendientes', 7, 1),
-(349, 1, NULL, 'pendientes', NULL, NULL),
-(350, 1, NULL, 'pendientes', NULL, NULL),
-(351, 8, 1, 'lunes', 11, 3),
-(352, 8, 2, 'lunes', 11, 3),
-(353, 8, 3, 'lunes', 6, 2),
-(354, 8, 4, 'lunes', NULL, NULL),
-(355, 8, 5, 'lunes', NULL, NULL),
-(356, 8, 6, 'lunes', NULL, NULL),
-(357, 8, 7, 'lunes', NULL, NULL),
-(358, 8, 8, 'lunes', NULL, NULL),
-(359, 8, 9, 'lunes', NULL, NULL),
-(360, 8, 10, 'lunes', NULL, NULL),
-(361, 8, 1, 'martes', 6, 2),
-(362, 8, 2, 'martes', NULL, NULL),
-(363, 8, 3, 'martes', NULL, NULL),
-(364, 8, 4, 'martes', NULL, NULL),
-(365, 8, 5, 'martes', NULL, NULL),
-(366, 8, 6, 'martes', NULL, NULL),
-(367, 8, 7, 'martes', NULL, NULL),
-(368, 8, 8, 'martes', NULL, NULL),
-(369, 8, 9, 'martes', NULL, NULL),
-(370, 8, 10, 'martes', NULL, NULL),
-(371, 8, 1, 'miercoles', 6, 2),
-(372, 8, 2, 'miercoles', 7, 1),
-(373, 8, 3, 'miercoles', 7, 1),
-(374, 8, 4, 'miercoles', 6, 2),
-(375, 8, 5, 'miercoles', NULL, NULL),
-(376, 8, 6, 'miercoles', NULL, NULL),
-(377, 8, 7, 'miercoles', NULL, NULL),
-(378, 8, 8, 'miercoles', NULL, NULL),
-(379, 8, 9, 'miercoles', NULL, NULL),
-(380, 8, 10, 'miercoles', NULL, NULL),
-(381, 8, 1, 'jueves', 7, 1),
-(382, 8, 2, 'jueves', NULL, NULL),
-(383, 8, 3, 'jueves', NULL, NULL),
-(384, 8, 4, 'jueves', NULL, NULL),
-(385, 8, 5, 'jueves', NULL, NULL),
-(386, 8, 6, 'jueves', NULL, NULL),
-(387, 8, 7, 'jueves', NULL, NULL),
-(388, 8, 8, 'jueves', NULL, NULL),
-(389, 8, 9, 'jueves', NULL, NULL),
-(390, 8, 10, 'jueves', NULL, NULL),
-(391, 8, 1, 'viernes', 7, 1),
-(392, 8, 2, 'viernes', NULL, NULL),
-(393, 8, 3, 'viernes', NULL, NULL),
-(394, 8, 4, 'viernes', NULL, NULL),
-(395, 8, 5, 'viernes', NULL, NULL),
-(396, 8, 6, 'viernes', NULL, NULL),
-(397, 8, 7, 'viernes', NULL, NULL),
-(398, 8, 8, 'viernes', NULL, NULL),
-(399, 8, 9, 'viernes', NULL, NULL),
-(400, 8, 10, 'viernes', NULL, NULL),
-(401, 8, NULL, 'pendientes', NULL, NULL),
-(402, 8, NULL, 'pendientes', NULL, NULL),
-(403, 8, NULL, 'pendientes', NULL, NULL),
-(404, 8, NULL, 'pendientes', NULL, NULL),
-(405, 8, NULL, 'pendientes', NULL, NULL),
-(406, 8, NULL, 'pendientes', NULL, NULL),
-(407, 8, NULL, 'pendientes', NULL, NULL),
-(408, 8, NULL, 'pendientes', NULL, NULL),
-(409, 8, NULL, 'pendientes', NULL, NULL),
-(410, 8, NULL, 'pendientes', NULL, NULL),
-(411, 7, 1, 'lunes', 11, 3),
-(412, 7, 2, 'lunes', 11, 3),
-(413, 7, 3, 'lunes', 7, 1),
-(414, 7, 4, 'lunes', NULL, NULL),
-(415, 7, 5, 'lunes', NULL, NULL),
-(416, 7, 6, 'lunes', NULL, NULL),
-(417, 7, 7, 'lunes', NULL, NULL),
-(418, 7, 8, 'lunes', NULL, NULL),
-(419, 7, 9, 'lunes', NULL, NULL),
-(420, 7, 10, 'lunes', NULL, NULL),
-(421, 7, 1, 'martes', 6, 2),
-(422, 7, 2, 'martes', 6, 2),
-(423, 7, 3, 'martes', NULL, NULL),
-(424, 7, 4, 'martes', NULL, NULL),
-(425, 7, 5, 'martes', NULL, NULL),
-(426, 7, 6, 'martes', NULL, NULL),
-(427, 7, 7, 'martes', NULL, NULL),
-(428, 7, 8, 'martes', NULL, NULL),
-(429, 7, 9, 'martes', NULL, NULL),
-(430, 7, 10, 'martes', NULL, NULL),
-(431, 7, 1, 'miercoles', 6, 2),
-(432, 7, 2, 'miercoles', 6, 2),
-(433, 7, 3, 'miercoles', NULL, NULL),
-(434, 7, 4, 'miercoles', NULL, NULL),
-(435, 7, 5, 'miercoles', NULL, NULL),
-(436, 7, 6, 'miercoles', NULL, NULL),
-(437, 7, 7, 'miercoles', NULL, NULL),
-(438, 7, 8, 'miercoles', NULL, NULL),
-(439, 7, 9, 'miercoles', NULL, NULL),
-(440, 7, 10, 'miercoles', NULL, NULL),
-(441, 7, 1, 'jueves', 7, 1),
-(442, 7, 2, 'jueves', 7, 1),
-(443, 7, 3, 'jueves', NULL, NULL),
-(444, 7, 4, 'jueves', NULL, NULL),
-(445, 7, 5, 'jueves', NULL, NULL),
-(446, 7, 6, 'jueves', NULL, NULL),
-(447, 7, 7, 'jueves', NULL, NULL),
-(448, 7, 8, 'jueves', NULL, NULL),
-(449, 7, 9, 'jueves', NULL, NULL),
-(450, 7, 10, 'jueves', NULL, NULL),
-(451, 7, 1, 'viernes', 7, 1),
-(452, 7, 2, 'viernes', NULL, NULL),
-(453, 7, 3, 'viernes', NULL, NULL),
-(454, 7, 4, 'viernes', NULL, NULL),
-(455, 7, 5, 'viernes', NULL, NULL),
-(456, 7, 6, 'viernes', NULL, NULL),
-(457, 7, 7, 'viernes', NULL, NULL),
-(458, 7, 8, 'viernes', NULL, NULL),
-(459, 7, 9, 'viernes', NULL, NULL),
-(460, 7, 10, 'viernes', NULL, NULL),
-(461, 7, NULL, 'pendientes', NULL, NULL),
-(462, 7, NULL, 'pendientes', NULL, NULL),
-(463, 7, NULL, 'pendientes', NULL, NULL),
-(464, 7, NULL, 'pendientes', NULL, NULL),
-(465, 7, NULL, 'pendientes', NULL, NULL),
-(466, 7, NULL, 'pendientes', NULL, NULL),
-(467, 7, NULL, 'pendientes', NULL, NULL),
-(468, 7, NULL, 'pendientes', NULL, NULL),
-(469, 7, NULL, 'pendientes', NULL, NULL),
-(470, 7, NULL, 'pendientes', NULL, NULL),
-(471, 2, 1, 'lunes', 9, 11),
-(472, 2, 2, 'lunes', 9, 11),
-(473, 2, 3, 'lunes', NULL, NULL),
-(474, 2, 4, 'lunes', NULL, NULL),
-(475, 2, 5, 'lunes', NULL, NULL),
-(476, 2, 6, 'lunes', NULL, NULL),
-(477, 2, 7, 'lunes', NULL, NULL),
-(478, 2, 8, 'lunes', NULL, NULL),
-(479, 2, 9, 'lunes', NULL, NULL),
-(480, 2, 10, 'lunes', NULL, NULL),
-(481, 2, 1, 'martes', 10, 9),
-(482, 2, 2, 'martes', 10, 9),
-(483, 2, 3, 'martes', NULL, NULL),
-(484, 2, 4, 'martes', NULL, NULL),
-(485, 2, 5, 'martes', NULL, NULL),
-(486, 2, 6, 'martes', NULL, NULL),
-(487, 2, 7, 'martes', NULL, NULL),
-(488, 2, 8, 'martes', NULL, NULL),
-(489, 2, 9, 'martes', NULL, NULL),
-(490, 2, 10, 'martes', NULL, NULL),
-(491, 2, 1, 'miercoles', 13, 6),
-(492, 2, 2, 'miercoles', 8, 8),
-(493, 2, 3, 'miercoles', 8, 8),
-(494, 2, 4, 'miercoles', NULL, NULL),
-(495, 2, 5, 'miercoles', NULL, NULL),
-(496, 2, 6, 'miercoles', NULL, NULL),
-(497, 2, 7, 'miercoles', NULL, NULL),
-(498, 2, 8, 'miercoles', NULL, NULL),
-(499, 2, 9, 'miercoles', NULL, NULL),
-(500, 2, 10, 'miercoles', NULL, NULL),
-(501, 2, 1, 'jueves', NULL, NULL),
-(502, 2, 2, 'jueves', NULL, NULL),
-(503, 2, 3, 'jueves', NULL, NULL),
-(504, 2, 4, 'jueves', NULL, NULL),
-(505, 2, 5, 'jueves', NULL, NULL),
-(506, 2, 6, 'jueves', NULL, NULL),
-(507, 2, 7, 'jueves', NULL, NULL),
-(508, 2, 8, 'jueves', NULL, NULL),
-(509, 2, 9, 'jueves', NULL, NULL),
-(510, 2, 10, 'jueves', NULL, NULL),
-(511, 2, 1, 'viernes', NULL, NULL),
-(512, 2, 2, 'viernes', NULL, NULL),
-(513, 2, 3, 'viernes', NULL, NULL),
-(514, 2, 4, 'viernes', NULL, NULL),
-(515, 2, 5, 'viernes', NULL, NULL),
-(516, 2, 6, 'viernes', NULL, NULL),
-(517, 2, 7, 'viernes', NULL, NULL),
-(518, 2, 8, 'viernes', NULL, NULL),
-(519, 2, 9, 'viernes', NULL, NULL),
-(520, 2, 10, 'viernes', NULL, NULL),
-(521, 2, NULL, 'pendientes', 13, 6),
-(522, 2, NULL, 'pendientes', 14, 4),
-(523, 2, NULL, 'pendientes', 14, 4),
-(524, 2, NULL, 'pendientes', 11, 3),
-(525, 2, NULL, 'pendientes', 11, 3),
-(526, 2, NULL, 'pendientes', 11, 3),
-(527, 2, NULL, 'pendientes', 11, 3),
-(528, 2, NULL, 'pendientes', 7, 1),
-(529, 2, NULL, 'pendientes', 7, 1),
-(530, 2, NULL, 'pendientes', 7, 1),
-(531, 2, NULL, 'pendientes', 7, 1),
-(532, 3, 1, 'lunes', 7, 1),
-(533, 3, 2, 'lunes', NULL, NULL),
-(534, 3, 3, 'lunes', 7, 1),
-(535, 3, 4, 'lunes', 10, 9),
-(536, 3, 5, 'lunes', 9, 11),
-(537, 3, 6, 'lunes', NULL, NULL),
-(538, 3, 7, 'lunes', NULL, NULL),
-(539, 3, 8, 'lunes', NULL, NULL),
-(540, 3, 9, 'lunes', NULL, NULL),
-(541, 3, 10, 'lunes', NULL, NULL),
-(542, 3, 1, 'martes', 11, 3),
-(543, 3, 2, 'martes', NULL, NULL),
-(544, 3, 3, 'martes', 7, 1),
-(545, 3, 4, 'martes', 14, 4),
-(546, 3, 5, 'martes', 8, 8),
-(547, 3, 6, 'martes', 11, 3),
-(548, 3, 7, 'martes', 11, 3),
-(549, 3, 8, 'martes', NULL, NULL),
-(550, 3, 9, 'martes', NULL, NULL),
-(551, 3, 10, 'martes', 8, 8),
-(552, 3, 1, 'miercoles', NULL, NULL),
-(553, 3, 2, 'miercoles', 12, 6),
-(554, 3, 3, 'miercoles', 9, 11),
-(555, 3, 4, 'miercoles', 7, 1),
-(556, 3, 5, 'miercoles', 10, 9),
-(557, 3, 6, 'miercoles', NULL, NULL),
-(558, 3, 7, 'miercoles', 12, 6),
-(559, 3, 8, 'miercoles', NULL, NULL),
-(560, 3, 9, 'miercoles', NULL, NULL),
-(561, 3, 10, 'miercoles', NULL, NULL),
-(562, 3, 1, 'jueves', NULL, NULL),
-(563, 3, 2, 'jueves', NULL, NULL),
-(564, 3, 3, 'jueves', 14, 4),
-(565, 3, 4, 'jueves', NULL, NULL),
-(566, 3, 5, 'jueves', NULL, NULL),
-(567, 3, 6, 'jueves', 11, 3),
-(568, 3, 7, 'jueves', NULL, NULL),
-(569, 3, 8, 'jueves', NULL, NULL),
-(570, 3, 9, 'jueves', NULL, NULL),
-(571, 3, 10, 'jueves', NULL, NULL),
-(572, 3, 1, 'viernes', NULL, NULL),
-(573, 3, 2, 'viernes', NULL, NULL),
-(574, 3, 3, 'viernes', NULL, NULL),
-(575, 3, 4, 'viernes', NULL, NULL),
-(576, 3, 5, 'viernes', NULL, NULL),
-(577, 3, 6, 'viernes', NULL, NULL),
-(578, 3, 7, 'viernes', NULL, NULL),
-(579, 3, 8, 'viernes', NULL, NULL),
-(580, 3, 9, 'viernes', NULL, NULL),
-(581, 3, 10, 'viernes', NULL, NULL),
-(582, 3, NULL, 'pendientes', NULL, NULL),
-(583, 3, NULL, 'pendientes', NULL, NULL),
-(584, 3, NULL, 'pendientes', NULL, NULL),
-(585, 3, NULL, 'pendientes', NULL, NULL),
-(586, 3, NULL, 'pendientes', NULL, NULL),
-(587, 3, NULL, 'pendientes', NULL, NULL),
-(588, 3, NULL, 'pendientes', NULL, NULL),
-(589, 3, NULL, 'pendientes', NULL, NULL),
-(590, 3, NULL, 'pendientes', NULL, NULL),
-(591, 3, NULL, 'pendientes', NULL, NULL),
-(592, 9, 1, 'lunes', 11, 3),
-(593, 9, 2, 'lunes', 11, 3),
-(594, 9, 3, 'lunes', NULL, NULL),
-(595, 9, 4, 'lunes', NULL, NULL),
-(596, 9, 5, 'lunes', NULL, NULL),
-(597, 9, 6, 'lunes', NULL, NULL),
-(598, 9, 7, 'lunes', NULL, NULL),
-(599, 9, 8, 'lunes', NULL, NULL),
-(600, 9, 9, 'lunes', NULL, NULL),
-(601, 9, 10, 'lunes', NULL, NULL),
-(602, 9, 1, 'martes', 11, 3),
-(603, 9, 2, 'martes', 11, 3),
-(604, 9, 3, 'martes', NULL, NULL),
-(605, 9, 4, 'martes', NULL, NULL),
-(606, 9, 5, 'martes', NULL, NULL),
-(607, 9, 6, 'martes', NULL, NULL),
-(608, 9, 7, 'martes', NULL, NULL),
-(609, 9, 8, 'martes', NULL, NULL),
-(610, 9, 9, 'martes', NULL, NULL),
-(611, 9, 10, 'martes', NULL, NULL),
-(612, 9, 1, 'miercoles', 10, 9),
-(613, 9, 2, 'miercoles', 10, 9),
-(614, 9, 3, 'miercoles', NULL, NULL),
-(615, 9, 4, 'miercoles', NULL, NULL),
-(616, 9, 5, 'miercoles', NULL, NULL),
-(617, 9, 6, 'miercoles', NULL, NULL),
-(618, 9, 7, 'miercoles', NULL, NULL),
-(619, 9, 8, 'miercoles', NULL, NULL),
-(620, 9, 9, 'miercoles', NULL, NULL),
-(621, 9, 10, 'miercoles', NULL, NULL),
-(622, 9, 1, 'jueves', 14, 4),
-(623, 9, 2, 'jueves', 14, 4),
-(624, 9, 3, 'jueves', NULL, NULL),
-(625, 9, 4, 'jueves', NULL, NULL),
-(626, 9, 5, 'jueves', NULL, NULL),
-(627, 9, 6, 'jueves', NULL, NULL),
-(628, 9, 7, 'jueves', NULL, NULL),
-(629, 9, 8, 'jueves', NULL, NULL),
-(630, 9, 9, 'jueves', NULL, NULL),
-(631, 9, 10, 'jueves', NULL, NULL),
-(632, 9, 1, 'viernes', NULL, NULL),
-(633, 9, 2, 'viernes', NULL, NULL),
-(634, 9, 3, 'viernes', NULL, NULL),
-(635, 9, 4, 'viernes', NULL, NULL),
-(636, 9, 5, 'viernes', NULL, NULL),
-(637, 9, 6, 'viernes', NULL, NULL),
-(638, 9, 7, 'viernes', NULL, NULL),
-(639, 9, 8, 'viernes', NULL, NULL),
-(640, 9, 9, 'viernes', NULL, NULL),
-(641, 9, 10, 'viernes', NULL, NULL),
-(642, 9, NULL, 'pendientes', NULL, NULL),
-(643, 9, NULL, 'pendientes', NULL, NULL),
-(644, 9, NULL, 'pendientes', NULL, NULL),
-(645, 9, NULL, 'pendientes', NULL, NULL),
-(646, 9, NULL, 'pendientes', NULL, NULL),
-(647, 9, NULL, 'pendientes', NULL, NULL),
-(648, 9, NULL, 'pendientes', NULL, NULL),
-(649, 9, NULL, 'pendientes', NULL, NULL),
-(650, 10, 1, 'lunes', NULL, NULL),
-(651, 10, 2, 'lunes', 7, 1),
-(652, 10, 3, 'lunes', 7, 1),
-(653, 10, 4, 'lunes', NULL, NULL),
-(654, 10, 5, 'lunes', NULL, NULL),
-(655, 10, 6, 'lunes', NULL, NULL),
-(656, 10, 7, 'lunes', NULL, NULL),
-(657, 10, 8, 'lunes', NULL, NULL),
-(658, 10, 9, 'lunes', NULL, NULL),
-(659, 10, 10, 'lunes', NULL, NULL),
-(660, 10, 1, 'martes', 13, 6),
-(661, 10, 2, 'martes', 13, 6),
-(662, 10, 3, 'martes', NULL, NULL),
-(663, 10, 4, 'martes', NULL, NULL),
-(664, 10, 5, 'martes', NULL, NULL),
-(665, 10, 6, 'martes', NULL, NULL),
-(666, 10, 7, 'martes', NULL, NULL),
-(667, 10, 8, 'martes', NULL, NULL),
-(668, 10, 9, 'martes', NULL, NULL),
-(669, 10, 10, 'martes', NULL, NULL),
-(670, 10, 1, 'miercoles', NULL, NULL),
-(671, 10, 2, 'miercoles', NULL, NULL),
-(672, 10, 3, 'miercoles', NULL, NULL),
-(673, 10, 4, 'miercoles', NULL, NULL),
-(674, 10, 5, 'miercoles', NULL, NULL),
-(675, 10, 6, 'miercoles', NULL, NULL),
-(676, 10, 7, 'miercoles', NULL, NULL),
-(677, 10, 8, 'miercoles', NULL, NULL),
-(678, 10, 9, 'miercoles', NULL, NULL),
-(679, 10, 10, 'miercoles', NULL, NULL),
-(680, 10, 1, 'jueves', NULL, NULL),
-(681, 10, 2, 'jueves', NULL, NULL),
-(682, 10, 3, 'jueves', NULL, NULL),
-(683, 10, 4, 'jueves', NULL, NULL),
-(684, 10, 5, 'jueves', NULL, NULL),
-(685, 10, 6, 'jueves', NULL, NULL),
-(686, 10, 7, 'jueves', NULL, NULL),
-(687, 10, 8, 'jueves', NULL, NULL),
-(688, 10, 9, 'jueves', NULL, NULL),
-(689, 10, 10, 'jueves', NULL, NULL),
-(690, 10, 1, 'viernes', NULL, NULL),
-(691, 10, 2, 'viernes', NULL, NULL),
-(692, 10, 3, 'viernes', NULL, NULL),
-(693, 10, 4, 'viernes', NULL, NULL),
-(694, 10, 5, 'viernes', 7, 1),
-(695, 10, 6, 'viernes', NULL, NULL),
-(696, 10, 7, 'viernes', NULL, NULL),
-(697, 10, 8, 'viernes', NULL, NULL),
-(698, 10, 9, 'viernes', NULL, NULL),
-(699, 10, 10, 'viernes', NULL, NULL),
-(700, 10, NULL, 'pendientes', 7, 1),
-(701, 10, NULL, 'pendientes', NULL, NULL),
-(702, 10, NULL, 'pendientes', NULL, NULL),
-(703, 10, NULL, 'pendientes', NULL, NULL),
-(704, 10, NULL, 'pendientes', NULL, NULL),
-(705, 10, NULL, 'pendientes', NULL, NULL);
+(58, 39, NULL, 'pendientes', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1529,6 +984,7 @@ INSERT INTO `horario` (`id_horario`, `id_curso_anual`, `id_bloque`, `dia_semana`
 -- Estructura de tabla para la tabla `implemento`
 --
 
+DROP TABLE IF EXISTS `implemento`;
 CREATE TABLE IF NOT EXISTS `implemento` (
   `id_implemento` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_implemento` varchar(45) DEFAULT NULL,
@@ -1540,19 +996,19 @@ CREATE TABLE IF NOT EXISTS `implemento` (
   `stock_implemento` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_implemento`),
   KEY `fk_implemento_categoria_idx` (`id_categoria`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `implemento`
 --
 
 INSERT INTO `implemento` (`id_implemento`, `nombre_implemento`, `descripcion_implemento`, `id_categoria`, `precio_implemento`, `ruta_imagen`, `vigencia`, `stock_implemento`) VALUES
-(1, 'Buzo Deportivo', 'Un pantalón de buzo puede ser muy útil para la etapa de calentamiento o para realizar deporte.', 1, 25000, '20160906224917.png', 1, -8),
-(2, 'Corbata', 'Banda o cinta adornada con bordados o flecos de oro y plata que se anuda en forma de lazo.', 1, 5000, '20160906225235.png', 1, 14),
+(1, 'Buzo Deportivo', 'Un pantalón de buzo puede ser muy útil para la etapa de calentamiento o para realizar deporte.', 1, 25000, '20160906224917.png', 1, 1),
+(2, 'Corbata', 'Banda o cinta adornada con bordados o flecos de oro y plata que se anuda en forma de lazo.', 1, 5000, '20160906225235.png', 1, 16),
 (3, 'Insignia', 'Una insignia suele ser el emblema de una autoridad específica y generalmente de metal.', 2, 6500, '20160906230858.png', 1, 12),
 (4, 'Libreta', 'Diseñada especialmente para lograr el mejor dialogo con los educadores de nuestros niños.', 3, 3000, '20160906234051.png', 1, 13),
 (5, 'Polerón Curso', 'Conjunto deportivo de chaqueta o sudadera, suele ponerse sobre otras prendas.', 1, 8000, '20160906225712.png', 1, 19),
-(6, 'Polera', 'Prenda de vestir que cubre desde el cuello hasta la cintura, con cuello alto y mangas largas.', 1, 8000, '20160906234124.png', 1, 17);
+(6, 'Polera', 'Prenda de vestir que cubre desde el cuello hasta la cintura, con cuello alto y mangas largas.', 1, 8000, '20160906234124.png', 1, 18);
 
 -- --------------------------------------------------------
 
@@ -1560,6 +1016,7 @@ INSERT INTO `implemento` (`id_implemento`, `nombre_implemento`, `descripcion_imp
 -- Estructura de tabla para la tabla `info_pago`
 --
 
+DROP TABLE IF EXISTS `info_pago`;
 CREATE TABLE IF NOT EXISTS `info_pago` (
   `id_info_pago` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_titular` varchar(45) DEFAULT NULL,
@@ -1572,7 +1029,7 @@ CREATE TABLE IF NOT EXISTS `info_pago` (
   `fecha_pago` datetime DEFAULT NULL,
   PRIMARY KEY (`id_info_pago`),
   KEY `fk_pago_carro_idx` (`id_carro_compra`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `info_pago`
@@ -1624,10 +1081,7 @@ INSERT INTO `info_pago` (`id_info_pago`, `nombre_titular`, `numero_cuenta`, `cod
 (48, NULL, 'PayPal Code', NULL, NULL, '12111111-1', NULL, 41, '2016-09-24 12:09:25'),
 (49, NULL, 'PayPal Code', NULL, NULL, '12111111-1', NULL, 42, '2016-09-24 12:09:08'),
 (50, NULL, 'PayPal Code', NULL, NULL, '12111111-1', NULL, 43, '2016-09-24 12:09:12'),
-(51, NULL, 'PayPal Code', NULL, NULL, '12111111-1', NULL, 44, '2016-09-24 01:09:04'),
-(52, NULL, 'PayPal Code', NULL, NULL, '000000000', NULL, 47, '2016-12-27 06:12:35'),
-(53, NULL, 'PayPal Code', NULL, NULL, '000000000', NULL, 48, '2016-12-27 07:12:41'),
-(54, NULL, 'PayPal Code', NULL, NULL, '174945764', NULL, 46, '2016-12-27 10:12:45');
+(51, NULL, 'PayPal Code', NULL, NULL, '12111111-1', NULL, 44, '2016-09-24 01:09:04');
 
 -- --------------------------------------------------------
 
@@ -1635,6 +1089,7 @@ INSERT INTO `info_pago` (`id_info_pago`, `nombre_titular`, `numero_cuenta`, `cod
 -- Estructura de tabla para la tabla `libro`
 --
 
+DROP TABLE IF EXISTS `libro`;
 CREATE TABLE IF NOT EXISTS `libro` (
   `id_libro` int(11) NOT NULL AUTO_INCREMENT,
   `codigo_libro` int(11) DEFAULT NULL,
@@ -1650,15 +1105,15 @@ CREATE TABLE IF NOT EXISTS `libro` (
   `observacion` varchar(100) DEFAULT NULL,
   `fecha_recepcion` date DEFAULT NULL,
   PRIMARY KEY (`id_libro`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1303 ;
+) ENGINE=InnoDB AUTO_INCREMENT=1303 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `libro`
 --
 
 INSERT INTO `libro` (`id_libro`, `codigo_libro`, `rango_libro`, `titulo_libro`, `autor_libro`, `editorial_libro`, `estado_libro`, `cantidad`, `vigencia`, `valor_unitario`, `origen`, `observacion`, `fecha_recepcion`) VALUES
-(1, 2109, '2109-2111', 'La ciudad y los perros', 'Mario vargas llosa', 'Winacocha', 'Bueno', 3, 1, 2000, 'R. propios', NULL, NULL),
-(2, 2112, '2112', 'Antologia de leyendas', 'Alfonso calderon', 'Universitaria', 'Bueno', 0, 1, 2000, 'R. propios', NULL, NULL),
+(1, 2109, '2109-2111', 'La ciudad y los perros', 'Mario vargas llosa', 'Winacocha', 'Bueno', 2, 1, 2000, 'R. propios', NULL, NULL),
+(2, 2112, '2112', 'Antologia de leyendas', 'Alfonso calderon', 'Universitaria', 'Bueno', 1, 1, 2000, 'R. propios', NULL, NULL),
 (3, 2113, '2113', 'Antologia poetica', 'Hugo montes', 'Santillana', 'Bueno', 0, 1, 2000, 'R. propios', NULL, NULL),
 (4, 2114, '2114-2127', 'Obra reunida poesia n', 'Oscar castro', 'Andes', 'Bueno', 13, 1, 3000, 'Donacion', NULL, NULL),
 (5, 2128, '2128-2141', 'Obra reunida poesia n', 'Oscar castro', 'Andes', 'Bueno', 13, 1, 3000, 'Donacion', NULL, NULL),
@@ -1666,7 +1121,7 @@ INSERT INTO `libro` (`id_libro`, `codigo_libro`, `rango_libro`, `titulo_libro`, 
 (7, 2143, '2143-2144', 'Fisica i y ii', 'Resnick', 'Continental', 'Bueno', 2, 1, 7000, 'Donacion', NULL, NULL),
 (8, 2145, '2145', 'Diccionario tecnico ingles-espa', 'Omega', 'Omega', 'Bueno', 0, 1, 20000, 'Donacion', NULL, NULL),
 (9, 2146, '2146', 'Diccionario de electronica ingles-espa', 'Omega', 'Omega', 'Bueno', 1, 1, 20000, 'Donacion', NULL, NULL),
-(10, 2147, '2147', 'Algebra curso de matematica', 'Fco. pros chile', 'No presenta', 'Bueno', 0, 1, 3000, 'Donacion', NULL, NULL),
+(10, 2147, '2147', 'Algebra curso de matematica', 'Fco. pros chile', 'No presenta', 'Bueno', 1, 1, 3000, 'Donacion', NULL, NULL),
 (11, 2148, '2148-2155', 'Escuela del tecnico mecanico', '', 'Lavor', 'Bueno', 8, 1, 10000, 'Donacion', NULL, NULL),
 (12, 2156, '2156-2157', 'Manual universal de la tecnica mecanica', 'Erik oberg', 'Lavor', 'Bueno', 2, 1, 10000, 'Donacion', NULL, NULL),
 (13, 2158, '2158', 'Secretos del cosmo', 'Colin a. roman', 'Salvat', 'Bueno', 1, 1, 6000, 'Donacion', NULL, NULL),
@@ -2969,6 +2424,7 @@ INSERT INTO `libro` (`id_libro`, `codigo_libro`, `rango_libro`, `titulo_libro`, 
 -- Estructura de tabla para la tabla `material`
 --
 
+DROP TABLE IF EXISTS `material`;
 CREATE TABLE IF NOT EXISTS `material` (
   `id_material` int(11) NOT NULL AUTO_INCREMENT,
   `codigo_material` varchar(45) DEFAULT NULL,
@@ -2982,7 +2438,7 @@ CREATE TABLE IF NOT EXISTS `material` (
   `vigencia` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id_material`),
   KEY `fk_material_seccion_idx` (`id_tipo_material`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `material`
@@ -2996,21 +2452,21 @@ INSERT INTO `material` (`id_material`, `codigo_material`, `descripcion_material`
 (5, '78012398432', 'Taladro', 'Uni', 'Bosch', 'Portable', '17x43x10', NULL, 1, 1),
 (6, '1', 'Aluminio', 'Metro', '.', '.', '30 mm', NULL, NULL, 1),
 (7, '2', 'Machos', 'Juego', 'Totem', '.', '1/4"x20 UNC', NULL, NULL, 1),
-(8, '1000', 'Aluminio', 'Metro', '', '', '30mm', NULL, 1, 1),
-(9, '2000', 'Machos', 'Juego', 'Totem', '', '1/4"x20UNC', NULL, 1, 1),
-(10, '2001', 'Micrometro Interior', 'Uni', 'Mitutoyo', '', '25-50mm', NULL, 1, 1),
-(11, '3000', 'Lija para Acero', 'Pliego', 'Norton', '', 'Grano 100', NULL, 1, 1),
-(12, '2002', 'Acero Rapido', 'Uni', '', '', '1/2" x 1/2" x 3"', NULL, 1, 1),
-(13, '2003', 'Acero Rapido', 'Uni', '', '', '3/8" x 3/8" x 6"', NULL, 1, 1),
-(14, '2004', 'Broca Centro', 'Uni', '', '', '4mm x 10mm', NULL, 1, 1),
+(8, '1000', 'Aluminio', 'Metro', '.', '.', '30mm', NULL, 1, 1),
+(9, '2000', 'Machos', 'Juego', 'Totem', '.', '1/4"x20UNC', NULL, 1, 1),
+(10, '2001', 'Micrometro Interior', 'Uni', 'Mitutoyo', '.', '25-50mm', NULL, 1, 1),
+(11, '3000', 'Lija para Acero', 'Pliego', 'Norton', '.', 'Grano 100', NULL, 1, 1),
+(12, '2002', 'Acero Rapido', 'Uni', '.', '.', '1/2" x 1/2" x 3"', NULL, 1, 1),
+(13, '2003', 'Acero Rapido', 'Uni', '.', '.', '3/8" x 3/8" x 6"', NULL, 1, 1),
+(14, '2004', 'Broca Centro', 'Uni', '.', '.', '4mm x 10mm', NULL, 1, 1),
 (15, '2005', 'Fresa de punta plana, cuatro puntas', 'Uni', 'Addison', 'Normal', '14mm', NULL, 1, 1),
-(16, '4000', 'Aceite de corte soluble', 'Litro', 'Wurth', 'Woc', '', NULL, 1, 1),
-(17, '3001', 'Disco de corte', 'Uni', 'Wurth', '', '4 1/2"', NULL, 1, 1),
+(16, '4000', 'Aceite de corte soluble', 'Litro', 'Wurth', 'Woc', '.', NULL, 1, 1),
+(17, '3001', 'Disco de corte', 'Uni', 'Wurth', '.', '4 1/2"', NULL, 1, 1),
 (18, '5000', 'Escobillon plastico', 'Uni', 'Clorinda', 'Con mango', 'Grande', NULL, 1, 1),
 (19, '5001', 'Escobillon', 'Uni', 'Clorinda', 'Con Mango', 'Mediano', NULL, 1, 1),
-(20, '5002', 'Escoba de rama', 'Uni', '', '4 Hebras', '', NULL, 1, 1),
+(20, '5002', 'Escoba de rama', 'Uni', '.', '4 Hebras', '.', NULL, 1, 1),
 (21, '2006', 'Tornillo Mecanico', 'Uni', 'Luque', 'Base fija', '5"', NULL, 1, 1),
-(22, '5003', 'Waipe', 'Bolsa', '', '', '1 Kg', NULL, 1, 1);
+(22, '5003', 'Waipe', 'Bolsa', '.', '.', '1 Kg', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3018,6 +2474,7 @@ INSERT INTO `material` (`id_material`, `codigo_material`, `descripcion_material`
 -- Estructura de tabla para la tabla `matricula`
 --
 
+DROP TABLE IF EXISTS `matricula`;
 CREATE TABLE IF NOT EXISTS `matricula` (
   `id_matricula` int(11) NOT NULL AUTO_INCREMENT,
   `numero_matricula` int(11) DEFAULT NULL,
@@ -3030,18 +2487,7 @@ CREATE TABLE IF NOT EXISTS `matricula` (
   KEY `fk_matricula_alumno_idx` (`id_alumno`),
   KEY `fk_matricula_apoderado_idx` (`id_apoderado`),
   KEY `fk_matricula_year_idx` (`id_year`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- Volcado de datos para la tabla `matricula`
---
-
-INSERT INTO `matricula` (`id_matricula`, `numero_matricula`, `id_alumno`, `id_apoderado`, `fecha_matricula`, `id_year`, `vigencia`) VALUES
-(1, NULL, 2, 2, '2016-12-25 23:18:56', 2, 1),
-(2, NULL, 13, 2, '2016-12-25 23:54:33', 2, 1),
-(3, NULL, 10, 3, '2016-12-27 18:14:04', 2, 1),
-(4, NULL, 11, 3, '2016-12-27 18:14:27', 2, 1),
-(5, NULL, 11, 3, '2016-12-27 18:14:28', 2, 0);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -3049,6 +2495,7 @@ INSERT INTO `matricula` (`id_matricula`, `numero_matricula`, `id_alumno`, `id_ap
 -- Estructura de tabla para la tabla `nota`
 --
 
+DROP TABLE IF EXISTS `nota`;
 CREATE TABLE IF NOT EXISTS `nota` (
   `id_nota` int(11) NOT NULL AUTO_INCREMENT,
   `nota` int(11) NOT NULL,
@@ -3058,19 +2505,7 @@ CREATE TABLE IF NOT EXISTS `nota` (
   PRIMARY KEY (`id_nota`),
   KEY `fk_nota_alumno_curso_idx` (`id_alumno_curso`),
   KEY `fk_nota_periodo_detalle_idx` (`id_detalle_periodo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
-
---
--- Volcado de datos para la tabla `nota`
---
-
-INSERT INTO `nota` (`id_nota`, `nota`, `posicion_nota`, `id_alumno_curso`, `id_detalle_periodo`) VALUES
-(1, 55, 1, 1, 53),
-(2, 70, 2, 1, 53),
-(3, 43, 1, 2, 53),
-(4, 45, 2, 2, 53),
-(5, 55, 1, 9, 1),
-(6, 55, 2, 9, 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -3078,6 +2513,7 @@ INSERT INTO `nota` (`id_nota`, `nota`, `posicion_nota`, `id_alumno_curso`, `id_d
 -- Estructura de tabla para la tabla `orden_material`
 --
 
+DROP TABLE IF EXISTS `orden_material`;
 CREATE TABLE IF NOT EXISTS `orden_material` (
   `id_orden_material` int(11) NOT NULL AUTO_INCREMENT,
   `correlativo_orden` int(11) DEFAULT NULL,
@@ -3095,7 +2531,7 @@ CREATE TABLE IF NOT EXISTS `orden_material` (
   KEY `fk_orden_profesor_idx` (`id_responsable`),
   KEY `fk_orden_plan_cuenta_idx` (`id_plan_cuenta`),
   KEY `kf_orden_sector_idx` (`id_sector`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `orden_material`
@@ -3104,15 +2540,8 @@ CREATE TABLE IF NOT EXISTS `orden_material` (
 INSERT INTO `orden_material` (`id_orden_material`, `correlativo_orden`, `id_responsable`, `id_sector`, `fecha_orden_material`, `id_plan_cuenta`, `fecha_creacion`, `fecha_modificacion`, `vigencia`, `estado_orden`, `descripcion_rechazo`, `cantidad_proveedores`) VALUES
 (1, 1, 10, 1, '2016-12-01', 1, '2016-12-06 02:03:09', '2016-12-06 02:03:09', 1, 'Análisis Comparativo', NULL, 3),
 (2, 2, 6, 5, '2016-12-06', 1, '2016-12-06 05:19:54', '2016-12-06 05:19:54', 1, 'Análisis Comparativo', NULL, 4),
-(3, 3, 10, 1, '2016-12-10', 1, '2016-12-10 09:14:49', '2016-12-10 09:14:49', 1, 'Análisis Comparativo', NULL, 2),
-(4, 4, 10, 1, '2016-12-10', 1, '2016-12-10 09:15:32', '2016-12-10 09:15:32', 1, 'Análisis Comparativo', NULL, 4),
-(5, 5, 9, 2, '2016-12-14', 1, '2016-12-26 02:47:02', '2016-12-26 02:47:02', 1, 'Análisis Comparativo', NULL, 3),
-(6, 6, 6, 5, '2016-12-26', 1, '2016-12-26 02:55:50', '2016-12-26 02:55:50', 1, 'Análisis Comparativo', NULL, 2),
-(7, 7, 8, 3, '2016-12-26', 1, '2016-12-26 03:49:34', '2016-12-26 03:49:34', 1, 'Análisis Comparativo', NULL, 2),
-(8, 8, 9, 2, '2016-12-27', 2, '2016-12-27 18:48:14', '2016-12-27 18:48:14', 1, 'Análisis Comparativo', NULL, 3),
-(9, 9, 9, 2, '2016-12-27', 1, '2016-12-27 19:38:52', '2016-12-27 19:38:52', 1, 'Análisis Comparativo', NULL, 2),
-(10, 10, 10, 1, '2016-12-27', 1, '2016-12-27 22:12:14', '2016-12-27 22:12:14', 1, 'Análisis Comparativo', NULL, 2),
-(11, 11, 9, 2, '2017-01-29', 1, '2017-01-29 18:49:40', '2017-01-29 18:49:40', 1, 'Análisis Comparativo', NULL, 3);
+(3, 3, 10, 1, '2016-12-10', 1, '2016-12-10 09:14:49', '2016-12-10 09:14:49', 1, 'Enviada', NULL, NULL),
+(4, 4, 10, 1, '2016-12-10', 1, '2016-12-10 09:15:32', '2016-12-10 09:15:32', 1, 'Cotización', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3120,6 +2549,7 @@ INSERT INTO `orden_material` (`id_orden_material`, `correlativo_orden`, `id_resp
 -- Estructura de tabla para la tabla `pedido`
 --
 
+DROP TABLE IF EXISTS `pedido`;
 CREATE TABLE IF NOT EXISTS `pedido` (
   `id_pedido` int(11) NOT NULL AUTO_INCREMENT,
   `id_implemento` int(11) DEFAULT NULL,
@@ -3130,7 +2560,7 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   PRIMARY KEY (`id_pedido`),
   KEY `fk_pedido_implemento_idx` (`id_implemento`),
   KEY `fk_pedido_proveedor_idx` (`id_proveedor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `pedido`
@@ -3177,6 +2607,7 @@ INSERT INTO `pedido` (`id_pedido`, `id_implemento`, `cantidad`, `precio_producto
 -- Estructura de tabla para la tabla `periodo`
 --
 
+DROP TABLE IF EXISTS `periodo`;
 CREATE TABLE IF NOT EXISTS `periodo` (
   `id_periodo` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_inicio` date DEFAULT NULL,
@@ -3184,7 +2615,7 @@ CREATE TABLE IF NOT EXISTS `periodo` (
   `nombre_periodo` varchar(45) DEFAULT NULL,
   `vigencia` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id_periodo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `periodo`
@@ -3201,6 +2632,7 @@ INSERT INTO `periodo` (`id_periodo`, `fecha_inicio`, `fecha_fin`, `nombre_period
 -- Estructura de tabla para la tabla `periodo_asignatura_anual`
 --
 
+DROP TABLE IF EXISTS `periodo_asignatura_anual`;
 CREATE TABLE IF NOT EXISTS `periodo_asignatura_anual` (
   `id_periodo_asignatura_anual` int(11) NOT NULL AUTO_INCREMENT,
   `id_periodo` int(11) DEFAULT NULL,
@@ -3209,7 +2641,7 @@ CREATE TABLE IF NOT EXISTS `periodo_asignatura_anual` (
   PRIMARY KEY (`id_periodo_asignatura_anual`),
   KEY `fk_detalle_periodo_idx` (`id_periodo`),
   KEY `fk_detalle_curso_anual_idx` (`id_detalle_curso_anual`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=199 ;
+) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `periodo_asignatura_anual`
@@ -3264,7 +2696,7 @@ INSERT INTO `periodo_asignatura_anual` (`id_periodo_asignatura_anual`, `id_perio
 (46, 1, 226, 2),
 (47, 1, 227, 2),
 (48, 1, 228, 2),
-(49, 1, 229, 3),
+(49, 1, 229, 2),
 (50, 1, 230, 2),
 (51, 1, 231, 2),
 (52, 1, 232, 2),
@@ -3383,37 +2815,7 @@ INSERT INTO `periodo_asignatura_anual` (`id_periodo_asignatura_anual`, `id_perio
 (165, 3, 233, 2),
 (166, 3, 234, 2),
 (167, 3, 235, 2),
-(168, 3, 236, 2),
-(169, 1, 237, 2),
-(170, 1, 238, 2),
-(171, 1, 239, 2),
-(172, 1, 240, 2),
-(173, 1, 241, 2),
-(174, 1, 242, 2),
-(175, 1, 243, 2),
-(176, 1, 244, 2),
-(177, 1, 245, 2),
-(178, 1, 246, 2),
-(179, 2, 237, 2),
-(180, 2, 238, 2),
-(181, 2, 239, 2),
-(182, 2, 240, 2),
-(183, 2, 241, 2),
-(184, 2, 242, 2),
-(185, 2, 243, 2),
-(186, 2, 244, 2),
-(187, 2, 245, 2),
-(188, 2, 246, 2),
-(189, 3, 237, 2),
-(190, 3, 238, 2),
-(191, 3, 239, 2),
-(192, 3, 240, 2),
-(193, 3, 241, 2),
-(194, 3, 242, 2),
-(195, 3, 243, 2),
-(196, 3, 244, 2),
-(197, 3, 245, 2),
-(198, 3, 246, 2);
+(168, 3, 236, 2);
 
 -- --------------------------------------------------------
 
@@ -3421,6 +2823,7 @@ INSERT INTO `periodo_asignatura_anual` (`id_periodo_asignatura_anual`, `id_perio
 -- Estructura de tabla para la tabla `permisos`
 --
 
+DROP TABLE IF EXISTS `permisos`;
 CREATE TABLE IF NOT EXISTS `permisos` (
   `id_premisos` int(11) NOT NULL AUTO_INCREMENT,
   `id_administrativo` int(11) DEFAULT NULL,
@@ -3438,50 +2841,37 @@ CREATE TABLE IF NOT EXISTS `permisos` (
   `administracion` tinyint(4) DEFAULT '0',
   `biblioteca` tinyint(4) DEFAULT '0',
   `tienda` tinyint(4) DEFAULT '0',
-  `moderacion` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id_premisos`),
   KEY `fk_permisos_admin_idx` (`id_administrativo`),
   KEY `fk_permisos_user_idx` (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `permisos`
 --
 
-INSERT INTO `permisos` (`id_premisos`, `id_administrativo`, `id_usuario`, `matricula`, `usuarios`, `asignaciones`, `mi_registro`, `registros`, `horario`, `planificacion`, `implementos`, `talleres`, `internado`, `administracion`, `biblioteca`, `tienda`, `moderacion`) VALUES
-(3, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(5, 5, 24, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0),
-(6, 6, 29, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(7, NULL, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0),
-(8, NULL, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(9, NULL, 4, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(10, NULL, 5, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(11, NULL, 28, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(12, NULL, 19, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0),
-(13, NULL, 20, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0),
-(14, NULL, 21, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0),
-(15, NULL, 22, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0),
-(19, NULL, 23, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0),
-(20, NULL, 32, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(21, NULL, 33, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(25, NULL, 37, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0),
-(26, NULL, 38, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(27, NULL, 39, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(28, NULL, 40, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(29, NULL, 41, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0),
-(30, NULL, 42, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(31, NULL, 43, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0),
-(32, NULL, 44, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(33, NULL, 45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(34, NULL, 46, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0),
-(35, NULL, 47, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(36, NULL, 48, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(37, NULL, 49, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(38, NULL, 50, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(39, NULL, 51, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0),
-(40, NULL, 52, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1),
-(41, NULL, 53, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0),
-(42, NULL, 54, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0);
+INSERT INTO `permisos` (`id_premisos`, `id_administrativo`, `id_usuario`, `matricula`, `usuarios`, `asignaciones`, `mi_registro`, `registros`, `horario`, `planificacion`, `implementos`, `talleres`, `internado`, `administracion`, `biblioteca`, `tienda`) VALUES
+(3, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(5, 5, 24, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0),
+(6, 6, 29, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(7, NULL, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(8, NULL, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1),
+(9, NULL, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1),
+(10, NULL, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1),
+(11, NULL, 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1),
+(12, NULL, 19, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1),
+(13, NULL, 20, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1),
+(14, NULL, 21, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1),
+(15, NULL, 22, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1),
+(19, NULL, 23, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1),
+(20, NULL, 32, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1),
+(21, NULL, 33, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1),
+(25, NULL, 37, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0),
+(26, NULL, 38, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1),
+(27, NULL, 39, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1),
+(28, NULL, 40, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1),
+(29, NULL, 41, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0),
+(30, NULL, 42, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -3489,13 +2879,14 @@ INSERT INTO `permisos` (`id_premisos`, `id_administrativo`, `id_usuario`, `matri
 -- Estructura de tabla para la tabla `plan_cuenta`
 --
 
+DROP TABLE IF EXISTS `plan_cuenta`;
 CREATE TABLE IF NOT EXISTS `plan_cuenta` (
   `id_plan_cuenta` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_plan_cuenta` varchar(45) DEFAULT NULL,
   `descripcion_plan_cuenta` varchar(300) DEFAULT NULL,
   `vigencia` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id_plan_cuenta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `plan_cuenta`
@@ -3511,6 +2902,7 @@ INSERT INTO `plan_cuenta` (`id_plan_cuenta`, `nombre_plan_cuenta`, `descripcion_
 -- Estructura de tabla para la tabla `profesor`
 --
 
+DROP TABLE IF EXISTS `profesor`;
 CREATE TABLE IF NOT EXISTS `profesor` (
   `id_profesor` int(11) NOT NULL AUTO_INCREMENT,
   `horas_profesor` int(11) DEFAULT NULL,
@@ -3518,7 +2910,7 @@ CREATE TABLE IF NOT EXISTS `profesor` (
   `vigencia` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id_profesor`),
   KEY `fk_profe_user_idx` (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `profesor`
@@ -3541,6 +2933,7 @@ INSERT INTO `profesor` (`id_profesor`, `horas_profesor`, `id_usuario`, `vigencia
 -- Estructura de tabla para la tabla `profesor_asignaturas`
 --
 
+DROP TABLE IF EXISTS `profesor_asignaturas`;
 CREATE TABLE IF NOT EXISTS `profesor_asignaturas` (
   `id_profesor_asignaturas` int(11) NOT NULL AUTO_INCREMENT,
   `id_profesor` int(11) DEFAULT NULL,
@@ -3548,7 +2941,7 @@ CREATE TABLE IF NOT EXISTS `profesor_asignaturas` (
   PRIMARY KEY (`id_profesor_asignaturas`),
   KEY `fk_dicta_profesor_idx` (`id_profesor`),
   KEY `fk_dicta_asignatura_idx` (`id_asignatura`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `profesor_asignaturas`
@@ -3557,15 +2950,10 @@ CREATE TABLE IF NOT EXISTS `profesor_asignaturas` (
 INSERT INTO `profesor_asignaturas` (`id_profesor_asignaturas`, `id_profesor`, `id_asignatura`) VALUES
 (34, 6, 2),
 (35, 7, 1),
+(36, 13, 2),
 (37, 12, 6),
 (38, 11, 3),
-(40, 8, 8),
-(41, 13, 2),
-(42, 13, 6),
-(43, 10, 9),
-(44, 9, 11),
-(45, 14, 2),
-(46, 14, 4);
+(39, 14, 4);
 
 -- --------------------------------------------------------
 
@@ -3573,6 +2961,7 @@ INSERT INTO `profesor_asignaturas` (`id_profesor_asignaturas`, `id_profesor`, `i
 -- Estructura de tabla para la tabla `proveedor`
 --
 
+DROP TABLE IF EXISTS `proveedor`;
 CREATE TABLE IF NOT EXISTS `proveedor` (
   `id_proveedor` int(11) NOT NULL AUTO_INCREMENT,
   `razon_social` varchar(45) DEFAULT NULL,
@@ -3582,7 +2971,7 @@ CREATE TABLE IF NOT EXISTS `proveedor` (
   `telefono_proveedor` varchar(45) DEFAULT NULL,
   `correo_proveedor` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_proveedor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `proveedor`
@@ -3601,6 +2990,7 @@ INSERT INTO `proveedor` (`id_proveedor`, `razon_social`, `rut_proveedor`, `direc
 -- Estructura de tabla para la tabla `proveedor_material`
 --
 
+DROP TABLE IF EXISTS `proveedor_material`;
 CREATE TABLE IF NOT EXISTS `proveedor_material` (
   `id_proveedor_material` int(11) NOT NULL AUTO_INCREMENT,
   `rut_proveedor_material` varchar(45) DEFAULT NULL,
@@ -3609,7 +2999,7 @@ CREATE TABLE IF NOT EXISTS `proveedor_material` (
   `telefono_proveedor_material` varchar(45) DEFAULT NULL,
   `vigencia` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id_proveedor_material`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `proveedor_material`
@@ -3630,6 +3020,7 @@ INSERT INTO `proveedor_material` (`id_proveedor_material`, `rut_proveedor_materi
 -- Estructura de tabla para la tabla `reserva`
 --
 
+DROP TABLE IF EXISTS `reserva`;
 CREATE TABLE IF NOT EXISTS `reserva` (
   `id_reserva` int(11) NOT NULL AUTO_INCREMENT,
   `id_alumno` int(11) DEFAULT NULL,
@@ -3640,26 +3031,22 @@ CREATE TABLE IF NOT EXISTS `reserva` (
   PRIMARY KEY (`id_reserva`),
   KEY `fk_reserva_alumno_idx` (`id_alumno`),
   KEY `fk_reserva_libro_idx` (`id_libro`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `reserva`
 --
 
 INSERT INTO `reserva` (`id_reserva`, `id_alumno`, `id_libro`, `fecha_reserva`, `fecha_devolucion`, `estado`) VALUES
-(1, 2, 1, '2016-12-17', '2016-12-22', 'completo'),
+(1, 2, 1, '2016-12-17', '2016-12-22', 'perdido'),
 (2, 2, 3, '2016-12-17', '2016-12-24', 'perdido'),
 (3, 3, 7, '2016-12-17', '2016-12-20', 'completo'),
 (4, 3, 8, '2016-12-17', '2016-12-20', 'completo'),
 (5, 2, 460, '2016-12-19', '2016-12-24', 'completo'),
-(6, 4, 4, '2016-12-19', '2016-12-20', 'perdido'),
+(6, 4, 4, '2016-12-19', '2016-12-20', 'prestado'),
 (7, 4, 5, '2016-12-20', '2016-12-23', 'prestado'),
 (8, 4, 6, '2016-12-20', '2016-12-25', 'prestado'),
-(9, 10, 8, '2016-12-24', '2016-12-28', 'perdido'),
-(10, 2, 1, '2016-12-27', '2016-12-28', 'completo'),
-(11, 4, 4, '2016-12-27', '2016-12-29', 'completo'),
-(12, 3, 2, '2016-12-27', '2016-12-28', 'perdido'),
-(13, 3, 10, '2017-01-29', '2017-02-02', 'prestado');
+(9, 10, 8, '2016-12-24', '2016-12-28', 'prestado');
 
 -- --------------------------------------------------------
 
@@ -3667,12 +3054,13 @@ INSERT INTO `reserva` (`id_reserva`, `id_alumno`, `id_libro`, `fecha_reserva`, `
 -- Estructura de tabla para la tabla `rol`
 --
 
+DROP TABLE IF EXISTS `rol`;
 CREATE TABLE IF NOT EXISTS `rol` (
   `id_rol` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_rol` varchar(45) DEFAULT NULL,
   `alias_rol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_rol`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `rol`
@@ -3690,6 +3078,7 @@ INSERT INTO `rol` (`id_rol`, `nombre_rol`, `alias_rol`) VALUES
 -- Estructura de tabla para la tabla `rol_usuario`
 --
 
+DROP TABLE IF EXISTS `rol_usuario`;
 CREATE TABLE IF NOT EXISTS `rol_usuario` (
   `id_usuario` int(11) NOT NULL,
   `id_rol` int(11) NOT NULL,
@@ -3733,8 +3122,7 @@ INSERT INTO `rol_usuario` (`id_usuario`, `id_rol`) VALUES
 (50, 3),
 (51, 1),
 (52, 1),
-(53, 1),
-(54, 1);
+(53, 1);
 
 -- --------------------------------------------------------
 
@@ -3742,6 +3130,7 @@ INSERT INTO `rol_usuario` (`id_usuario`, `id_rol`) VALUES
 -- Estructura de tabla para la tabla `sector`
 --
 
+DROP TABLE IF EXISTS `sector`;
 CREATE TABLE IF NOT EXISTS `sector` (
   `id_sector` int(11) NOT NULL,
   `nombre_sector` varchar(45) DEFAULT NULL,
@@ -3767,13 +3156,14 @@ INSERT INTO `sector` (`id_sector`, `nombre_sector`, `responsable_sector`) VALUES
 -- Estructura de tabla para la tabla `tipo_material`
 --
 
+DROP TABLE IF EXISTS `tipo_material`;
 CREATE TABLE IF NOT EXISTS `tipo_material` (
   `id_tipo_material` int(11) NOT NULL AUTO_INCREMENT,
   `codigo_tipo_material` int(11) DEFAULT NULL,
   `nombre_tipo_material` varchar(45) DEFAULT NULL,
   `vigencia` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id_tipo_material`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tipo_material`
@@ -3789,6 +3179,7 @@ INSERT INTO `tipo_material` (`id_tipo_material`, `codigo_tipo_material`, `nombre
 -- Estructura de tabla para la tabla `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `rut_usuario` varchar(45) DEFAULT NULL,
@@ -3808,18 +3199,18 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `imagen_url` varchar(100) DEFAULT 'default.png',
   `link_temporal` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id_usuario`, `rut_usuario`, `nombres_usuario`, `apellido_paterno`, `apellido_materno`, `email_usuario`, `hash_usuario`, `direccion_usuario`, `sexo_usuario`, `fecha_creacion`, `fecha_ultimo_login`, `telefono_usuario`, `tipo_usuario`, `main_page`, `pass_temp`, `imagen_url`, `link_temporal`) VALUES
-(1, '000000000', 'Admin', 'Sys', '#', 'contacto@agiliza.xyz', '$2a$10$GsnAvrhNBhEdC346IStwZejJrfrk0P4I/S0b8rTr8Ja1wEeTTQUTG', 'Desconocida #000', 'Masculino', NULL, '2016-12-27 19:27:04', 56900000000, 'Administrador', 'inicio.panel', '1', '20161124022050.png', NULL),
-(2, '174945764', 'Cristian Hernán', 'Canales', 'Dote', 'ccanales@agiliza.xyz', '$2a$10$8F7s3nnJZtmXrexzvy0UZeVq3HkCwJuEQ4Pjf8D9frLTKy9Mc0Sq6', 'Palmas de Mallorca #1763', 'Masculino', '2016-08-24 03:31:44', '2017-02-22 14:18:45', 951036575, 'Administrador', 'inicio.panel', '7811', '20161227205227.png', NULL),
-(3, '178492004', 'Juan Hernán', 'Figueroa', 'Cabrera', 'juan@agiliza.cl', '$2a$10$8F7s3nnJZtmXrexzvy0UZeVq3HkCwJuEQ4Pjf8D9frLTKy9Mc0Sq6', 'alguna #123', 'Masculino', '2016-08-24 22:39:13', '2016-12-26 17:17:30', 912345678, 'Alumno', 'inicio.panel', 'MvA2Z051', '1482882344.png', NULL),
+(1, '000000000', 'Admin', 'Sys', '#', 'contacto@agiliza.xyz', '$2a$10$GsnAvrhNBhEdC346IStwZejJrfrk0P4I/S0b8rTr8Ja1wEeTTQUTG', 'Desconocida #000', 'Masculino', NULL, '2016-12-21 14:13:54', 56900000000, 'Administrador', 'inicio.panel', '1', '20161124022050.png', NULL),
+(2, '174945764', 'Cristian Hernán', 'Canales', 'Dote', 'ccanales@agiliza.xyz', '$2a$10$7bnnvCpC81DojXbeppKvIerdK.ZxcjvdyF5D17DXcRwkQCVBa8YqK', 'Palmas de Mallorca #1763', 'Femenino', '2016-08-24 03:31:44', '2016-12-24 17:18:59', 56951036575, 'Administrador', 'inicio.panel', '1', '20161203124600.png', NULL),
+(3, '178492004', 'Juan Hernán', 'Figueroa', 'Cabrera', 'juan@agiliza.cl', '$2a$10$q15lelwV664hKerZc3k0v.Zt84MmLXuSE3IwlcXId.1TjQ09MBZNu', 'alguna #123', 'Masculino', '2016-08-24 22:39:13', '2016-11-24 00:51:50', 56912111111, 'Alumno', 'inicio.panel', 'MvA2Z051', 'default.png', NULL),
 (4, '195662029', 'Javiera Sofía', 'Peñaloza', 'Gonzáles', 'javiera@agiliza.cl', '$2a$10$wOBShYJLf4I97psRbfA62.635MIophlqniRIfe8brrrdrAO/lahVe', 'alguna #123', 'Femenino', '2016-08-24 22:42:41', NULL, 56913111111, 'Alumno', 'inicio.panel', 'slD4E50O', 'default.png', NULL),
-(5, '198963860', 'Jorge Bastian', 'Fuenzalida', 'Perez', 'jorge@agiliza.cl', '$2a$10$Ig7qJfN74d0KLeJC6DtKqe8PuD6Bl.4VCNgrpBkqqROh6.fmdZaE2', 'alguna #123', 'Masculino', '2016-08-24 23:04:58', '2016-12-27 01:45:51', 56914111111, 'Alumno', 'inicio.panel', 'w2V2lesQ', 'default.png', NULL),
+(5, '198963860', 'Jorge Bastian', 'Fuenzalida', 'Perez', 'jorge@agiliza.cl', '$2a$10$Ig7qJfN74d0KLeJC6DtKqe8PuD6Bl.4VCNgrpBkqqROh6.fmdZaE2', 'alguna #123', 'Masculino', '2016-08-24 23:04:58', '2016-11-24 23:39:49', 56914111111, 'Alumno', 'inicio.panel', 'w2V2lesQ', 'default.png', NULL),
 (19, '137323907', 'Daniel', 'Lillo', 'Madariaga', 'daniellillo@agiliza.xyz', '$2a$10$2.YGJs95wdfbppzzPGCB.O39lLY74tReoEGJTsIEpzv2oScA.3JDq', 'Alguna #123', 'Masculino', '2016-11-21 21:58:53', '2016-12-23 16:31:19', 56911111111, 'Profesor', 'inicio.panel', 'uRzgdB3S', 'default.png', NULL),
 (20, '152796099', 'Jose', 'Gerrero', 'Torres', 'joseguerrero@agiliza.xyz', '$2a$10$7kuuY67vRA6EGY6xJXt8kuM/BHhmBjWfn/uyKtyb36MjdjBYm1blG', 'Alguna #123', 'Masculino', '2016-11-21 22:28:49', NULL, 56911111111, 'Profesor', 'inicio.panel', 'Ybucx1Ie', 'default.png', NULL),
 (21, '62881437', 'José', 'De la Cruz', 'Robledo', 'josedelacruz@agiliza.xyz', '$2a$10$wsnOZYpsKvRCH3o4C83pae9DgjQQRmYipZaqqWJsZb2yMtxD3ZQAm', 'Alguna #123', 'Masculino', '2016-11-21 23:49:10', '2016-11-22 03:07:51', 56911111111, 'Profesor', 'inicio.panel', 'dX7RJW9A', 'default.png', NULL),
@@ -3827,7 +3218,7 @@ INSERT INTO `usuario` (`id_usuario`, `rut_usuario`, `nombres_usuario`, `apellido
 (23, '57989114', 'Fernando', 'Lopez', 'Gonzales', 'fernandolopez@agiliza.xwz', '$2a$10$Y.fp/xs/DIUGWIc5SITG7uT6U9B4EsPZfAyRO4IKGzk.yiIK1YhQy', 'Alguna #123', 'Masculino', '2016-11-21 23:50:42', NULL, 56911111111, 'Profesor', 'inicio.panel', 'xtKII3c4', 'default.png', NULL),
 (24, '117896145', 'Francisca Ignacia', 'Salazar', 'Valdés', 'francisca@gmail.com', '$2a$10$n0J/7e6JjGIdRqcgDSEPn.14S7dQsNnQa5IjLuBXBZI9Ada/1fImC', 'Alguna #123', 'Femenino', '2016-11-22 02:23:23', NULL, 56991010716, 'Administrador', 'inicio.panel', 'Ny7QeB2F', 'default.png', NULL),
 (28, '9544752K', 'Mariano Heriberto', 'Canales', 'Pavez', 'marianocanales@agiliza.xyz', '$2a$10$GsnAvrhNBhEdC346IStwZejJrfrk0P4I/S0b8rTr8Ja1wEeTTQUTG', 'Alguna #123', 'Masculino', '2016-11-22 03:03:33', '2016-12-19 21:46:51', 56922222222, 'Apoderado', 'inicio.panel', 'zfHFCIBM', '1482194409.png', NULL),
-(29, '140109479', 'Marco', 'Esparza', 'Valderrama', 'marcoesparza@agiliza.xyz', '$2a$10$v.r/4qDYvqkM3HVmhVVyOuBb5MaRl6rlhHfuhsmzfaInhWN7aE8dm', 'Alguna #123', 'Masculino', '2016-11-24 00:41:45', '2017-01-06 17:43:38', 56911111111, 'Administrador', 'inicio.panel', 'kadath', '20161220144638.png', ''),
+(29, '140109479', 'Marco', 'Esparza', 'Valderrama', 'marcoesparza@agiliza.xyz', '$2a$10$v.r/4qDYvqkM3HVmhVVyOuBb5MaRl6rlhHfuhsmzfaInhWN7aE8dm', 'Alguna #123', 'Masculino', '2016-11-24 00:41:45', '2016-12-20 15:10:29', 56911111111, 'Administrador', 'inicio.panel', 'kadath', '20161220144638.png', ''),
 (32, '180165134', 'Jorge Ignacio', 'Jara', 'Guerrero', 'yilo.anm@gmail.com', '$2a$10$GsnAvrhNBhEdC346IStwZejJrfrk0P4I/S0b8rTr8Ja1wEeTTQUTG', 'Alguna #123', 'Masculino', '2016-11-26 18:06:44', '2016-12-19 21:39:29', 56922222222, 'Alumno', 'inicio.panel', '1', '1482194336.png', ''),
 (33, '198405787', 'Daniel Alonso', 'Matus', 'Peñaloza', 'pedro@gmail.com', '$2a$10$Q4kDpG6OOSApMDiPKbHw0.SCytP82DgtEpWQGYjRofHs069ntb3HW', 'Alguna #123', 'Masculino', '2016-11-26 18:09:25', NULL, 56911111111, 'Alumno', 'inicio.panel', 'jHO7gJFT', 'default.png', NULL),
 (37, '123436008', 'Marcelo Esteban', 'Chebi', 'Quintul', 'finanzasa21@gmail.com', '$2a$10$V307j98XvNDsRUAkEYBb4elazKh4e1Utl3/3qxt02NjoNYXwthYPG', 'Manso de Velasco 761', 'Masculino', '2016-11-25 15:43:28', '2016-11-28 00:52:51', 722711944, 'Administrador', 'inicio.panel', 'industrial', 'default.png', NULL),
@@ -3837,17 +3228,16 @@ INSERT INTO `usuario` (`id_usuario`, `rut_usuario`, `nombres_usuario`, `apellido
 (41, '142610795', 'Maria Pilar', 'Lineros', 'Ramirez', 'pilarlineros.74@gmail.com', '$2a$10$/fLw0ePl87eLWy72quBxMOVxxqlbTgDvIc226Pfy5jcjsnCwBSaUS', 'alguna', 'Femenino', '2016-12-19 15:15:48', '2016-12-19 15:18:43', 12345678, 'Administrador', 'inicio.panel', 'marianita', 'default.png', NULL),
 (42, '90559206', 'Luis Antonio', 'Esparza', 'Cabezas', 'cradle.of.filth_287@hotmail.com', '$2a$10$2rlwJ193EMU7cZkGjBIJM.8OGf.z1twEdQmpGJ3gcuhacQ6UofDLa', 'Alguna #123', 'Masculino', '2016-12-23 14:30:52', NULL, 12345678, 'Apoderado', 'inicio.panel', '5JUeS7Pm', 'default.png', NULL),
 (43, '177462330', 'Pedro Antonio', 'Pavez', 'Videla', 'pedro1990.pp@gmail.com', '$2a$10$HWnIZgU2W83CKhjnXVW9rOf.MqQWx1/mWO3TrwqJ/RjEwtNP5LN9u', 'Alguna #123', 'Masculino', '2016-12-23 22:25:48', '2016-12-24 12:31:54', 11111111, 'Administrador', 'inicio.panel', 'yugo', '20161223223147.png', NULL),
-(44, '201781280', 'Felipe', 'Yañez', 'Videla', 'elbestia@gmail.com', '$2a$10$uDsThO9nP8PSJHKdVI/adeetJfgb9AYRMPIEYobEZa0YX4sku2bO2', 'La tinaja s/n', 'Masculino', '2016-12-23 22:40:11', '2016-12-26 17:05:13', 76734528, 'Alumno', 'inicio.panel', 'JOyTTYgX', 'default.png', NULL),
-(45, '95290027', 'Andrea', 'Vidal', 'Pereira', 'muyloca@gmail.com', '$2a$10$rh/XJMok0dVJgKiXJsoHIOKtYbYInhWvuOTKppDVX7UgJ/5PW1ef.', 'san fernando s/n', 'Femenino', '2016-12-23 22:41:36', NULL, 89632781, 'Apoderado', 'inicio.panel', 'VtGaGBlQ', 'default.png', NULL),
+(44, '201781280', 'Felipe', 'Yañez', 'Videla', 'elbestia@gmail.com', '$2a$10$uDsThO9nP8PSJHKdVI/adeetJfgb9AYRMPIEYobEZa0YX4sku2bO2', 'La tinaja s/n', 'Masculino', '2016-12-23 22:40:11', NULL, 76734528, 'Alumno', 'inicio.panel', 'JOyTTYgX', 'default.png', NULL),
+(45, '95290027', 'andrea', 'vidal', 'pereira', 'muyloca@gmail.com', '$2a$10$rh/XJMok0dVJgKiXJsoHIOKtYbYInhWvuOTKppDVX7UgJ/5PW1ef.', 'san fernando s/n', 'Femenino', '2016-12-23 22:41:36', NULL, 89632781, 'Apoderado', 'inicio.panel', 'VtGaGBlQ', 'default.png', NULL),
 (46, '177466956', 'Andrés', 'Riveros', 'Marambio', 'androqk@gmail.com', '$2a$10$nJ7VS6kt5DAwE34W5.FBeO03Yelzun7cVP0NRK/Nb5bXZIKX7/7QO', 'Los Palacios s/n', 'Masculino', '2016-12-23 22:43:57', '2016-12-24 10:20:24', 11111111, 'Administrador', 'inicio.panel', '9DO9i80n', 'default.png', NULL),
 (47, '96625200', 'Arturo', 'Pratt', 'chacon', 'alabordaje@gmail.com', '$2a$10$kp6mp0/KRjScmOdkqFA9A.rUZ.B1.Z71iMyTFu/BfCrvnirSJ0CcW', 'Iquique, bajo el mar s/n', 'Masculino', '2016-12-23 23:04:01', NULL, 736346392, 'Profesor', 'inicio.panel', 'dtnLzjuj', 'default.png', NULL),
 (48, '88074521', 'Isaac', 'Newton', 'Perez', 'manzana@gmail.com', '$2a$10$v8BiF0eyqf8GUrsqHnon8.xuGpXrjvq3Ji85BLln7BFXU9ZaT2eDa', 'Francia', 'Masculino', '2016-12-23 23:06:32', NULL, 634462923, 'Profesor', 'inicio.panel', 'yTL4aBe3', 'default.png', NULL),
 (49, '15890747K', 'Albert', 'Einstein', 'Maturana', 'matematicaforever@gmail.com', '$2a$10$S2JcKlqoXrNd/.vqw4.yXu9alWRhEYiXzvxQCqO.5DHfsZDZgXCfW', 'El trapiche', 'Masculino', '2016-12-23 23:09:02', NULL, 344375863, 'Profesor', 'inicio.panel', 'Bfagohho', 'default.png', NULL),
 (50, '184334232', 'José Andrés', 'Aguirre', 'Pinto', 'eltato@gmail.com', '$2a$10$QWsQZBHYlo2JuOAbwv/8Luw.INRCajQ7R/3CtbK45fYkoDFPX5RDW', 'Rancagua', 'Masculino', '2016-12-23 23:13:20', NULL, 553782963, 'Profesor', 'inicio.panel', 'JIuzr3Gc', 'default.png', NULL),
 (51, '19683821K', 'Diego', 'San Martin', 'Carvajal', 'dsanmartin09@gmail.com', '$2a$10$fsdTi3f/HUchxQcEUQglieYcq.Kf9uHa0cRZI/iiDMjBKnQh0o3Pa', 'Villa San Francisco de Rauquen', 'Masculino', '2016-12-24 01:01:51', '2016-12-24 01:14:42', 111111111, 'Administrador', 'inicio.panel', 'julio90', 'default.png', NULL),
-(52, '18722151K', 'Alvaro Fabian', 'Cabrera', 'Cornejo', 'cabreracornejoa@gmail.com', '$2a$10$qsYj7FqMPOjW8rkBgs4IQ.Wleso8JQ/hJ2DtFkEfQBkGZjFP.dyxy', 'Villa Las Frutas, Las Frambuesas #126', 'Masculino', '2016-12-24 12:37:18', '2017-01-07 21:02:38', 975352432, 'Administrador', 'inicio.panel', '1111', '20161224123851.png', NULL),
-(53, '176871059', 'Valeria Andrea', 'Urzua', 'Ubilla', 'valeriaurzuaubilla@gmail.com', '$2a$10$SoVxzJ0zMjKmsNchVmiYPu1S0e/144ZIbs0ZnDSQOCjgDB3J.ZR3q', 'Alguna #123', 'Femenino', '2016-12-24 15:02:13', '2016-12-24 15:14:07', 12345678, 'Administrador', 'inicio.panel', 'aQyt0Snu', 'default.png', NULL),
-(54, '135705713', 'Rodrigo', 'Pedrero', 'Cadiz', 'rodpedrero@gmail.com', '$2a$10$mToEUn2wuPicYnJKcu9B/uCZWvwyFt7QGGfrjFeGS0hU46G..Qs9m', 'Alguna #123', 'Masculino', '2016-12-27 21:36:41', '2016-12-27 21:48:13', 123456789, 'Administrador', 'inicio.panel', '5OYgN0lJ', '20161227215544.png', NULL);
+(52, '18722151K', 'Alvaro Fabian', 'Cabrera', 'Cornejo', 'cabreracornejoa@gmail.com', '$2a$10$qsYj7FqMPOjW8rkBgs4IQ.Wleso8JQ/hJ2DtFkEfQBkGZjFP.dyxy', 'Villa Las Frutas, Las Frambuesas #126', 'Masculino', '2016-12-24 12:37:18', '2016-12-24 12:47:43', 975352432, 'Administrador', 'inicio.panel', '1111', '20161224123851.png', NULL),
+(53, '176871059', 'Valeria Andrea', 'Urzua', 'Ubilla', 'valeriaurzuaubilla@gmail.com', '$2a$10$SoVxzJ0zMjKmsNchVmiYPu1S0e/144ZIbs0ZnDSQOCjgDB3J.ZR3q', 'Alguna #123', 'Femenino', '2016-12-24 15:02:13', '2016-12-24 15:14:07', 12345678, 'Administrador', 'inicio.panel', 'aQyt0Snu', 'default.png', NULL);
 
 -- --------------------------------------------------------
 
@@ -3855,22 +3245,21 @@ INSERT INTO `usuario` (`id_usuario`, `rut_usuario`, `nombres_usuario`, `apellido
 -- Estructura de tabla para la tabla `usuario_token`
 --
 
+DROP TABLE IF EXISTS `usuario_token`;
 CREATE TABLE IF NOT EXISTS `usuario_token` (
   `idusuario_token` int(11) NOT NULL AUTO_INCREMENT,
   `token` text,
   `id_usuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`idusuario_token`),
   KEY `fk_token_usuario_idx` (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario_token`
 --
 
 INSERT INTO `usuario_token` (`idusuario_token`, `token`, `id_usuario`) VALUES
-(3, 'd_FpBmrAvJ0:APA91bE5-SVFPPgxpRjO7Ydglq0XcKH10AqMwh4kri_-xzoV2xlw5ve8HNc6RIjVpqHq4ZUoibIXVYXShqHlbEY0-xTYLsSfWvSoe-qLMxHiqSGrUP8dUdE6pQSmGSZd__D-drKfCn18', 28),
-(5, 'cyCnWt0q06c:APA91bHB8toPdJBe64bJpBifq7GmagLuQkfpEmvRQsP8IkSSYU1cZsRWAFclift11P_vZDvCZN_vJLSx2RWGB6GNUehjo5XEeCzGgfaNZn86SSOSfTtYtqvT7jfRWEtG18YAUY5Zup-y', 3),
-(6, 'fhvgaSzVG18:APA91bG-iYWF2zxSsxZVaDP-dd1sAVr2HuXdbYZE_e1jB2kHVCzQ7Gwu3pt8s0RVULaSNdixYq62yjRHFuSdzD3edF4wjFWwTdQz7yopYGG6Xecb9k7vv5ZCUKzuXOmxwQ8LIBJijj3J', 3);
+(3, 'd_FpBmrAvJ0:APA91bE5-SVFPPgxpRjO7Ydglq0XcKH10AqMwh4kri_-xzoV2xlw5ve8HNc6RIjVpqHq4ZUoibIXVYXShqHlbEY0-xTYLsSfWvSoe-qLMxHiqSGrUP8dUdE6pQSmGSZd__D-drKfCn18', 28);
 
 -- --------------------------------------------------------
 
@@ -3878,6 +3267,7 @@ INSERT INTO `usuario_token` (`idusuario_token`, `token`, `id_usuario`) VALUES
 -- Estructura de tabla para la tabla `year`
 --
 
+DROP TABLE IF EXISTS `year`;
 CREATE TABLE IF NOT EXISTS `year` (
   `id_year` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_year` varchar(45) DEFAULT NULL,
@@ -3886,7 +3276,7 @@ CREATE TABLE IF NOT EXISTS `year` (
   `dias_asistencia` int(11) DEFAULT NULL,
   `estado` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id_year`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `year`
@@ -3894,8 +3284,8 @@ CREATE TABLE IF NOT EXISTS `year` (
 
 INSERT INTO `year` (`id_year`, `nombre_year`, `year`, `asistente`, `dias_asistencia`, `estado`) VALUES
 (1, 'Año 2015', 2015, 0, NULL, 0),
-(2, 'Año 2016', 2016, 0, NULL, 0),
-(3, 'Año 2017', 2017, 0, NULL, 1);
+(2, 'Año 2016', 2016, 0, NULL, 1),
+(3, 'Año 2017', 2017, 0, NULL, 0);
 
 --
 -- Restricciones para tablas volcadas
@@ -3931,8 +3321,8 @@ ALTER TABLE `apoderado`
 -- Filtros para la tabla `apoderado_alumno`
 --
 ALTER TABLE `apoderado_alumno`
-  ADD CONSTRAINT `fk_alumnoapd_year` FOREIGN KEY (`id_year`) REFERENCES `year` (`id_year`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_alumno_apoderado` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_alumnoapd_year` FOREIGN KEY (`id_year`) REFERENCES `year` (`id_year`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_apoderado_alumno` FOREIGN KEY (`id_apoderado`) REFERENCES `apoderado` (`id_apoderado`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -3973,8 +3363,146 @@ ALTER TABLE `detalle_asignatura`
 -- Filtros para la tabla `detalle_carro`
 --
 ALTER TABLE `detalle_carro`
-  ADD CONSTRAINT `fk_detallecarro_implemento` FOREIGN KEY (`id_implemento`) REFERENCES `implemento` (`id_implemento`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_detalle_carro_compra` FOREIGN KEY (`id_carro`) REFERENCES `carro_compra` (`id_carro_compra`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_detalle_carro_compra` FOREIGN KEY (`id_carro`) REFERENCES `carro_compra` (`id_carro_compra`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_detallecarro_implemento` FOREIGN KEY (`id_implemento`) REFERENCES `implemento` (`id_implemento`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `detalle_curso_anual`
+--
+ALTER TABLE `detalle_curso_anual`
+  ADD CONSTRAINT `fk_detalle_curso_asignatura` FOREIGN KEY (`id_asignatura`) REFERENCES `asignatura` (`id_asignatura`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_detalle_curso_curso_anual` FOREIGN KEY (`id_curso_anual`) REFERENCES `curso_anual` (`id_curso_anual`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_detalle_curso_profesor` FOREIGN KEY (`id_profesor`) REFERENCES `profesor` (`id_profesor`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `detalle_implemento`
+--
+ALTER TABLE `detalle_implemento`
+  ADD CONSTRAINT `fk_detalle_implemento` FOREIGN KEY (`id_implemento`) REFERENCES `implemento` (`id_implemento`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `detalle_orden`
+--
+ALTER TABLE `detalle_orden`
+  ADD CONSTRAINT `fk_detalle_material` FOREIGN KEY (`id_material`) REFERENCES `material` (`id_material`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_detalle_orden` FOREIGN KEY (`id_orden`) REFERENCES `orden_material` (`id_orden_material`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `detalle_proveedores`
+--
+ALTER TABLE `detalle_proveedores`
+  ADD CONSTRAINT `fk_detalle_p_orden` FOREIGN KEY (`id_orden_material`) REFERENCES `orden_material` (`id_orden_material`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_detalle_p_proveedor` FOREIGN KEY (`id_proveedor_material`) REFERENCES `proveedor_material` (`id_proveedor_material`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `horario`
+--
+ALTER TABLE `horario`
+  ADD CONSTRAINT `fk_horario_asignatura` FOREIGN KEY (`id_asignatura`) REFERENCES `asignatura` (`id_asignatura`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_horario_bloque` FOREIGN KEY (`id_bloque`) REFERENCES `bloque` (`id_bloque`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_horario_curso_anual` FOREIGN KEY (`id_curso_anual`) REFERENCES `curso_anual` (`id_curso_anual`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_horario_profe` FOREIGN KEY (`id_profesor`) REFERENCES `profesor` (`id_profesor`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `implemento`
+--
+ALTER TABLE `implemento`
+  ADD CONSTRAINT `fk_implemento_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `info_pago`
+--
+ALTER TABLE `info_pago`
+  ADD CONSTRAINT `fk_pago_carro` FOREIGN KEY (`id_carro_compra`) REFERENCES `carro_compra` (`id_carro_compra`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `material`
+--
+ALTER TABLE `material`
+  ADD CONSTRAINT `fk_material_seccion` FOREIGN KEY (`id_tipo_material`) REFERENCES `tipo_material` (`id_tipo_material`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `matricula`
+--
+ALTER TABLE `matricula`
+  ADD CONSTRAINT `fk_matricula_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_matricula_apoderado` FOREIGN KEY (`id_apoderado`) REFERENCES `apoderado` (`id_apoderado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_matricula_year` FOREIGN KEY (`id_year`) REFERENCES `year` (`id_year`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `nota`
+--
+ALTER TABLE `nota`
+  ADD CONSTRAINT `fk_nota_alumno_curso` FOREIGN KEY (`id_alumno_curso`) REFERENCES `alumno_curso` (`id_alumno_curso`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_nota_periodo_detalle` FOREIGN KEY (`id_detalle_periodo`) REFERENCES `periodo_asignatura_anual` (`id_periodo_asignatura_anual`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `orden_material`
+--
+ALTER TABLE `orden_material`
+  ADD CONSTRAINT `fk_orden_plan_cuenta` FOREIGN KEY (`id_plan_cuenta`) REFERENCES `plan_cuenta` (`id_plan_cuenta`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_orden_profesor` FOREIGN KEY (`id_responsable`) REFERENCES `profesor` (`id_profesor`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kf_orden_sector` FOREIGN KEY (`id_sector`) REFERENCES `sector` (`id_sector`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  ADD CONSTRAINT `fk_pedido_implemento` FOREIGN KEY (`id_implemento`) REFERENCES `implemento` (`id_implemento`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pedido_proveedor` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id_proveedor`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `periodo_asignatura_anual`
+--
+ALTER TABLE `periodo_asignatura_anual`
+  ADD CONSTRAINT `fk_detalle_curso_anual` FOREIGN KEY (`id_detalle_curso_anual`) REFERENCES `detalle_curso_anual` (`id_detalle_curso_anual`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_detalle_periodo` FOREIGN KEY (`id_periodo`) REFERENCES `periodo` (`id_periodo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  ADD CONSTRAINT `fk_permisos_admin` FOREIGN KEY (`id_administrativo`) REFERENCES `administrativo` (`id_administrativo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_permisos_user` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `profesor`
+--
+ALTER TABLE `profesor`
+  ADD CONSTRAINT `fk_profe_user` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `profesor_asignaturas`
+--
+ALTER TABLE `profesor_asignaturas`
+  ADD CONSTRAINT `fk_dicta_asignatura` FOREIGN KEY (`id_asignatura`) REFERENCES `asignatura` (`id_asignatura`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_dicta_profesor` FOREIGN KEY (`id_profesor`) REFERENCES `profesor` (`id_profesor`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  ADD CONSTRAINT `fk_reserva_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_reserva_libro` FOREIGN KEY (`id_libro`) REFERENCES `libro` (`id_libro`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `rol_usuario`
+--
+ALTER TABLE `rol_usuario`
+  ADD CONSTRAINT `fk_rol_rol` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_rol_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `sector`
+--
+ALTER TABLE `sector`
+  ADD CONSTRAINT `fk_sector_profesor` FOREIGN KEY (`responsable_sector`) REFERENCES `profesor` (`id_profesor`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `usuario_token`
+--
+ALTER TABLE `usuario_token`
+  ADD CONSTRAINT `fk_token_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

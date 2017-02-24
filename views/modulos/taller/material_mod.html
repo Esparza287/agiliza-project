@@ -1,0 +1,74 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Talleres</a>
+            </li>
+            <li>
+                <a>Inventario</a>
+            </li>
+            <li class="active">
+                <strong>{{$state.current.data.pageTitle}}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Datos del Material</h5>
+                </div>
+                <div class="ibox-content">
+                    <form ng-controller="FormularioMaterialCtrl as formMaterial" ng-submit="formMaterial.subir()" class="form-horizontal">
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Código</label>
+                            <div class="col-sm-10"><input ng-model="formMaterial.datos.codigo_material" type="text" class="form-control" maxlength="45" required></div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Tipo de Material</label>
+                            <div class="col-sm-10">
+                                <select ng-model="formMaterial.datos.id_tipo_material" type="text" class="form-control" required>
+                                    <option value="1">Herramientas</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Descripción</label>
+                            <div class="col-sm-10"><input ng-model="formMaterial.datos.descripcion_material" type="text" class="form-control" maxlength="100" required></div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Unidad de Medida</label>
+                            <div class="col-sm-10"><input ng-model="formMaterial.datos.unidad_medida" type="text" class="form-control" maxlength="45" required></div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Marca</label>
+                            <div class="col-sm-10"><input ng-model="formMaterial.datos.marca_material" type="text" class="form-control" maxlength="45"></div>
+                        </div>
+                        
+                        <div class="form-group"><label class="col-sm-2 control-label">Modelo</label>
+                            <div class="col-sm-10"><input ng-model="formMaterial.datos.modelo_material" type="text" class="form-control" maxlength="45"></div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Medida</label>
+                            <div class="col-sm-10"><input ng-model="formMaterial.datos.medida_material" type="text" class="form-control" maxlength="45"></div>
+                        </div>
+                       
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button ng-click="formMaterial.volver()" class="btn btn-white" title="Presione para cancelar cambios al registro.">Cancelar</button>
+                                <button class="btn btn-primary" type="submit" title="Presione para guardar cambios al registro.">Guardar Cambios</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

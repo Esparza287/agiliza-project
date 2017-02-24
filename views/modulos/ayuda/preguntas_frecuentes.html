@@ -1,0 +1,1017 @@
+<toaster-container></toaster-container>
+<div tour >
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Preguntas Frecuentes</h2>
+            <ol class="breadcrumb">
+                <li>
+                   <a  ui-sref="home.panel">Inicio</a>
+                </li>
+                <li>
+                   <a>Ayuda</a>
+                </li>
+                <li class="active">
+                   <strong>Preguntas Frecuentes</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+<div class="col-lg-12">
+<div class="wrapper wrapper-content animated fadeInRight">
+
+<div class="ibox-content m-b-sm border-bottom">
+    <div class="text-center p-lg">
+        <h1>Preguntas Frecuentes (FAQs)</h1>
+    </div>
+</div>
+        
+<!-- Matricula  -->
+        <div class="ibox float-e-margins" ng-show="$state.usuario.permisos.matricula" ng-init="true">
+            <div class="ibox-title">
+                <h5>Matrícula</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+            <!-- Matriculas -->
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_matriculas1 = !faq_matriculas1" class="faq-question">¿Para qué sirve Matriculas?</a>
+                                
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_matriculas1">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Esta sección es la que se encarga de realizar el proceso de matrícula, crear o corroborar al alumno y también asignar el apoderado al alumno.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_matriculas2 = !faq_matriculas2" ng-init="faq_matriculas2 = true" class="faq-question">¿Cómo puedo matricular a un alumno?</a>
+                                
+                            </div> 
+                        </div>                        
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_matriculas2">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Lo primero es ir a matriculas, luego de eso tienes que ingresar el Rut del alumno, si el alumno no está registrado, tienes que registrarlo ingresando los datos solicitados, y si el alumno ya está ingresado en el sistema solo hay que corroborar los datos. El segundo paso sería hacer exactamente lo mismo, pero con el apoderado y para terminar solo quedaría vincular al apoderado con el alumno.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_matriculas3 = !faq_matriculas3" class="faq-question" ng-init="faq_matriculas3 = true">¿Cómo hago pasar de curso a un alumno?</a>
+                                
+                            </div> 
+                        </div>                        
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_matriculas3">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Este proceso es muy similar al anterior, hay que ir a matriculas, luego verificar si el alumno se encuentra junto al apoderado y para finalizar verificar si el alumno se encuentra aprobado o reprobado según las notas y dependiendo de eso el alumno pasa o no de curso.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+<!-- Usuarios -->
+        <div class="ibox float-e-margins" ng-show="$state.usuario.permisos.usuarios">
+            <div class="ibox-title">
+                <h5>Usuarios</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <!-- Matriculas -->
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_usuarios1 = !faq_usuarios1" class="faq-question">¿Qué hace usuario?</a>
+                                
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_usuarios1">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Usuario se encarga de crear, modificar y eliminar los usuarios que utilizan este sistema. Entre ellos están Alumno, Apoderado, Administrativo y profesor. 
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_usuarios2 = !faq_usuarios2" ng-init="faq_usuarios2 = true" class="faq-question">¿Cómo puedo crear un nuevo usuario?</a>
+                                
+                            </div> 
+                        </div>                        
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_usuarios2">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Para crear un nuevo usuario solo tienes que dirigirte a usuarios, luego a nuevo usuario y para finalizar solo ingrese los datos solicitados.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_usuarios3 = !faq_usuarios3" class="faq-question" ng-init="faq_usuarios3 = true">¿Cómo puedo ver los usuarios?</a>
+                                
+                            </div> 
+                        </div>                        
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_usuarios3">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Tienes que ir a usuarios, Listar usuarios. Ahí estarán los usuarios ordenados por tipo y un filtro de búsqueda más arriba para agilizar el proceso.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_usuarios4 = !faq_usuarios4" class="faq-question" ng-init="faq_usuarios4 = true">¿Puedo modificar los datos de los usuarios?</a>
+                                
+                            </div> 
+                        </div>                        
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_usuarios4">
+                                    <div class="faq-answer">
+                                    <p>
+                                        Si, se puede solo tienes que ir a usuarios, listar usuarios y después de eso solo selecciona el Rut del usuario a modificar. Al hacer esto se mostrará una tabla al lado derecho indicando los datos del usuario, y para finalizar solo queda presionar el botón modificar.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+<!-- Mis Registros -->
+        <div class="ibox float-e-margins" ng-show="$state.usuario.permisos.mi_registro">
+            <div class="ibox-title">
+                <h5>Mis Registros</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_MisRegistros1 = !faq_MisRegistros1"  class="faq-question">¿Qué hace mis registros?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_MisRegistros1">
+                                    <div class="faq-answer">
+                                    <p>
+                                        Mis registros es una característica de este sistema, que sirve para ver las notas de un alumno.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_MisRegistros2 = !faq_MisRegistros2" ng-init="faq_MisRegistros2 = true" class="faq-question">¿Cómo puedo ver las notas de algún alumno?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_MisRegistros2">
+                                    <div class="faq-answer">
+                                    <p>
+                                        Para eso tienes que ir a Mis registros en la barra lateral izquierda. Luego de eso tienes que seleccionar el curso, luego el alumno para finalizar el periodo, y para finalizar se llenara una tabla con las notas del alumno con sus respectivas asignaturas.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_MisRegistros3 = !faq_MisRegistros3" ng-init="faq_MisRegistros3 = true" class="faq-question">¿Se puede imprimir el informe de las notas?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_MisRegistros3">
+                                    <div class="faq-answer">
+                                    <p>
+                                        Si, Seguido del proceso anterior tienes que indicar el formato que generalmente el más usado es “PDF” y presionar el botón. Luego de eso se descargará un archivo con toda la información requerida.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+<!-- Registros -->
+        <div class="ibox float-e-margins" ng-show="$state.usuario.permisos.registros">
+            <div class="ibox-title">
+                <h5>Registros</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Registros1 = !faq_Registros1" class="faq-question">¿Qué es registros?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Registros1">
+                                <div class="faq-answer">
+                                <p>
+                                    Registros es una función que se encarga del ingreso de notas y de la asistencia.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Registros2 = !faq_Registros2" ng-init="faq_Registros2 = true" class="faq-question">¿Se puede modificar o agregar una nueva nota?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Registros2">
+                                <div class="faq-answer">
+                                <p>
+                                   Si, Se puede y para eso tienes que ir a Registros, y seleccione “Calificaciones”. Para finalizar el proceso tienes que seleccionar el curso, asignatura, periodo y cantidad de notas que deseas en el periodo. Solo queda indicar la nota en las cajas de texto al alumno que se le desea cambiar la nota.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Registros3 = !faq_Registros3" ng-init="faq_Registros3 = true" class="faq-question">¿Cómo puedo modificar la asistencia?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Registros3">
+                                <div class="faq-answer">
+                                <p>
+                                   Seleccione Registros, Asistencia en la barra lateral izquierda. Ahora solo queda seleccionar el curso, asignatura, periodo y la semana que deseas cambiar la asistencia. Luego de eso se creará una tabla con los alumnos y los días de la semana con su fecha.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- Asignaciones -->
+        <div class="ibox float-e-margins" ng-show="$state.usuario.permisos.asignaciones">
+            <div class="ibox-title">
+                <h5>Asignaciones</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Asignaciones1 = !faq_Asignaciones1" class="faq-question">¿Cómo puedo crear niveles?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Asignaciones1">
+                                <div class="faq-answer">
+                                <p>
+                                   Para eso tienes que ir a Asignaciones, Mantenedores y luego niveles. Se desplegará una tabla con los niveles ya creados, si deseas modificarlos solo selecciona en modificar el botón redondo azul y si deseas eliminarlo el botón redondo rojo. Si quieres crear uno nuevo, presiona el botón azul “Agregar Nivel”, y para finalizar solo ingrese los datos solicitados en las cajas de texto correspondiente.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Asignaciones2 = !faq_Asignaciones2" ng-init="faq_Asignaciones2 = true" class="faq-question">¿Cómo puedo crear Asignaturas?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Asignaciones2">
+                                <div class="faq-answer">
+                                <p>
+                                   Para eso tienes que ir a Asignaciones, Mantenedores y luego Asignaturas. Se desplegará una tabla con las Asignaturas ya creados, si deseas modificarlos solo selecciona en modificar el botón redondo azul y si deseas eliminarlo el botón redondo rojo. Si quieres crear uno nuevo, presiona el botón azul “Agregar Asignaturas”, y para finalizar solo ingrese los datos solicitados en las cajas de texto correspondiente y seleccione especialidad y lo niveles al cual corresponde la asignatura.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Asignaciones3 = !faq_Asignaciones3" ng-init="faq_Asignaciones3 = true" class="faq-question">¿Cómo puedo crear Periodos?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Asignaciones3">
+                                <div class="faq-answer">
+                                <p>
+                                    Para eso tienes que ir a Asignaciones, Mantenedores y luego Periodos. Se desplegará una tabla con los Periodos ya creados, si deseas modificarlos solo selecciona en modificar el botón redondo azul y si deseas eliminarlo el botón redondo rojo. Si quieres crear uno nuevo, presiona el botón azul “Agregar Periodo”, y para finalizar solo ingrese los datos solicitados en las cajas de texto correspondiente e indique la fecha de inicio del periodo y la fecha de término.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Asignaciones4 = !faq_Asignaciones4" ng-init="faq_Asignaciones4 = true" class="faq-question">¿Cómo puedo crear un curso?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Asignaciones4">
+                                <div class="faq-answer">
+                                <p>
+                                   Para eso hay un asistente que se encuentra en asignaciones, asistente y curso anual. Para ello tienes que indicar cuantos cursos deseas crear por nivel, y luego seleccione “Siguiente Paso”, en el siguiente paso tienes que indicar el profesor jefe por cada curso y la especialidad de este curso, luego que este todo finalizado seleccione “Siguiente Paso”, ahora solo quedaría indicarle el profesor que dará la asignatura de cada curso y cuando todo esté listo y confirmado seleccione el botón “Finalizar”.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Asignaciones5 = !faq_Asignaciones5" ng-init="faq_Asignaciones5 = true" class="faq-question">¿Puedo Ver todos los cursos del año actual?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Asignaciones5">
+                                <div class="faq-answer">
+                                <p>
+                                   Si, para eso tienes que ir a asignaciones, asistentes y luego listar curso anual. Este llenara una tala con todos los datos de los cursos.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Asignaciones6 = !faq_Asignaciones6" ng-init="faq_Asignaciones6 = true" class="faq-question">¿Cómo le asigno los alumnos al curso?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Asignaciones6">
+                                <div class="faq-answer">
+                                <p>
+                                   Para este paso tienes que ir a Asignaciones, Asistente, Asignar Alumno. En este formulario tienes que indicar el curso que se encuentra a la izquierda, después seleccionar los alumnos en la lista izquierda y presionar el botón “Agregar”, en ese momento los alumnos se desplegaran en la lista del lado derecho y todo estará listo.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- Horario -->
+        <div class="ibox float-e-margins" ng-show="$state.usuario.permisos.horario">
+            <div class="ibox-title">
+                <h5>Horario</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Horario1 = !faq_Horario1" class="faq-question">¿Qué es Horario?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Horario1">
+                                <div class="faq-answer">
+                                <p>
+                                   Esta función se encarga de administrar el horario relacionando los bloques con las asignaturas.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Horario2 = !faq_Horario2" ng-init="faq_Horario2 = true" class="faq-question">¿Cómo puedo crear los bloques?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Horario2">
+                                <div class="faq-answer">
+                                <p>
+                                   Para eso tienes que ir a Horario y luego Bloques. Se desplegará una tabla con los Bloques ya creados, si deseas modificarlos solo selecciona en modificar el botón redondo azul y si deseas eliminarlo el botón redondo rojo. Si quieres crear uno nuevo, presiona el botón azul “Agregar bloques”, y para finalizar solo ingrese los datos solicitados que serían hora de inicio y hora de termino.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Horario3 = !faq_Horario3" ng-init="faq_Horario3 = true" class="faq-question">¿Cómo puedo crear los horarios?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Horario3">
+                                <div class="faq-answer">
+                                <p>
+                                   Para eso tienes que ir a Horario y Creación. El siguiente paso es seleccionar el curso que se encuentra en la esquina superior derecha, ahora solo queda arrastrar las asignaturas que se encuentran en la izquierda y soltarlas en el bloque que desee.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- Implementos -->
+        <div class="ibox float-e-margins" ng-show="$state.usuario.permisos.implementos">
+            <div class="ibox-title">
+                <h5>Implementos</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_Implementos1 = !faq_Implementos1" class="faq-question">¿Cómo puedo ver los productos?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_Implementos1">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Para poder ver los productos tienes que dirigirte en la barra lateral izquierda a “implementos” y luego a mostrar productos.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_Implementos2 = !faq_Implementos2" ng-init="faq_Implementos2 = true" class="faq-question">¿Cómo puedo ver el detalle de un producto?</a>
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_Implementos2">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Para esto tienes que hacer el proceso de la pregunta anterior (¿Cómo puedo ver los productos?) Y luego dar click en el botón verde “Más información”.
+                                    </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_Implementos3 = !faq_Implementos3" ng-init="faq_Implementos3 = true" class="faq-question">¿Cómo puedo agregar un producto al carro de comprar?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_Implementos3">
+                                    <div class="faq-answer">
+                                    <p>
+                                        En el detalle del producto puedes seleccionar la cantidad del producto y luego presionar el botón verde “Agregar al carro”, para finalizar puedes seguir viendo productos o dirigirte al botón “Ir al carro de compras”.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_Implementos4 = !faq_Implementos4" ng-init="faq_Implementos4 = true" class="faq-question">¿Dónde está el carro de compra?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_Implementos4">
+                                    <div class="faq-answer">
+                                    <p>
+                                        El Carro de compra se encuentra en la barra lateral izquierda, luego en “Implementos”, y para finalizar “Carro de Compras”.
+                                    </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_Implementos5 = !faq_Implementos5" ng-init="faq_Implementos5 = true" class="faq-question">¿Cuáles son los medios de pagos?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_Implementos5">
+                                    <div class="faq-answer">
+                                    <p>
+                                        Los medios de pagos que nosotros ofrecemos son Paypal y tarjetas de crédito como Visa, MasterCard, American Express y Discover.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_Implementos6 = !faq_Implementos6" ng-init="faq_Implementos6 = true" class="faq-question">¿Dónde finalizo mi compra?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_Implementos6">
+                                    <div class="faq-answer">
+                                    <p>
+                                        Para esto tienes que ir al Carro de compras, Luego en el botón azul “Comprar” y para finalizar puedes seleccionar dos tipos de pago que son Paypal o Tarjeta de crédito y luego de ingresar los datos solicitados presionar el botón verde “Realizar pagos”.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_Implementos7 = !faq_Implementos7" ng-init="faq_Implementos7 = true" class="faq-question"> ¿Para mayor información donde me puedo comunicar? </a>   
+                            </div>      
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_Implementos7">
+                                    <div class="faq-answer">
+                                    <p>
+                                        Para mayor información puedes comunicarte al número celular +(569)-78788778 o al correo electrónico acm@agiliza.cl.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+<!-- Tienda -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Tienda</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <!-- Tienda -->
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq1 = !faq1" class="faq-question">¿Cómo puedo ver los productos?</a>
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq1">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Para poder ver los productos tienes que dirigirte en la barra lateral izquierda a “implementos” y luego a mostrar productos.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq2 = !faq2" ng-init="faq2 = true" class="faq-question">¿Cómo puedo ver el detalle de un producto?</a>
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq2">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Para esto tienes que hacer el proceso de la pregunta anterior (¿Cómo puedo ver los productos?) Y luego dar click en el botón verde “Más información”.
+                                    </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq3 = !faq3" ng-init="faq3 = true" class="faq-question">¿Cómo puedo agregar un producto al carro de comprar?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq3">
+                                    <div class="faq-answer">
+                                    <p>
+                                        En el detalle del producto puedes seleccionar la cantidad del producto y luego presionar el botón verde “Agregar al carro”, para finalizar puedes seguir viendo productos o dirigirte al botón “Ir al carro de compras”.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq4 = !faq4" ng-init="faq4 = true" class="faq-question">¿Dónde está el carro de compra?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq4">
+                                    <div class="faq-answer">
+                                    <p>
+                                        El Carro de compra se encuentra en la barra lateral izquierda, luego en “Implementos”, y para finalizar “Carro de Compras”.
+                                    </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq5 = !faq5" ng-init="faq5 = true" class="faq-question">¿Cuáles son los medios de pagos?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq5">
+                                    <div class="faq-answer">
+                                    <p>
+                                        Los medios de pagos que nosotros ofrecemos son Paypal y tarjetas de crédito como Visa, MasterCard, American Express y Discover.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq6 = !faq6" ng-init="faq6 = true" class="faq-question">¿Dónde finalizo mi compra?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq6">
+                                    <div class="faq-answer">
+                                    <p>
+                                        Para esto tienes que ir al Carro de compras, Luego en el botón azul “Comprar” y para finalizar puedes seleccionar dos tipos de pago que son Paypal o Tarjeta de crédito y luego de ingresar los datos solicitados presionar el botón verde “Realizar pagos”.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq7 = !faq7" ng-init="faq7 = true" class="faq-question"> ¿Para mayor información donde me puedo comunicar? </a>   
+                            </div>      
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq7">
+                                    <div class="faq-answer">
+                                    <p>
+                                        Para mayor información puedes comunicarte al número celular +(569)-78788778 o al correo electrónico acm@agiliza.cl.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+<!-- Biblioteca -->
+        <div class="ibox float-e-margins" ng-show="$state.usuario.permisos.biblioteca">
+            <div class="ibox-title">
+                <h5>Biblioteca</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Biblioteca5 = !faq_Biblioteca5" class="faq-question">¿Cómo agrego libros?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Biblioteca5">
+                                <div class="faq-answer">
+                                <p>
+                                   Tienes que ir a Biblioteca y luego a listado de libros. Ahí podrás ver todos los libros que se encuentran y modificarlos a gusto. Para agregar un nuevo libro tienes que ir al botón “Nuevo Libro” y luego ingresar todos los datos correspondientes y necesarios, para finalizar solo presione guardar.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Biblioteca2 = !faq_Biblioteca2" ng-init="faq_Biblioteca2 = true" class="faq-question">¿Cómo realizar un pedido de un libro?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Biblioteca2">
+                                <div class="faq-answer">
+                                <p>
+                                  Tienes que ir a Biblioteca y luego a pedidos. En esta pantalla aparecerán todos los pedidos realizados. Para realizar uno nuevo solo tienes que presionar el botón “Realizar Pedido”, luego tienes que ingresar el usuario, y el libro que quieren solicitar, luego de eso si quieres agregar un nuevo libro presione el botón “+” y se desplegaran nuevas filas, ahora a solo quedaría guardar el pedido.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Biblioteca3 = !faq_Biblioteca3" ng-init="faq_Biblioteca3 = true" class="faq-question">¿Cómo realizar una devolución de un libro?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Biblioteca3">
+                                <div class="faq-answer">
+                                <p>
+                                   Para realizar una devolución tienes que ir a Biblioteca y Pedidos. Luego de eso de desplegar una ventana con los pedidos realizados, los atrasados, los ya completados y los cancelados. Para devolver tienes que ir a la fila donde se encuentra el pedido, después tienes que presionar el botón cuadrado blanco (Con un ojo de imagen) y se abrirá una ventana emergente. Para finalizar solo tienes que presionar el botón “Devolver Pedido”.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Biblioteca4 = !faq_Biblioteca4" ng-init="faq_Biblioteca4 = true" class="faq-question">¿Cómo realizar una cancelación de un libro en caso de pérdida?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Biblioteca4">
+                                <div class="faq-answer">
+                                <p>
+                                   Para realizar una cancelación tienes que ir a Biblioteca y Pedidos. Luego de eso de desplegar una ventana con los pedidos realizados, los atrasados, los ya completados y los cancelados (perdidos). Para Cancelar tienes que ir a la fila donde se encuentra el pedido, después tienes que presionar el botón cuadrado rojo (Con un basurero de imagen) y se abrirá una ventana emergente. Para finalizar solo tienes que presionar el botón “Si Perdido”.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- Talleres -->
+        <div class="ibox float-e-margins" ng-show="$state.usuario.permisos.talleres">
+            <div class="ibox-title">
+                <h5>Talleres</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Talleres1 = !faq_Talleres1" class="faq-question">¿Qué es talleres?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Talleres1">
+                                <div class="faq-answer">
+                                <p>
+                                   Talleres es una característica que sirve para realizar pedidos de materiales a los profesores jefes de cada especialidad.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Talleres2 = !faq_Talleres2" ng-init="faq_Talleres2 = true" class="faq-question">¿Cómo puedo realizar un pedido?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Talleres2">
+                                <div class="faq-answer">
+                                <p>
+                                   Para eso tienes que ir a talleres, movimientos y luego a pedidos. Aquí tu podrás los pedidos ya realizados anteriormente. Para crear un nuevo pedido tienes que presionar el botón “Agregar Material” y luego ingresar todos los datos solicitados por el formulario.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a ng-click="faq_Talleres3 = !faq_Talleres3" ng-init="faq_Talleres3 = true" class="faq-question">¿Cómo puedo crear materiales?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div uib-collapse="faq_Talleres3">
+                                <div class="faq-answer">
+                                <p>
+                                  Para eso tienes que ir a talleres, inventario y Materiales. En esta pantalla veras los materiales ya creados por el usuario. Para crear un nuevo material tienes que presionar el botón “Agregar Material”. Para finalizar solo tienes que ingresar los datos solicitados del material.
+                                </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- Administracion -->
+        <div class="ibox float-e-margins" ng-show="$state.usuario.permisos.administracion">
+            <div class="ibox-title">
+                <h5>Administracion</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_Administracion1 = !faq_Administracion1" class="faq-question">¿Cómo puedo ver las solicitudes pendientes?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_Administracion1">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Para eso tienes que ir a Administración, Solicitudes y Pendientes. Aquí podrás ver todos los pedidos pendientes que los profesores han generado. Para Aprobar la solicitud de materiales solo tienes que presionar “Aprobar” en el formulario, en caso de algún problema puedes “Rechazar” y el profesor tendrá que volver a realizarlo.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_Administracion2 = !faq_Administracion2" ng-init="faq_Administracion2 = true" class="faq-question">¿Puedo ver las cotizaciones?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_Administracion2">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Para eso tienes que ir a Administración, Solicitudes y Pendientes. Aquí podrás ver todos las Cotizaciones que los profesores han generado. Si quieres Confirmar la cotización Solo tienes que Presionar el botón “Confirmar Cotización”.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_Administracion3 = !faq_Administracion3" ng-init="faq_Administracion3 = true" class="faq-question">¿Puedo ver un cuadro comparativo y seleccionar el que yo guste?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_Administracion3">
+                                    <div class="faq-answer">
+                                    <p>
+                                      Para eso tienes que ir a Administración, Solicitudes y Pendientes. Aquí podrás ver todos los pedidos listos para realizar el cuadro comparativo, que los profesores han generado. Si quieres Ver el cuadro comparativo, presiona el botón redondo verde de la fila que deseas seleccionar y podrás ver un cuadro comparativo que te indica cual es el precio más económico entre las comparadas. Para realizar la compra solo presiona “Generar Compra”.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_Administracion4 = !faq_Administracion4" ng-init="faq_Administracion4 = true" class="faq-question">¿Cómo agrego Cuentas?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_Administracion4">
+                                    <div class="faq-answer">
+                                    <p>
+                                       Para agregar una nueva cuenta tienes que ir a Administración, Gestión y selecciona Cuentas, Luego en esta pantalla podrás ver todas las cuentas disponibles, y modificarlas a gusto. Para agregar una nueva Cuenta solo tienes que presionar el botón “Agregar Cuenta” y llenar con los datos solicitados en la ventana.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <a ng-click="faq_Administracion5 = !faq_Administracion5" ng-init="faq_Administracion5 = true" class="faq-question">¿Cómo puedo agregar Proveedores?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div uib-collapse="faq_Administracion5">
+                                    <div class="faq-answer">
+                                    <p>
+                                        Para agregar una nueva cuenta tienes que ir a Administración, Gestión y selecciona Proveedores, Luego en esta pantalla podrás ver todos los Proveedores disponibles, y Modificarlas como desee. Para agregar un nuevo Proveedores solo tienes que presionar el botón “Agregar Proveedor” y luego solo quedaría ingresar los datos solicitados.
+                                    </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+</div>
+</div>

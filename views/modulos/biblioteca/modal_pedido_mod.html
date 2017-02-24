@@ -1,0 +1,42 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">Recepción de Pedido</h4>
+        <small class="font-bold">Seleccione .</small>
+    </div>
+    <div class="modal-body">
+    <br>
+
+    <div>
+        <div><p><strong>Alumno: </strong></p></div>
+            <input class="form-control" type="text" min="1" value="{{datos.nombres_usuario}} {{datos.apellido_paterno}}" ng-disabled="true" > 
+        <br>
+        <table class="table table-striped table-bordered table-hover dataTables-example">
+            <thead>
+                <tr>
+                    <th width="65%">Libro</th>
+                    <th width="35%">Fecha devolución</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr>
+            		<td> 
+                		<div>
+                            <input class="form-control" type="text" min="1" ng-model="datos.titulo_libro" ng-disabled="true">
+                        </div>
+    		        </td>
+    		        <td>
+    					<div>
+    					     <input class="form-control" type="text" min="1" ng-model="datos.fecha_devolucion" ng-disabled="true">
+    					</div>
+    		        </td>
+            	</tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancelar()" title="Cerrar vista de pedido.">Salir</button>
+        <button type="button" class="btn btn-danger" ng-disabled="estado.cancelar" ng-click="cancelar_pedido()" title="Presione para dar el libro como perdido.">Cancelar pedido</button>
+        <button type="button" class="btn btn-success" ng-disabled="estado.devolver" ng-click="devolver()" title="Presione para devolver el libro.">Devolver pedido</button>
+    </div>
+</div>

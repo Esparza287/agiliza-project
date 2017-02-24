@@ -1,0 +1,134 @@
+<toaster-container></toaster-container>
+<div tour ng-controller="CarroCtrl as carro">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Carro de Compras</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="index.html">Inicio</a>
+                </li>
+                <li>
+                    <a>Implementos</a>
+                </li>
+                <li class="active">
+                    <strong>Carro</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="ibox" id="step1" tour-step order="1" title="Lista de Productos" backdrop="true"  on-Hidden="carro.clearbody(tour)" on-Shown="carro.preparebody(tour)" backdropContainer="#wrapper" content="Listado de sus productos por pagar, podrá cambiar la cantidad y eliminarlos de su Carro." placement="top">
+                    <div class="ibox-title">
+                        <span class="pull-right">(<strong>{{carro.cant}}</strong>) productos</span>
+                        <h5>Productos en tu carro</h5>
+                    </div>
+                    <div class="ibox-content" ng-repeat="producto in carro.productos">
+                        <div class="table-responsive">
+                            <table class="table shoping-cart-table">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <img width="90" ng-src="img/implementos/{{producto.ruta_imagen}}">
+                                        </div>
+                                    </td>
+                                    <td class="desc">
+                                        <h3>
+                                            <a href="#" class="text-navy">
+                                                {{producto.nombre_implemento}}
+                                            </a>
+                                        </h3>
+                                        <p class="small">
+                                            {{producto.descripcion_implemento}}
+                                        </p>
+
+                                        <div class="m-t-sm">
+                                            <a ng-click="carro.eliminar_producto(producto.id_implemento)" class="text-muted"><i class="fa fa-trash"></i> Eliminar del Carro</a>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <h4>
+                                            ${{producto.precio_implemento}}
+                                        </h4>
+                                    </td>
+                                    <td width="80">
+                                        <input ng-change="carro.sumar()" string-to-number min="1" max="10" type="number" class="form-control" ng-model="producto.cantidad" disabled>
+                                    </td>
+                                    <td>
+                                        <h2>
+                                            ${{producto.precio_implemento * producto.cantidad}}
+                                        </h2>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <button ng-click="carro.enviar_total()" ng-submit class="btn btn-outline btn-success pull-right"><i class="fa fa fa-shopping-cart"></i> Comprar</button>
+                        <div class="pull-right">&nbsp;</div>
+                        <button ng-click="carro.limpiar()" class="btn btn-outline btn-warning pull-right" title="Presione para eliminar los productos del carro de compras."><i class="fa fa fa-eraser"></i> Limpiar</button>
+                        <button ng-click="carro.volver()" class="btn btn-white" title="Presione para seguir comprando."><i class="fa fa-arrow-left"></i> Continuar revisando</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="ibox" id="step2" tour-step order="2" title="Resumen Compra" backdrop="true"  on-Hidden="carro.clearbody(tour)" on-Shown="carro.preparebody(tour)" backdropContainer="#wrapper" content="Aquí puede ver el total de su compra, y realizar la transacción." placement="top">
+                    <div class="ibox-title">
+                        <h5>Resumen de la compra</h5>
+                    </div>
+                    <div class="ibox-content">
+                                <span>
+                                    <b>Total:</b>
+                                </span>
+                        <h1 class="font-bold">
+                            ${{carro.suma}}
+                        </h1>
+                        <hr/>
+                        <span class="text-muted small">
+                            *Impuesto IVA ya aplicado en la compra
+                        </span>
+                        <div class="m-t-sm">
+                            <div class="btn-group">
+                                <a ng-click="carro.enviar_total()" class="btn btn-success btn-sm"><i class="fa fa-shopping-cart"></i> Comprar</a>
+                                <a ng-click="carro.volver()" class="btn btn-white btn-sm"> Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox" id="step3" tour-step order="3" title="Ayuda" content="Aqui podrá ver información de contacto para pedirnos soporte." placement="bottom">
+                    <div class="ibox-title">
+                        <h5>Soporte</h5>
+                    </div>
+                    <div class="ibox-content text-center">
+                        <h3><i class="fa fa-phone"></i> +56 92 717238</h3>
+                        <span class="small">
+                            Favor contactar con nosotros ante cualquier duda, atención horario de oficina.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TOUR -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Paseo de Ayuda</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <p>
+                            Un rápido paseo por la pagina, que le ayudará a identificar las opciones más importantes.
+                        </p>
+                        <div class=" m-t-sm">
+                            <a href class="btn btn-primary startTour" ng-click="tour.restart(true)" title="Presione para comenzar con el tour."><i class="fa fa-play"></i> Comenzar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

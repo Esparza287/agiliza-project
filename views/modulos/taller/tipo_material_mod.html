@@ -1,0 +1,50 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Talleres</a>
+            </li>
+            <li>
+                <a>Inventario</a>
+            </li>
+            <li class="active">
+                <strong>{{$state.current.data.pageTitle}}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Datos del Material</h5>
+                </div>
+                <div class="ibox-content">
+                    <form ng-controller="FormularioMaterialCtrl as formMaterial" ng-submit="formMaterial.subir_tipo_material()" class="form-horizontal">
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Código</label>
+                            <div class="col-sm-10"><input ng-model="formMaterial.datos.codigo_tipo_material" string-to-number type="number" min="0" max="99999999999" class="form-control" placeholder="Código hasta 11 dígitos" ng-disabled></div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Nombre del Tipo de Material</label>
+                            <div class="col-sm-10"><input ng-model="formMaterial.datos.nombre_tipo_material" type="text" class="form-control" maxlength="45" placeholder="Descripción o nombre del tipo de material" required></div>
+                        </div>
+                       
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button ui-sref="inventario.tipo_material" class="btn btn-white">Cancelar</button>
+                                <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

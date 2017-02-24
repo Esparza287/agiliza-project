@@ -1,0 +1,115 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Registros</a>
+            </li>
+            <li class="active">
+                <strong>{{$state.current.data.pageTitle}}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="CalificacionCtrl as calificacion">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+
+<!-- Vista para administrador  -->
+					<div class="form-group row" ng-show="calificacion.permisos == 'adm'">
+						<label class="control.label col-md-3">&nbsp;Curso</label>
+                        <label class="control.label col-md-5">&nbsp;Alumno</label>
+                        <label class="control.label col-md-4">&nbsp;Periodo</label>
+                        <div class="col-md-3">
+                            <select class="form-control" ng-model="calificacion.id_curso" ng-change="calificacion.traer_alumnos_asignados()">
+                                <option  ng-repeat="cursos in calificacion.cursos_anuales" value="{{cursos.id_curso_anual}}">{{cursos.nombre_curso_anual}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <select class="form-control" ng-model="calificacion.id_usuario" ng-change="calificacion.traer_notas_alumno()">
+                                <option  ng-repeat="alumno in calificacion.alumnos_asignados" value="{{alumno.id_usuario}}">Rut: {{alumno.rut_usuario | rut}} | {{alumno.nombres_usuario}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control"   ng-change="calificacion.traer_notas_alumno()"  ng-model="calificacion.id_periodo_seleccionado">
+	                            <option  ng-repeat="periodos in calificacion.periodos_actual" ng-model="calificacion.id_periodo" value="{{periodos.id_periodo}}">{{periodos.nombre_periodo}} </option>
+	                        </select>
+                        </div>
+                    </div>
+
+<!-- Vista para apoderado  -->
+					<div class="form-group row" ng-show="calificacion.permisos == 'apd'">
+                        <label class="control.label col-md-6">&nbsp;Alumno</label>
+                        <label class="control.label col-md-6">&nbsp;Periodo</label>
+                        <div class="col-md-6">
+                            <select class="form-control" ng-model="calificacion.id_usuario" ng-change="calificacion.traer_notas_alumno()">
+                                <option  ng-repeat="alumno in calificacion.alumnos_asignados" value="{{alumno.id_usuario}}">Rut: {{alumno.rut_usuario | rut}} | {{alumno.nombres_usuario}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control"   ng-change="calificacion.traer_notas_alumno()"  ng-model="calificacion.id_periodo_seleccionado">
+	                            <option  ng-repeat="periodos in calificacion.periodos_actual" ng-model="calificacion.id_periodo" value="{{periodos.id_periodo}}">{{periodos.nombre_periodo}} </option>
+	                        </select>
+                        </div>
+                    </div>
+
+<!-- Vista para alumno -->
+                    <div class="form-group row" ng-show="calificacion.permisos == 'alm'">
+                        <label class="control.label col-md-2">&nbsp;Seleccione el Periodo:</label>
+                        <label class="control.label col-md-1">&nbsp;</label>
+	                    <div class="col-md-6">
+	                        <select class="form-control"   ng-change="calificacion.traer_notas_alumno()"  ng-model="calificacion.id_periodo_seleccionado">
+	                            <option  ng-repeat="periodos in calificacion.periodos_actual" ng-model="calificacion.id_periodo" value="{{periodos.id_periodo}}">{{periodos.nombre_periodo}} </option>
+	                        </select>
+	                    </div>
+                    </div>
+
+                </div>
+
+
+	            <div class="ibox-content">
+	                <table datatable="ng" dt-options="calificacion.dtOptions"                      
+                    class="table table-striped table-bordered table-hover dataTables-example">
+	                    <thead>
+	                        <tr>
+	                            <th width="22%">Asignatura</th>
+	                            <th width="7%">Nota 1</th>
+	                            <th width="7%">Nota 2</th>
+	                            <th width="7%">Nota 3</th>
+	                            <th width="7%">Nota 4</th>
+	                            <th width="7%">Nota 5</th>
+	                            <th width="7%">Nota 6</th>
+	                            <th width="7%">Nota 7</th>
+	                            <th width="7%">Nota 8</th>
+	                            <th width="7%">Nota 9</th>
+	                            <th width="7%">Nota 10</th>
+	                            <th width="8%">Promedio</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr ng-repeat="nota in calificacion.notas_alumno">
+	                            <td>{{ nota.nombre_asignatura }}</td>
+	                            <td ng-disabled="true">{{ nota.n1 }}</td>
+	                            <td ng-disabled="true">{{ nota.n2 }}</td>
+	                            <td ng-disabled="true">{{ nota.n3 }}</td>
+	                            <td ng-disabled="true">{{ nota.n4 }}</td>
+	                            <td ng-disabled="true">{{ nota.n5 }}</td>
+	                            <td ng-disabled="true">{{ nota.n6 }}</td>
+	                            <td ng-disabled="true">{{ nota.n7 }}</td>
+	                            <td ng-disabled="true">{{ nota.n8 }}</td>
+	                            <td ng-disabled="true">{{ nota.n9 }}</td>
+	                            <td ng-disabled="true">{{ nota.n10 }}</td>
+	                            <td ng-disabled="true">{{ nota.prom }}</td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+        </div>
+    </div>
+</div>

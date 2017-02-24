@@ -1,0 +1,176 @@
+<nav class="navbar-default navbar-static-side" role="navigation" ng-controller="MainCtrl as main">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="profile-element" uib-dropdown>
+                    <img alt="image" class="img-circle" style="width: 62px; height: 62px;object-fit: cover;" src="img/perfil/{{main.user_info.imagen_url}}"/>
+                    <a uib-dropdown-toggle href>
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold">{{main.user_info.nombres_usuario}} {{main.user_info.apellido_paterno}}</strong>
+                             </span>
+                                <span class="text-muted text-xs block">{{main.user_info.tipo_usuario}}<b class="caret"></b></span>
+                            </span>
+                    </a>
+                    <ul uib-dropdown-menu="" class="animated fadeInRight m-t-xs">
+                        <!-- <li><a ui-sref="inicio.perfil/+1">Perfil</a></li> -->
+                        <li><a href="#/inicio/perfil/1">Perfil</a></li>
+                        <li><a href="#login">Salir</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    AG+
+                </div>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="inicio.panel"><i class="fa fa-laptop"></i> <span class="nav-label">Inicio</span> </a>
+            </li>
+            
+            <li ui-sref-active="active" ng-show="main.user_info.permisos.matricula">
+                <a ui-sref="matricula.panel"><i class="fa fa-plus"></i> <span class="nav-label">Matrículas</span></a>
+            </li>
+            <li ui-sref-active="active" ng-show="main.user_info.permisos.usuarios">
+                <a ui-sref="usuarios"><i class="fa fa-users"></i> <span class="nav-label">Usuarios</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse"">
+                    <!-- <li ui-sref-active="active"><a ui-sref="usuarios.nuevo_usuario">Nuevo Alumno</a></li> -->
+                    <li ui-sref-active="active"><a ui-sref="usuarios.nuevo_usuario">Nuevo Usuario</a></li>
+                    <li ui-sref-active="active"><a ui-sref="usuarios.lista_usuarios">Listar Usuarios</a></li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" ng-show="main.user_info.permisos.asignaciones">
+                <a ui-sref="asignaciones"><i class="fa fa-sitemap"></i> <span class="nav-label">Asignaciones</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li ui-sref-active="active">
+                        <a ui-sref="mantenedores">Mantenedores<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li ui-sref-active="active"><a ui-sref="mantenedores.curso">Niveles</a></li>
+                            <li ui-sref-active="active"><a ui-sref="mantenedores.asignatura">Asignaturas</a></li>
+                            <li ui-sref-active="active"><a ui-sref="mantenedores.periodo">Periodos</a></li>
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="asistentes">Asistentes<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li ui-sref-active="active"><a ui-sref="asistentes.enlace">Cursos Anuales</a></li>
+                            <li ui-sref-active="active"><a ui-sref="asistentes.listar_cursos">Listar Cursos Anuales</a></li>
+                            <li ui-sref-active="active"><a ui-sref="asistentes.asignar_alumnos">Asignar Alumnos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" ng-show="main.user_info.permisos.horario">
+                <a ui-sref="horario"><i class="fa fa-calendar-o"></i> <span class="nav-label">Horario</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse"">
+                    <li ui-sref-active="active"><a ui-sref="horario.crear_horario">Creación</a></li>
+                    <li ui-sref-active="active"><a ui-sref="horario.bloque">Bloques</a></li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" ng-show="main.user_info.permisos.mi_registro">
+                <a ui-sref="mi_registro"><i class="fa fa-file-text-o"></i> <span class="nav-label">Mis Registros</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse"">
+                    <li ui-sref-active="active"><a ui-sref="mi_registro.calificacion">Calificaciones</a></li>
+                    <li ui-sref-active="active"><a ui-sref="mi_registro.horario">Horario</a></li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" ng-show="main.user_info.permisos.registros">
+                <a ui-sref="registro"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Registros</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse"">
+                    <li ui-sref-active="active"><a ui-sref="registro.calificacion">Calificaciones</a></li>
+                    <li ui-sref-active="active"><a ui-sref="registro.asistencia">Asistencia</a></li>
+                </ul>
+            </li>
+            <!-- <li ui-sref-active="active" ng-show="main.user_info.permisos.planificacion">
+                <a ui-sref="planificacion"><i class="fa fa-list-ul"></i> <span class="nav-label">Planificación</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse"">
+                    <li ui-sref-active="active"><a ui-sref="planificacion.materia">Materia</a></li>
+                </ul>
+            </li> -->
+            <li ui-sref-active="active" ng-show="main.user_info.permisos.implementos">
+                <a ui-sref="implementos"><i class="fa fa-puzzle-piece"></i> <span class="nav-label">Implementos</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse"">
+                    <li ui-sref-active="active">
+                        <a ui-sref="gestionar">Gestionar<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li ui-sref-active="active"><a ui-sref="gestionar.lista_implemento">Productos</a></li>
+                            <li ui-sref-active="active"><a ui-sref="gestionar.lista_proveedor">Proveedores</a></li>
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="historial">Historial<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li ui-sref-active="active"><a ui-sref="historial.pagos">Pagos</a></li>
+                            <li ui-sref-active="active"><a ui-sref="historial.pedidos">Pedidos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" ng-show="main.user_info.permisos.tienda">
+                <a ui-sref="productos"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Tienda</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse"">
+                    <li ui-sref-active="active"><a ui-sref="productos.mostrar_implementos">Mostrar Productos</a></li>
+                    <li ui-sref-active="active"><a ui-sref="productos.carro_compra">Carro de Compras</a></li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" ng-show="main.user_info.permisos.biblioteca">
+                <a ui-sref="biblioteca"><i class="fa fa-book"></i> <span class="nav-label">Biblioteca</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse"">
+                    <li ui-sref-active="active"><a ui-sref="biblioteca.lista_libros">Listado de libros</a></li>
+                    <li ui-sref-active="active"><a ui-sref="biblioteca.pedido">Pedidos</a></li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" ng-show="main.user_info.permisos.talleres">
+                <a ui-sref="talleres"><i class="fa fa-cogs"></i> <span class="nav-label">Talleres</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse"">
+                    <li ui-sref-active="active">
+                        <a ui-sref="movimientos">Movimientos<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li ui-sref-active="active"><a ui-sref="movimientos.pedidos">Pedidos</a></li>
+                            <!-- <li ui-sref-active="active"><a ui-sref="movimientos.recepcion">Recepción</a></li> -->
+                            <!-- <li ui-sref-active="active"><a ui-sref="movimientos.entrega">Entrega</a></li> -->
+                            <!-- <li ui-sref-active="active"><a ui-sref="movimientos.historial">Historial</a></li> -->
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="inventario">Inventario<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li ui-sref-active="active"><a ui-sref="inventario.material">Materiales</a></li>
+                            <li ui-sref-active="active"><a ui-sref="inventario.tipo_material">Tipos de Materiales</a></li>
+                            <!-- <li ui-sref-active="active"><a ui-sref="inventario.stock">Gestión de Stock</a></li> -->
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <!-- <li ui-sref-active="active" ng-show="main.user_info.permisos.internado">
+                <a ui-sref="internado"><i class="fa fa-home"></i> <span class="nav-label">Internado</span><span class="fa arrow"></span></a>
+            </li> -->
+            <li ui-sref-active="active" ng-show="main.user_info.permisos.administracion">
+                <a ui-sref="admin"><i class="fa fa-briefcase"></i> <span class="nav-label">Administración</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse"">
+                    <li ui-sref-active="active">
+                        <a ui-sref="solicitud">Solicitudes<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li ui-sref-active="active"><a ui-sref="solicitud.pedidos">Pendientes</a></li>
+                            <li ui-sref-active="active"><a ui-sref="solicitud.cotizacion">Cotizaciones</a></li>
+                            <li ui-sref-active="active"><a ui-sref="solicitud.comparacion">Cuadro Comparativo</a></li>
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="gestion">Gestión<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li ui-sref-active="active"><a ui-sref="gestion.cuentas">Cuentas</a></li>
+                            <li ui-sref-active="active"><a ui-sref="gestion.proveedores">Proveedores</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        &nbsp;
+                    </li>
+                </ul>
+            </li>
+            <li class="landing_link">
+                <a ui-sref="pagina_web"><i class="fa fa-yelp"></i> <span class="nav-label">Página Web</span></a>
+            </li>
+        </ul>
+
+    </div>
+</nav>

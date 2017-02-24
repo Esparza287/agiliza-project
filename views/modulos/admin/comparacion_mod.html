@@ -1,0 +1,187 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Administración</a>
+            </li>
+            <li>
+                <a>Solicitudes</a>
+            </li>
+            <li class="active">
+                <strong>{{$state.current.data.pageTitle}}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div ng-controller="PedidoTallerCtrl as pedidoCtrl" class="wrapper wrapper-content animated fadeInRight">
+    <div class="row" ng-show="pedidoCtrl.primer_paso">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>CUADRO COMPARATIVO DE PROVEEDORES</h5>
+                </div>
+                <div class="ibox-content">
+                    <form ng-init="pedidoCtrl.habilitar_ordenar()" class="form-horizontal">
+                        <div class="ibox float-e-margins" title="Registro">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="visibility:hidden;" colspan="4" width="37%"></th>
+                                        <th colspan="2" ng-show="pedidoCtrl.info.cantidad_proveedores > 0">{{pedidoCtrl.proveedores[0].razon_social}}</th>
+                                        <th colspan="2" ng-show="pedidoCtrl.info.cantidad_proveedores > 1">{{pedidoCtrl.proveedores[1].razon_social}}</th>
+                                        <th colspan="2" ng-show="pedidoCtrl.info.cantidad_proveedores > 2">{{pedidoCtrl.proveedores[2].razon_social}}</th>
+                                        <th colspan="2" ng-show="pedidoCtrl.info.cantidad_proveedores > 3">{{pedidoCtrl.proveedores[3].razon_social}}</th>
+                                        <th colspan="2" ng-show="pedidoCtrl.info.cantidad_proveedores > 4">{{pedidoCtrl.proveedores[4].razon_social}}</th>
+                                        <th style="visibility:hidden;">{{pedidoCtrl.proveedores[4].razon_social}}</th>
+                                    </tr><tr>
+                                        <th width="5%">#</th>
+                                        <th width="9%">Cantidad</th>
+                                        <th width="9%">Unidad</th>
+                                        <th width="14%">Descripción</th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 0">Unitario</th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 0">Total</th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 1">Unitario</th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 1">Total</th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 2">Unitario</th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 2">Total</th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 3">Unitario</th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 3">Total</th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 4">Unitario</th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 4">Total</th>
+                                        <th>Selección</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="fila in pedidoCtrl.data.filas">
+                                        <td ng-init="pedidoCtrl.conseguir_descripcion(fila)">{{fila.id_material}}</td>
+                                        <td>{{fila.cantidad_material}}</td>
+                                        <td>{{fila.unidad_medida}}</td>
+                                        <td ng-attr-title="{{fila.observacion}}">{{fila.descripcion_material}}</td>
+                                        <td ng-show="pedidoCtrl.info.cantidad_proveedores > 0">${{fila.proveedor_1 | number}}</td>
+                                        <td class="cambios" ng-class="{marca: fila.proveedor_seleccion == pedidoCtrl.proveedores[0].id_proveedor_material}" ng-click="pedidoCtrl.cambiar_seleccion_proveedor(fila, pedidoCtrl.proveedores[0])" ng-show="pedidoCtrl.info.cantidad_proveedores > 0">${{fila.proveedor_1 * fila.cantidad_material | number}}</td>
+                                        <td ng-show="pedidoCtrl.info.cantidad_proveedores > 1">${{fila.proveedor_2 | number}}</td>
+                                        <td class="cambios" ng-class="{marca: fila.proveedor_seleccion == pedidoCtrl.proveedores[1].id_proveedor_material}" ng-click="pedidoCtrl.cambiar_seleccion_proveedor(fila, pedidoCtrl.proveedores[1])" ng-show="pedidoCtrl.info.cantidad_proveedores > 1">${{fila.proveedor_2 * fila.cantidad_material | number}}</td>
+                                        <td ng-show="pedidoCtrl.info.cantidad_proveedores > 2">${{fila.proveedor_3 | number}}</td>
+                                        <td class="cambios" ng-class="{marca: fila.proveedor_seleccion == pedidoCtrl.proveedores[2].id_proveedor_material}" ng-click="pedidoCtrl.cambiar_seleccion_proveedor(fila, pedidoCtrl.proveedores[2])" ng-show="pedidoCtrl.info.cantidad_proveedores > 2">${{fila.proveedor_3 * fila.cantidad_material | number}}</td>
+                                        <td ng-show="pedidoCtrl.info.cantidad_proveedores > 3">${{fila.proveedor_4 | number}}</td>
+                                        <td class="cambios" ng-class="{marca: fila.proveedor_seleccion == pedidoCtrl.proveedores[3].id_proveedor_material}" ng-click="pedidoCtrl.cambiar_seleccion_proveedor(fila, pedidoCtrl.proveedores[3])" ng-show="pedidoCtrl.info.cantidad_proveedores > 3">${{fila.proveedor_4 * fila.cantidad_material | number}}</td>
+                                        <td ng-show="pedidoCtrl.info.cantidad_proveedores > 4">${{fila.proveedor_5 | number}}</td>
+                                        <td class="cambios" ng-class="{marca: fila.proveedor_seleccion == pedidoCtrl.proveedores[4].id_proveedor_material}" ng-click="pedidoCtrl.cambiar_seleccion_proveedor(fila, pedidoCtrl.proveedores[4])" ng-show="pedidoCtrl.info.cantidad_proveedores > 4">${{fila.proveedor_5 * fila.cantidad_material | number}}</td>
+                                        <td>{{fila.proveedor_mostrar}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="pull-right">
+                                <a ng-click="pedidoCtrl.volver_comparacion()" class="btn btn-white" >Cancelar</a>
+                                <button ng-click="pedidoCtrl.ordenar_datos()" class="btn btn-info"><i class="fa fa-refresh"></i> Recalcular Valores</button>
+                                <button ng-click="pedidoCtrl.generar_ordenes()" class="btn btn-success" type="submit"><i class="fa fa-check-square-o"></i> Generar Compra</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="pedidoCtrl.segundo_paso">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Ordenes de Compra</h5>
+                    <small class="font-bold">&nbsp;&nbsp; (Agregue observaciónes o comentarios e imprima las ordenes de compra).</small>
+                </div>
+                <div class="ibox-content">
+                    <div ng-show="pedidoCtrl.cantidad_item > 0">
+                        <div><p><strong>Comentarios de la 1° Orden de Compra: </strong></p></div>
+                        <div><textarea type="test" class="form-control" maxlength="298" ng-model="pedidoCtrl.comentario_orden[0]"></textarea></div><br>
+                        <button type="button" ng-disabled="pedidoCtrl.comentario_orden[0] == undefined" class="btn btn-primary" ng-click="pedidoCtrl.enviar_comentarios(0)">Imprimir</button>
+                    </div>
+                    <div ng-show="pedidoCtrl.cantidad_item > 1">
+                        <div><p><strong>Comentarios de la 2° Orden de Compra: </strong></p></div>
+                        <div><textarea type="test" class="form-control" maxlength="298" ng-model="pedidoCtrl.comentario_orden[1]"></textarea></div><br>
+                        <button type="button" ng-disabled="pedidoCtrl.comentario_orden[1] == undefined" class="btn btn-primary" ng-click="pedidoCtrl.enviar_comentarios(1)">Imprimir</button>
+                    </div>
+                    <div ng-show="pedidoCtrl.cantidad_item > 2">
+                        <div><p><strong>Comentarios de la 3° Orden de Compra: </strong></p></div>
+                        <div><textarea type="test" class="form-control" maxlength="298" ng-model="pedidoCtrl.comentario_orden[2]"></textarea></div><br>
+                        <button type="button" ng-disabled="pedidoCtrl.comentario_orden[2] == undefined" class="btn btn-primary" ng-click="pedidoCtrl.enviar_comentarios(2)">Imprimir</button>
+                    </div>
+                    <div ng-show="pedidoCtrl.cantidad_item > 3">
+                        <div><p><strong>Comentarios de la 4° Orden de Compra: </strong></p></div>
+                        <div><textarea type="test" class="form-control" maxlength="298" ng-model="pedidoCtrl.comentario_orden[3]"></textarea></div><br>
+                        <button type="button" ng-disabled="pedidoCtrl.comentario_orden[3] == undefined" class="btn btn-primary" ng-click="pedidoCtrl.enviar_comentarios(3)">Imprimir</button>
+                    </div>
+                    <div ng-show="pedidoCtrl.cantidad_item > 4">
+                        <div><p><strong>Comentarios de la 5° Orden de Compra: </strong></p></div>
+                        <div><textarea type="test" class="form-control" maxlength="298" ng-model="pedidoCtrl.comentario_orden[4]"></textarea></div><br>
+                        <button type="button" ng-disabled="pedidoCtrl.comentario_orden[4] == undefined" class="btn btn-primary" ng-click="pedidoCtrl.enviar_comentarios(4)">Imprimir</button>
+                    </div>
+                   
+                    <div>
+                        <button type="button" class="btn btn-white" ng-click="pedidoCtrl.cancelar_impresion()">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="datos_imprimir">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>Proveedor:</td>
+                    <td>{{pedidoCtrl.gran_orden_compra_seleccion.razon_social}}</td>
+                </tr>
+                <tr>
+                    <td>R.U.T.</td>
+                    <td>{{pedidoCtrl.gran_orden_compra_seleccion.rut_proveedor_material}}</td>
+                </tr>
+                <tr>
+                    <td>Telefono</td>
+                    <td>{{pedidoCtrl.gran_orden_compra_seleccion.telefono_proveedor_material}}</td>
+                </tr>
+                <tr>
+                    <td>Comentario</td>
+                    <td>{{pedidoCtrl.gran_orden_compra_seleccion.comentario}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>&nbsp;<br>
+        <font size=3>Detalle de Compra</font>
+        <table border=1 frame=hsides rules=rows>
+            <thead>
+                <tr>
+                    <th width="4%">#</th>
+                    <th width="20%">Descripción</th>
+                    <th width="10%">Unidad Medida</th>
+                    <th width="10%">Marca</th>
+                    <th width="10%">Medida</th>
+                    <th width="10%">Modelo</th>
+                    <th width="10%">Cantidad</th>
+                    <th width="10%">Valor</th>
+                    <th width="10%">Total</th>
+                </tr>  
+            </thead>
+            <tbody>
+                <tr ng-repeat="fila in pedidoCtrl.gran_orden_compra_seleccion.filas">
+                    <td>{{fila.id_material}}</td>
+                    <td>{{fila.descripcion_material}}</td>
+                    <td>{{fila.unidad_medida}}</td>
+                    <td>{{fila.marca_material}}</td>
+                    <td>{{fila.medida_material}}</td>
+                    <td>{{fila.modelo_material}}</td>
+                    <td>{{fila.cantidad_material}}</td>
+                    <td>{{fila.valor_menor}}</td>
+                    <td>{{fila.cantidad_material * fila.valor_menor}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

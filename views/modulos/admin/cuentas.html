@@ -1,0 +1,52 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Administración</a>
+            </li>
+            <li>
+                <a>Gestión</a>
+            </li>
+            <li class="active">
+                <strong>{{$state.current.data.pageTitle}}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div ng-controller="ListaCtrl as lista" class="ibox float-e-margins" title="Cuentas">
+                <div class="ibox-title">
+                    <a ng-click="lista.nueva_cuenta()" type="button" class="btn btn-w-m btn-success">Agregar Cuenta</a>	
+                </div>
+                <div class="ibox-content table-responsive">
+                   <table datatable="ng" dt-options="lista.dtOptions"                      
+                    class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                        <tr>
+                            <th width="10%">Código</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th width="8%"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in lista.planes" >
+                            <td>{{ item.id_plan_cuenta }}</td>
+                            <td>{{ item.nombre_plan_cuenta }}</td>
+                            <td>{{ item.descripcion_plan_cuenta }}</td>
+                            <td><a ng-click="lista.modificar_cuenta(item)" class="btn btn-primary btn-circle" type="button"><i class="fa fa-pencil" title="Presione para modificar el registro"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

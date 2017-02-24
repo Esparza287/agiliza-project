@@ -1,0 +1,141 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Usuario</a>
+            </li>
+            <li class="active">
+                <strong>{{$state.current.data.pageTitle}}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="tabs-container">
+                <uib-tabset>
+                    <uib-tab>
+                        <uib-tab-heading>
+                            Modificar Datos
+                        </uib-tab-heading>
+                        <div class="panel-body" ng-controller="FormularioProducto as formProducto">
+                            <fieldset class="form-horizontal">
+                                <form ng-controller="FormularioUsuario as formUsuario" ng-submit="formUsuario.comprobar()" class="form-horizontal">
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Nombres</label>
+                                        <div class="col-sm-10"><input ng-model="formUsuario.personal.nombres_usuario" type="text" class="form-control" required></div>
+                                    </div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Apellido Paterno</label>
+                                        <div class="col-sm-10"><input ng-model="formUsuario.personal.apellido_paterno" type="text" class="form-control" required></div>
+                                    </div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Apellido Materno</label>
+                                        <div class="col-sm-10"><input ng-model="formUsuario.personal.apellido_materno" type="text" class="form-control" required></div>
+                                    </div>
+                                    
+                                    <div class="form-group"><label class="col-sm-2 control-label">R.U.N.</label>
+                                        <div class="col-sm-10"><input ng-model="formUsuario.personal.rut_usuario" type="text" class="form-control" disabled></div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Correo Electronico</label>
+                                        <div class="col-sm-10"><input ng-model="formUsuario.personal.email_usuario" type="email" class="form-control" required></div>
+                                    </div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Sexo</label>
+                                        <div class="col-sm-10">
+                                            <select ng-model="formUsuario.personal.sexo_usuario" class="form-control m-b">
+                                                <option>Femenino</option>
+                                                <option>Masculino</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Dirección</label>
+                                        <div class="col-sm-10"><input ng-model="formUsuario.personal.direccion_usuario" type="text" class="form-control" required></div>
+                                    </div>
+
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Teléfono</label>
+                                        <div class="col-sm-10"><input ng-model="formUsuario.personal.telefono_usuario" type="text" class="form-control" required></div>
+                                    </div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Tipo de Usuario</label>
+                                        <div class="col-sm-10"><input ng-model="formUsuario.personal.tipo_usuario" type="text" class="form-control" disabled></div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Nueva Contraseña</label>
+                                        <div class="col-sm-10"><input ng-model="formUsuario.personal.clave1" type="password" class="form-control" minlength="4" maxlength="13"></div>
+                                    </div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Repetir Nueva Contraseña</label>
+                                        <div class="col-sm-10"><input ng-model="formUsuario.personal.clave2" type="password" class="form-control" minlength="4" maxlength="13"></div>
+                                    </div>
+                                <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                                    <a class="btn btn-white" href="#/inicio/panel">Cancelar</a>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading>
+                            Cambiar Imagen
+                        </uib-tab-heading>
+                        <div ng-controller="CambiarImagen">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-title  back-change">
+                                            <h5>Cambiar Imagen de Perfil</h5>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <p>
+                                                Seleccione una imagen para posteriormente cortarla.
+                                            </p>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="m-b-md"><input type="file" id="fileInput" /></div>
+                                                    <div class="cropArea">
+                                                        <img-crop area-type="square" image="myImage" result-image="myCroppedImage"></img-crop>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Previsualización</h4>
+                                                    <div class="m-b-md"><img ng-src="{{myCroppedImage}}" /></div>
+                                                    
+                                                    <button class="btn btn-success btn-outline" ng-click="guardar()" title="Presione para guardar los cambios.">Guardar</button>
+                                                    <button ng-click="cancelar_edicion()" class="btn btn-white" ng-click="ocultar()" title="Presione para cancelar los cambios.">Cancelar</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <style>
+                                .cropArea {
+                                    overflow: hidden;
+                                    width:400px;
+                                    height:300px;
+                                }
+                            </style>
+                        </div>
+                    </uib-tab>
+                <uib-tabset>
+            </div>
+        </div>
+    </div>
+</div>

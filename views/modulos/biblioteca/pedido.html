@@ -1,0 +1,60 @@
+<toaster-container></toaster-container>
+<div class="wrapper wrapper-content" ng-controller="BibliotecaCtrl as biblio">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content mailbox-content">
+                    <div class="file-manager">
+                        <a class="btn btn-block btn-primary compose-mail" ng-click="biblio.nuevo_pedido()" title="Presione para crear un nuevo pedido">Realizar Pedido</a>
+
+                        <div class="space-25"></div>
+                        <h5>Pedidos</h5>
+                        <ul class="category-list m-b-md" style="padding: 0">
+                            <li><a  ng-click="biblio.cambiar_vista(1)"> <i class="fa fa-circle text-navy" title="Presione para mostrar los pedidos"></i> En Curso <span class="label label-warning pull-right">{{biblio.c_pedidos}}</span> </a></li>
+                            <li><a ng-click="biblio.cambiar_vista(2)"><i class="fa fa-circle text-warning" title="Presione para mostrar los pedido atrazados"></i> Atrasados <span class="label label-warning pull-right">{{biblio.c_atrazados}}</span></a></li>
+                            <li><a ng-click="biblio.cambiar_vista(3)"> <i class="fa fa-circle text-primary" title="Presione para mostrar los pedido devueltos"></i> Completos <span class="label label-warning pull-right">{{biblio.c_completos}}</span></a></li>
+                            <li><a ng-click="biblio.cambiar_vista(4)"> <i class="fa fa-circle text-danger" title="Presione para mostrar los pedido cancelados"></i> Cancelados  <span class="label label-warning pull-right">{{biblio.c_cancelados}}</span></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-10 animated fadeInRight">
+            <div class="mail-box-header">
+                <h2>
+                    <div ng-show="biblio.vista == 1">En Curso ({{biblio.c_pedidos}})</div> 
+                    <div ng-show="biblio.vista == 2">Atrasados ({{biblio.c_atrazados}})</div> 
+                    <div ng-show="biblio.vista == 3">Completos ({{biblio.c_completos}})</div> 
+                    <div ng-show="biblio.vista == 4">Cancelados ({{biblio.c_cancelados}})</div> <!-- Cambiar dependiendo del filtro -->
+                </h2>
+            </div>
+            <div class="mail-box" style="padding: 10px;">
+                <table class="table table-hover table-mail" datatable="ng"  dt-options="biblio.dtOptions">
+                    <thead>
+                        <tr>
+                            <th style="display: none"></th>
+                            <th style="display: none"></th>
+                            <th style="display: none">Alumno</th>
+                            <th style="display: none">Título Libro</th>
+                            <th style="display: none">Fecha Devolucion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Vista libros en curso -->
+                        <tr class="read" ng-repeat="libros in biblio.libros_Select | filter : busqueda" >
+                            <td class="mail-contact">
+                                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Ver el Pedido" ng-click="biblio.cambiar_estado_pedido(libros)" title="Presione para visualizar el pedido."><i class="fa fa-eye"></i></button> 
+                                <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar Pedido" ng-click="biblio.cancelar_pedido(libros)" ng-disabled="biblio.cancelar" title="Presione para dar el libro como perdido."><i class="fa fa-trash-o"></i></button>
+                            </td>
+                            <td></td>
+                            <td class="mail-contact">{{libros.nombres_usuario}} <span class="badge badge-success pull-right">{{libros.rut_usuario | rut}}</span></td>
+                            <td class="mail-subject">{{libros.titulo_libro}}</td>
+                            <td class="text-right mail-date">{{libros.fecha_devolucion | date:'dd'}} de {{libros.fecha_devolucion | date:'MMMM'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

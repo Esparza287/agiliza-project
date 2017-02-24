@@ -1,0 +1,196 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Implementos</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a href="#/implemento/listar">Implementos</a>
+            </li>
+            <li class="active">
+                <strong>{{$state.current.data.pageTitle}}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+	
+	<!-- <a ui-sref="implementos.pruebas" type="button" class="btn btn-w-m btn-success">Pruebas</a> -->
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="tabs-container">
+            	<uib-tabset>
+            		<uib-tab>
+            			<uib-tab-heading>
+            				Información
+            			</uib-tab-heading>
+		                <div class="panel-body" ng-controller="FormularioProducto as formProducto">
+							<fieldset class="form-horizontal">
+			                    <form ng-submit="formProducto.subir()" class="form-horizontal">
+
+			                        <div class="form-group"><label class="col-sm-2 control-label">Nombre</label>
+			                            <div class="col-sm-10"><input ng-model="formProducto.basico.nombre_implemento" type="text" class="form-control" maxlength="45" required></div>
+			                        </div>
+
+			                        <div class="form-group"><label class="col-sm-2 control-label">Introducción</label>
+			                            <div class="col-sm-10"><input ng-model="formProducto.basico.descripcion_implemento" type="text" class="form-control" maxlength="100" required></div>
+			                        </div>
+
+			                        <div class="form-group"><label class="col-sm-2 control-label">Descripción:</label>
+			                            <div class="col-sm-10">
+			                                <div summernote class="summernote" ng-model="formProducto.adicional.descripcion_detalle">
+			                                </div>
+			                            </div>
+			                        </div>
+			                       	
+			                        <div class="form-group"><label class="col-sm-2 control-label">Tallas/Medidas Disponibles</label>
+			                            <div class="col-sm-10"><input ng-model="formProducto.adicional.talla" type="text" class="form-control" maxlength="45" required></div>
+			                        </div>
+
+			                        <div class="hr-line-dashed"></div>
+
+			                        <div class="form-group"><label class="col-sm-2 control-label">Categoría</label>
+			                            <div class="col-sm-10">
+			                                <select ng-model="formProducto.basico.id_categoria" class="form-control m-b" lista-categoria>
+			                                </select>
+			                            </div>
+			                        </div>
+
+			                        <div class="form-group">
+			                        	<label class="col-sm-2 control-label">Stock</label>
+			                            <div class="col-sm-4">
+			                                <input ng-model="formProducto.basico.stock_implemento" class="form-control" type="text">
+			                            </div>
+
+			                            <label class="col-sm-1 control-label">Precio</label>
+			                        	<div class="col-sm-5">
+				                            <div class="input-group"> 
+				                            	<span class="input-group-addon">$</span>
+				                                <input ng-model="formProducto.basico.precio_implemento" type="text" class="form-control" maxlength="1000">
+				                            </div>
+			                            </div>
+			                        </div>
+
+			                        <div class="hr-line-dashed"></div>
+			                        <div class="form-group">
+			                            <div class="col-sm-4 col-sm-offset-2">
+			                                <button ng-click="formProducto.volver()" class="btn btn-white">Cancelar</button>
+			                                <button class="btn btn-primary" type="submit" >Guardar Cambios</button>
+			                            </div>
+			                        </div>
+			                    </form>
+							</fieldset>
+		                </div>
+		            </uib-tab>
+		            <uib-tab>
+                        <uib-tab-heading>
+                            Imágenes
+                        </uib-tab-heading>
+                        <div class="panel-body" ng-controller="imageCrop">
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-stripped">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            Previsualización
+                                        </th>
+                                        <th>
+                                            Detalles
+                                        </th>
+                                        <th>
+                                            Acciones
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <img width="90" ng-src="{{imagen1}}">
+                                        </td>
+                                        <td>
+                                            <span class="col-sm-8 control-label"> Imágen principal, esta imagen se mostrara en las previsualizaciones del producto ademas de la galería.</span>
+                                        </td>
+                                        <td>
+                                            <button ng-click="editar_imagen(1)" class="btn btn-white"><i class="fa fa-pencil"></i> </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img width="90" ng-src="{{imagen2}}">
+                                        </td>
+                                        <td>
+                                            <span class="col-sm-8 control-label"> Imágen secundaria, se mostrará en la galería del producto, para mostrar otros angulos y detalles.</span>
+                                        </td>
+                                        <td>
+                                            <button ng-click="editar_imagen(2)" class="btn btn-white"><i class="fa fa-pencil"></i> </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img width="90" ng-src="{{imagen3}}">
+                                        </td>
+                                        <td>
+                                            <span class="col-sm-8 control-label"> Imágen secundaria, se mostrará en la galería del producto, para mostrar otros angulos y detalles.</span>
+                                        </td>
+                                        <td>
+                                            <button ng-click="editar_imagen(3)" class="btn btn-white"><i class="fa fa-pencil"></i> </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+							
+							<div class="row" ng-show="mostrar">
+							    <div class="col-lg-12">
+							        <div class="ibox float-e-margins">
+							            <div class="ibox-title  back-change">
+							                <h5>Subir Imagen</h5>
+							            </div>
+							            <div class="ibox-content">
+							                <p>
+							                    Seleccione una imagen para posteriormente cortarla.
+							                </p>
+							                <div class="row">
+							                    <div class="col-md-6">
+							                        <div class="m-b-md"><input type="file" id="fileInput" /></div>
+							                        <div class="cropArea">
+							                            <img-crop area-type="square" image="myImage" result-image="myCroppedImage"></img-crop>
+							                        </div>
+							                    </div>
+							                    <div class="col-md-6">
+							                        <h4>Previsualización</h4>
+							                        <div class="m-b-md"><img ng-src="{{myCroppedImage}}" /></div>
+							                        
+                                                    <button class="btn btn-success btn-outline" ng-click="guardar()">Guardar</button>
+							                        <button ng-click="cancelar_edicion()" class="btn btn-white" ng-click="ocultar()">Cancelar</button>
+
+							                    </div>
+							                </div>
+							            </div>
+							        </div>
+							    </div>
+							</div>
+							<style>
+							    .cropArea {
+							        overflow: hidden;
+							        width:400px;
+							        height:300px;
+							    }
+							</style>
+
+                        </div>
+                    </uib-tab>
+		        <uib-tabset>
+            </div>
+        </div>
+    </div>
+</div>

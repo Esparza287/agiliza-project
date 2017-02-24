@@ -1,0 +1,20 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <i class="fa fa-warning modal-icon"></i>
+        <h4 class="modal-title">Rechazar Solicitud</h4>
+        <small class="font-bold">Objeciones y Razones del rechazo de la Solicitud.</small>
+    </div>
+    <div class="modal-body">
+    <br>
+
+    <div>
+        <div><p><strong>Describa las Razones: </strong></p></div>
+        <div><textarea type="test" class="form-control" maxlength="298" ng-model="datos.descripcion_rechazo" placeholder="Opcional: Descripción breve del rechazo"></textarea></div><br>
+    </div>
+   
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancelar()" title="Presione para cancelar los cambios">Cancelar</button>
+        <button type="button" class="btn btn-primary" ng-click="enviar()" title="Presione para rechazar la solicitud">Rechazar Solicitud</button>
+    </div>
+</div>

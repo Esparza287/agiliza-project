@@ -1,0 +1,49 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-9">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="inicio.panel">Inicio</a>
+            </li>
+            <li class="active">
+                <strong> Resultados</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeIn" ng-controller="BusquedaCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <h2>
+                        Resultados para: <span class="text-navy">{{busqueda}}</span>
+                    </h2>
+                    <div class="hr-line-dashed"></div>
+                    <div ng-repeat="resultado in secciones | filter : busqueda" class="search-result">
+                        <h3><a ui-sref="{{resultado.enlace}}">{{resultado.nombre}}</a></h3>
+                        <h5>
+                            {{resultado.contenido}}
+                        </h5>
+                        <li class="badge badge-plain" style="margin-left: 2px; opacity: 0.8" ng-repeat="tag in resultado.tags"><i class="fa fa-tag"></i> {{tag}}</li>
+                        <br>&nbsp<br>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="text-center">
+                        <div class="btn-group">
+                            <button class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i></button>
+                            <button class="btn btn-white">1</button>
+                            <button class="btn btn-white  active">2</button>
+                            <button class="btn btn-white">3</button>
+                            <button class="btn btn-white">4</button>
+                            <button class="btn btn-white">5</button>
+                            <button class="btn btn-white">6</button>
+                            <button class="btn btn-white">7</button>
+                            <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">Nuevo de Pedido</h4>
+        <small class="font-bold">Seleccione el Usuario y luego el libro junto con la fecha de devolución.</small>
+    </div>
+    <div class="modal-body">
+    <br>
+
+    <div>
+        <div><p><strong>Alumno: </strong></p></div>
+        <div ng-controller="SelectCtrl as seleccion" url-get="API/usuario/get_alumnos" >
+           	<ui-select ng-model="datos.id_alumno" theme="bootstrap" on-select="">
+                <ui-select-match><b>R.U.N. {{$select.selected.rut_usuario}} - {{$select.selected.nombres_usuario}} {{$select.selected.apellido_paterno}} {{$select.selected.apellido_materno}}</b></ui-select-match>
+                <ui-select-choices repeat="item.id_alumno as item in seleccion.data | filter: $select.search" >
+                    <div class="cuenta-div nivel-{{item.nivel}}" >
+                    <div ng-bind-html="(item.rut_usuario + ' | ' + item.nombres_usuario + ' ' + item.apellido_paterno + ' ' + item.apellido_materno) | highlight: $select.search"></div>
+                    </div>
+                </ui-select-choices>
+           	</ui-select>
+        </div>
+        <br>
+       <table class="table table-striped table-bordered table-hover dataTables-example">
+            <thead>
+                <tr>
+                    <th width="65%">Libro</th>
+                    <th width="25%">Dias Prestamo</th>
+                    <th width="10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr ng-repeat="libros in datos.libros">
+            		<td> 
+                		<div ng-controller="SelectBiblioCtrl as seleccion" url-get="API/biblioteca/get_libros_cantidad" >
+				           	<ui-select ng-change="seleccionar_cantida(libros)" ng-model="libros.id_libro" theme="bootstrap" on-select="">
+				                <ui-select-match><b>Cod. {{$select.selected.codigo_libro}} - {{$select.selected.titulo_libro}}</b></ui-select-match>
+				                <ui-select-choices repeat="item.id_libro as item in seleccion.data | filter: $select.search" >
+				                    <div ng-bind-html="(item.rango_libro + ' | ' + item.titulo_libro) | highlight: $select.search"></div>
+				                    </div>
+				                </ui-select-choices>
+				           	</ui-select>
+				        </div>
+			        </td>
+			        <td>
+						<div>
+						<input class="form-control" string-to-number type="number" min="1" ng-model="libros.dias"></td>
+						</div>
+			        </td>
+			        <td>
+			        	<button class="btn btn-danger" ng-click="eliminar(libros)"><i class="fa fa-trash"></i></button>
+			        </td>
+            	</tr>
+            </tbody>
+        </table>
+    </div>
+   		<div>
+   			 <button type="button" class="btn btn-success" ng-click="addFila()" title="Presione para agregar mas libros.">+</button>
+   		</div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancelar()" title="Presione para cancelar pedido.">Salir</button>
+        <button type="button" class="btn btn-primary" ng-click="guardar()" title="Presione para guardar pedido.">Guardar pedido</button>
+    </div>
+</div>

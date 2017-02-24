@@ -1,0 +1,37 @@
+<toaster-container></toaster-container>
+<div class="passwordBox animated fadeInDown" ng-controller="LoginCtrl as login">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="ibox-content">
+
+                <h2 class="font-bold">Recuperar Contraseña</h2>
+
+                <p>
+                    Ingrese su correo y se le enviarán intrucciones para obtener una nueva contraseña. Posteriormente podrá cambiarla.
+                </p>
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <form class="m-t" role="form" action="index.html">
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Dirección de Email" required="" ng-model="login.recuperacion">
+                            </div>
+                            <a ladda="login.loginLoading" ng-click="login.recuperar_clave()" class="ladda-button btn btn-primary full-width m-b" data-style="slide-left" title="Presione para enviar correo de recuperación.">Enviar nueva contraseña</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-6">
+            Agiliza Educación
+        </div>
+        <div class="col-md-6 text-right">
+            <small>© 2016</small>
+        </div>
+    </div>
+</div>

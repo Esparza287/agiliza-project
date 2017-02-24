@@ -1,0 +1,35 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <i class="fa fa-laptop modal-icon"></i>
+        <h4 class="modal-title">Solicitud De Pedidos</h4>
+        <small class="font-bold">Selecciona la cantidad y luego el proveedor.</small>
+    </div>
+    <div class="modal-body">
+    <h4 class="modal-title">{{datos.nombre_implemento}}</h4>
+    <br>
+        <p><strong>Descripcion: </strong>{{descripcion_implemento}}.</p>
+        <p><strong>Precio: </strong>${{datos.precio_implemento}}</p>
+        <p><strong>Stock Actual: </strong>{{stock_implemento}}</p>
+        
+     
+    <div>
+    <div> <p><strong>Selcciona cantidad: </strong></p></div>
+    <div ><input ng-change="calcular()" string-to-number min="1" max="10" type="number" class="form-control" 
+    ng-model="datos.cantidad"></div>
+        
+    </div>
+    <h3><p><strong>Total: </strong>${{total}}</p></h3>
+    <br>
+        <div class="form-group"><label>Selecciona proveedor</label> 
+        <select lista-proveedor ng-change="obtener_proveedor()" ng-model="datos.id_proveedor" type="text" class="form-control">
+           
+        </select>
+        <br>
+   
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancel()">Salir</button>
+        <button type="button" class="btn btn-primary" ng-click="ok()">Realizar Pedido</button>
+    </div>
+</div>
+

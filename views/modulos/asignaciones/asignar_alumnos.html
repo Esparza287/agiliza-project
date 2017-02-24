@@ -1,0 +1,83 @@
+<toaster-container></toaster-container>
+<div class="wrapper wrapper-content" ng-controller="AsignacionAlumnoCursoCtrl as asignacion">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content mailbox-content">
+                    <div class="file-manager">
+                        <!-- <a class="btn btn-block btn-primary compose-mail" ui-sref="email_compose">Compose Mail</a> -->
+                        <div class="space-25"></div>
+                        <h5>Cursos</h5>
+                        <ul class="folder-list m-b-md" style="padding: 0">
+                            <li ng-repeat="curso in asignacion.cursos"><a ng-click="asignacion.cambiar_curso(curso.id_curso_anual, curso.id_curso, curso.cupos,curso.nombre_curso_anual, $index)"> <i class="fa fa-chevron-circle-right"></i> <label class="badge badge-plain" ng-class="{sel: $index == asignacion.selected}" title="Presionar para mostrar el Curso">{{curso.nombre_curso_anual}}</label><span class="label label-primary pull-right" ng-class="{pocos: curso.cupos < 10, muy_pocos: curso.cupos < 5}" title="Cupos Disponibles">{{curso.cupos}}</span></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                        <!-- ng-class="asignacion.class" -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 animated fadeInRight">
+            <div class="mail-box-header">
+                <form method="get" action="index.html" class="pull-right mail-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" ng-model="busqueda" placeholder="Busqueda de Alumnos">
+                    </div>
+                </form>
+                <h2>
+                    {{asignacion.nivel}}° Nivel <h5>Alumnos por asignar: {{asignacion.cantidad_alumnos}}</h5>
+                </h2>
+
+                <div class="mail-tools tooltip-demo m-t-md">
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-success btn-sm" ng-click="asignacion.pasar_alumnos()" title="Agrega alumnos seleccionados al curso." ng-disabled="asignacion.bloqueo_year">Agregar &nbsp;<i class="fa fa-arrow-right"></i></button>
+                    </div>
+                    <div class="input-group col-lg-5"><input type="number" class="form-control input-s-sm-altura" ng-model="asignacion.cantidad"> <span
+                        class="input-group-btn"> <button class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="left" title="Agrega alumnos de manera aleatoria." ng-click="asignacion.random_alumnos()" ng-disabled="asignacion.bloqueo_year"><i class="fa fa-refresh"></i> Aleatorio
+                    </button> </span></div>
+                </div>
+            </div>
+            <div class="mail-box">
+              <table class="table table-hover table-mail">
+                  <tbody>
+                      <tr class="unread animated fadeIn" ng-repeat="alumno in asignacion.alumnos | filter : busqueda"><!--  | filter : busqueda  -->
+                          <td class="check-mail">
+                              <input icheck type="checkbox" ng-model="alumno.check">
+                          </td>
+                          <td class="mail-contact"><a ui-sref="email_view">{{alumno.nombres_usuario}} {{alumno.apellido_paterno}} {{alumno.apellido_materno}}</a></td>
+                          <td class="text-right mail-date"><span class="badge badge-info">{{alumno.rut_usuario | rut}}</span></td>
+                      </tr>
+                  </tbody>
+              </table>
+            </div>
+        </div>
+        <div class="col-lg-5 animated fadeInRight">
+            <div class="mail-box-header">
+                <form method="get" action="index.html" class="pull-right mail-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" ng-model="busqueda2" placeholder="Busqueda de Alumnos">
+                    </div>
+                </form>
+                <h2>
+                    {{asignacion.nombre_curso}} <h5>Cupos disponibles: {{asignacion.cupos}}</h5>
+                </h2>
+                <div class="mail-tools tooltip-demo m-t-md">
+                    <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Quita alumnos seleccionados del curso." ng-click="asignacion.guardar()" ng-disabled="asignacion.bloqueo_year"><i class="fa fa-arrow-left"></i>&nbsp; Remover</button><span></span>
+                </div>
+            </div>
+            <div class="mail-box">
+                <table class="table table-hover table-mail">
+                    <tbody>
+                        <tr class="unread animated fadeIn" ng-repeat="alumno in asignacion.alumnos_asignados | filter : busqueda2"><!--  | filter : busqueda2  -->
+                            <td class="check-mail">
+                                <input icheck type="checkbox" ng-model="alumno.check" ng-disabled="alumno.vigencia -1 ">
+                            </td>
+                            <td class="mail-contact" ><a ui-sref="email_view">{{alumno.nombres_usuario}} {{alumno.apellido_paterno}} {{alumno.apellido_materno}}</a></td>
+                            <td class="text-right mail-date"><span class="badge badge-info">{{alumno.rut_usuario | rut}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div ng-controller="FormularioSolicitarAcceso as solicitarAcceso" class="middle-box text-center loginscreen   animated fadeInDown">
+    <div>
+        <div>
+            <h1 class="logo-name">AG+</h1>
+        </div>
+        <h3>Solicitar Acceso para Agiliza</h3>
+        <p>Crear una cuenta para verlo en acción.</p>
+        <form ng-submit="solicitarAcceso.subir()" class="m-t" role="form">
+            <div class="form-group">
+                <input ng-model="solicitarAcceso.usuario.nombre_usuario" type="text" class="form-control" placeholder="Nombre" required="">
+            </div>
+            <div class="form-group">
+                <input ng-model="solicitarAcceso.usuario.email_usuario" type="email" class="form-control" placeholder="Email" required="">
+            </div>
+            <div class="form-group">
+                <input ng-model="solicitarAcceso.empresa.nombre_empresa" type="text" class="form-control" placeholder="Nombre de la Empresa" required="">
+            </div>
+            <div class="form-group">
+                <input ng-model="solicitarAcceso.empresa.telefono_empresa" type="text" class="form-control" placeholder="Teléfono de Contacto" required="">
+            </div>
+            <div class="form-group">
+                <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> Acepto los términos de uso. </label></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary block full-width m-b">Enviar</button>
+
+            <p class="text-muted text-center"><small>¿Tienes una cuenta?</small></p>
+            <a class="btn btn-sm btn-white btn-block" ui-sref="login">Iniciar Sesión</a>
+        </form>
+        <p class="m-t"> <small>Agiliza Educación &copy; 2016</small> </p>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<div tour ng-controller="TablaCtrl as table" url-get="API/implemento/get_implementos/1">
+    <div class="row wrapper white-bg">
+        <div class="col-lg-10">
+            <h2>Implementos</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="index.html">Inicio</a>
+                </li>
+                <li>
+                    <a>Implementos</a>
+                </li>
+                <li class="active">
+                    <strong>Grilla de Productos</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-md-12">
+            <br>
+            <input type="text" placeholder="Buscar Productos" class="input form-control" ng-model='table.busqueda' id="step1" tour-step order="1" title="Busqueda de Productos" backdrop="true"  on-Hidden="table.clearbody(tour)" on-Shown="table.preparebody(tour)" backdropContainer="#wrapper" content="Aquí podrá ingresar el nombre o parte de él, para encontrar productos." placement="top">
+            <br>
+            <div class="text-center" id="step2" tour-step order="2" title="Categorías" content="Aquí podrá filtrar los productos mediante las distintas categorías disponibles." placement="bottom">
+                <a class="text-muted"> Filtrar por Categorías  <i class="fa fa-tags"></i> </a>
+                <span ng-click="table.busqueda = ''" class="badge badge-plain">Todas</span>
+                <span ng-click="table.busqueda = 'Vestimenta'" class="badge badge-plain">Vestimenta</span>
+                <span ng-click="table.busqueda = 'Accesorios'" class="badge badge-plain">Accesorios</span>
+                <span ng-click="table.busqueda = 'Útiles Escolares'" class="badge badge-plain">Útiles Escolares</span>
+                <span ng-click="table.busqueda = 'Otros'" class="badge badge-plain">Otros</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row" id="step3" tour-step order="3" title="Productos" backdrop="true" on-Hidden="table.clearbody(tour)" on-Shown="table.preparebody(tour)" backdropContainer="#wrapper" content="Los diferentes productos donde podrá ver su información, valor y podrá clickear para obtener más información acerca de él." placement="top">
+            <div class="col-md-3" ng-repeat="producto in table.data | filter : table.busqueda ">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+                        <div class="">
+                            <img ng-src="img/implementos/{{producto.ruta_imagen}}" class="col-md-12" style="float: inherit;margin-top: 15px;">
+                        </div>
+
+                        <div class="product-desc">
+                                    <span class="product-price">
+                                        ${{producto.precio_implemento}}
+                                    </span>
+                            <small class="text-muted">{{producto.nombre_categoria}}</small>
+                            <a href="#/implementos/productos/detalle/{{producto.id_implemento}}" class="product-name"> {{producto.nombre_implemento}}</a>
+                            <div class="small m-t-xs">
+                                {{producto.descripcion_implemento}}
+                            </div>
+                            <div class="m-t text-righ">
+
+                                <a href="#/implementos/productos/detalle/{{producto.id_implemento}}" class="btn btn-xs btn-outline btn-primary">Más Información <i class="fa fa-long-arrow-right"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TOUR -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Paseo de Ayuda</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <p>
+                            Un rápido paseo por la pagina, que le ayudará a identificar las opciones más importantes.
+                        </p>
+                        <div class=" m-t-sm">
+                            <a href class="btn btn-primary startTour" ng-click="tour.restart(true)"><i class="fa fa-play"></i> Comenzar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

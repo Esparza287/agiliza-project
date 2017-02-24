@@ -1,0 +1,32 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">Gestión de Asignaturas</h4>
+        <small class="font-bold">Ingresa un Nombre y luego una Descripción de la nueva Asignatura.</small>
+    </div>
+    <div class="modal-body">
+
+    <div class="">
+        <div><p><strong>Nombre: </strong></p></div>
+        <div><input type="test" class="form-control" ng-model="datos.nombre_asignatura" maxlength="45" placeholder="Ej: Matematica"></div><br>
+        <div><p><strong>Descripción: </strong></p></div>
+        <div><textarea type="test" class="form-control" ng-model="datos.descripcion_asignatura" maxlength="100" placeholder="Opcional: Breve descripción sobre la asignatura."></textarea></div><br>
+        <div class="form-group"><label>Selecciona Especialidad:</label> 
+        <select lista-especialidad ng-model="datos.id_especialidad" type="text" class="form-control">
+        </select><br>
+        <div class="form-group animated fadeInDown">
+            <label class="form-label m-b">Niveles & Cantidad de bloques semanales:</label>
+            <div ng-repeat="nivel in niveles">
+                <label><input icheck type="checkbox" class="form-control" ng-model="nivel.estado_curso"> {{nivel.descripcion_curso}} </label>
+                <input ng-disabled="!nivel.estado_curso" class="form-control" style="width: 220px" placeholder="Horas de Clase" ng-model="nivel.horas_asignatura">
+                <br>
+            </div>
+        </div>
+    </div>
+   
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancelar()"  title="Presione para cancelar los cambios del registro.">Salir</button>
+        <button type="button" class="btn btn-primary" ng-click="guardar()"  title="Presione para guardar los cambios del registro.">Guardar Asignatura</button>
+    </div>
+</div>
+

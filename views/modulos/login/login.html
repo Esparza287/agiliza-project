@@ -1,0 +1,26 @@
+<toaster-container></toaster-container>
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <div>
+            <h1 class="logo-name">AG+</h1>
+        </div>
+        <h3>Bienvenido a Agiliza</h3>
+        <p>Plataforma de soporte educacional diseñada para su uso cómodo y amigable.
+        </p>
+        <p>Inicia sesión, para verlo en acción.</p>
+        <form ng-controller="LoginCtrl as loginCtrl" ng-submit="loginCtrl.validar()" class="m-t" role="form" >
+            <div class="form-group">
+                <input ng-model="loginCtrl.datos.email" type="email" class="form-control" placeholder="Email" required="">
+            </div>
+            <div class="form-group">
+                <input ng-model="loginCtrl.datos.pass" type="password" class="form-control" placeholder="Contraseña" required="">
+            </div>
+            <button ladda="loginCtrl.loginLoading" type="submit" class="ladda-button btn btn-primary full-width m-b" data-style="slide-left" title="Presione para entrar a la intranet.">Entrar</button>
+
+            <a ui-sref="recuperar_contraseña" title="Presione para recuperar su contraseña."><small>¿Olvidó su contraseña?</small></a>
+            <!-- <p class="text-muted text-center"><small>¿Sin cuenta aún?</small></p>
+            <a ui-sref="solicitar_acceso" class="btn btn-sm btn-white btn-block">Solicitar acceso</a> -->
+        </form>
+        <p class="m-t"> <small>Agiliza Educación &copy; 2016</small> </p>
+    </div>
+</div>

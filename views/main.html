@@ -1,0 +1,184 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Bienvenido a Agiliza</h2>
+        <small>Panel de Inicio: Noticias, avisos y mensajes de importancia para usted.</small>
+    </div>
+</div>
+<br><br>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row" ng-controller="NoticiasCtrl">
+        <div class="col-lg-8">
+            <div>
+                <div class="social-feed-box animated fadeIn" ng-show="estado_publicacion">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Nueva Publicación</h5> 
+                        </div>
+                        <div class="ibox-content form-horizontal">
+                            <form ng-submit="subir_publicacion()">
+                                <div class="form-group">
+                                    <div class="col-sm-12"><input placeholder="Título" ng-model="datos.titulo" type="text" class="form-control" maxlength="100" required></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <summernote config="options" ng-model="datos.contenido"></summernote>
+                                    </div>
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <select ng-model="datos.destino" class="form-control">
+                                            <option value="Publica">Institucional</option>
+                                            <option value="Administrador">Administrativos</option>
+                                            <option value="Profesor">Profesores</option>
+                                            <option value="Alumno">Alumnos</option>
+                                            <option value="Apoderado">Apoderados</option>
+                                            <option value="curso">Curso (Los alumnos recibirán una notificación)</option>
+                                            <option value="usuario">Usuario (Recibirá una notificación)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-show="datos.destino == 'usuario'">
+                                    <div class="col-sm-12" ng-controller="SelectCtrl as seleccion" url-get="API/usuario/get_usuarios" >
+                                        <ui-select ng-model="datos.id_usuario" theme="bootstrap" on-select="">
+                                            <ui-select-match><b>R.U.N. {{$select.selected.rut_usuario}} - {{$select.selected.nombres_usuario}} {{$select.selected.apellido_paterno}} {{$select.selected.apellido_materno}}</b></ui-select-match>
+                                            <ui-select-choices repeat="item.id_usuario as item in seleccion.data | filter: $select.search" >
+                                                <div class="cuenta-div nivel-{{item.nivel}}" >
+                                                <div ng-bind-html="(item.rut_usuario + ' | ' + item.nombres_usuario + ' ' + item.apellido_paterno + ' ' + item.apellido_materno) | highlight: $select.search"></div>
+                                                </div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-show="datos.destino == 'curso'">
+                                    <div class="col-sm-12">
+                                        <select ng-model="datos.id_curso_anual" class="form-control" cursos-anuales></select>
+                                    </div>
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <button class="btn btn-success btn-outline btn-sm" ng-show="!modificar_publicacion" type="submit">Publicar</button>
+                                        <button class="btn btn-success btn-outline btn-sm" ng-show="modificar_publicacion" type="submit">Modificar</button>
+                                        <a ng-click="cancelar()" class="btn btn-white btn-sm">Cancelar</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-feed-box animated fadeIn" ng-repeat="noticia in listado_noticias | orderBy:'-'" ng-show="noticia.privacidad == tipo_usuario || noticia.privacidad == 'Publica' || noticia.id_usuario == datos.id_autor || noticia.id_autor == datos.id_autor || noticia.id_curso_anual == datos.id_curso_alumno">
+                    <div ng-show="noticia.id_autor == datos.id_autor || moderador" class="pull-right social-action" uib-dropdown>
+                        <button class="btn-white" uib-dropdown-toggle>
+                            <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="m-t-xs" uib-dropdown-menu>
+                            <li><a ng-show="noticia.id_autor == datos.id_autor" ng-click="editar_noticia(noticia.$id, $index)">Editar Noticia</a></li>
+                            <li><a ng-show="moderador || noticia.id_autor == datos.id_autor" ng-click="eliminar_noticia(noticia.$id, $index)">Eliminar Noticia</a></li>
+                        </ul>
+                    </div>
+                    <div class="social-avatar">
+                        <a href="" class="pull-left">
+                            <img alt="image" ng-src="img/perfil/{{noticia.imagen_url}}">
+                        </a>
+                        <div class="media-body">
+                            <a href="">
+                                {{noticia.autor}}
+                            </a>
+                            <small class="text-muted">{{noticia.fecha}}</small>
+                        </div>
+                    </div>
+                    <div class="social-body">
+                        <h4>{{noticia.titulo}}</h4>
+                        <p data-ng-bind-html="trustAsHtml(noticia.contenido)">
+                            <!-- {{noticia.contenido}} -->
+                        </p>
+                    </div>
+                    <div class="social-footer">
+
+                        <div class="social-comment" ng-repeat="comentario in noticia.comentarios" ng-if="!$first">
+                            <a href="" class="pull-left">
+                                <img alt="image" ng-src="img/perfil/{{comentario.imagen_url}}">
+                            </a>
+                            <div class="media-body">
+                                <a>
+                                    {{comentario.autor}}
+                                </a>
+                                {{comentario.contenido}}
+                                <br/>
+                                <small class="text-muted"><a ng-show="comentario.id_autor == datos.id_autor || moderador" ng-click="eliminar_comentario(noticia, $index)">Borrar Comentario - </a>{{comentario.fecha}}</small>
+                            </div>
+                        </div>
+
+                        <div class="social-comment">
+                            <a href="" class="pull-left">
+                                <img alt="image" ng-src="img/perfil/{{datos.imagen_url}}">
+                            </a>
+                            <div class="media-body">
+                                <div class="form-group">
+                                    <textarea class="form-control m-b" placeholder="Escribir un comentario..." type="text" maxlength="298" ng-model="data.comentario_nuevo" ng-model-options="{ updateOn: 'blur' }"></textarea>
+                                    <button ng-click="agregar_comentario(noticia.$id, $index)" class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comentar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" ng-show="tipo_usuario == 'Administrador'">
+            <div class="sidebard-panel fixed-sidebar" id="sidebar">
+                <div>
+                    <h4>Publicaciones</h4>
+                    <div class="feed-element">
+                        <a href="" class="pull-left">
+                            <img alt="image" class="img-circle" src="img/plus.png">
+                        </a>
+                        <div class="media-body">
+                            Para crear una nueva noticia o un nuevo aviso solo de click en el botón de a continuación.
+                            <br>&nbsp<br>
+                            <a title="Presione para crear una nueva publicación." class="btn btn-success btn-outline btn-xs" ng-click="nueva_publicacion()">Nueva Publicación</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-t-md">
+                    <h4>Estadisticas</h4>
+                    <p>
+                        Cantidad de publicaciones.
+                    </p>
+                    <div class="row m-t-sm">
+                        <div class="col-md-6">
+                            <bar-chart data="main.BarChart3.data" options="main.BarChart3.options"></bar-chart>
+                            <h5><strong>{{listado_noticias.length}}</strong> Noticias</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-t-md">
+                    <h4>Privacidad de las Publicaciones</h4>
+                    <div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="badge badge-primary">16</span>
+                                Nivel Institucional
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="badge badge-info">12</span>
+                                Nivel de Curso
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge badge-warning">7</span>
+                                Nivel Personal
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

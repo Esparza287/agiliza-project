@@ -1,0 +1,148 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Gestión de Usuarios</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Usuario</a>
+            </li>
+            <li class="active">
+                <strong>{{$state.current.data.pageTitle}}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Datos del Nuevo Alumno</h5> 
+                </div>
+                <div class="ibox-content">
+                    <form ng-controller="FormularioUsuario as formUsuario" ng-submit="formUsuario.subir()" class="form-horizontal">
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Nombres</label>
+                            <div class="col-sm-10"><input ng-model="formUsuario.datos.nombres_usuario" type="text" class="form-control" maxlength="100" required></div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Apellido Paterno</label>
+                            <div class="col-sm-10"><input ng-model="formUsuario.datos.apellido_paterno" type="text" class="form-control" maxlength="45" required></div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Apellido Materno</label>
+                            <div class="col-sm-10"><input ng-model="formUsuario.datos.apellido_materno" type="text" class="form-control" maxlength="45" required></div>
+                        </div>
+                        
+                        <div class="form-group"><label class="col-sm-2 control-label">R.U.N.</label>
+                            <div class="col-sm-10"><input ng-rut ng-change="formUsuario.validar_rut()" ng-model="formUsuario.datos.rut_usuario" type="text" class="form-control" maxlength="12" ng-disabled="formUsuario.datos.id_usuario != undefined"></div>
+                            <!-- VALIDAR RUT -->
+                            <div class="m-t-xs" ng-show="formUsuario.estado_validacion == false">
+                                <small class="text-danger col-sm-offset-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Favor ingresar un R.U.N. correcto</small>
+                            </div>
+                            <div class="m-t-xs" ng-show="formUsuario.existe_rut == true">
+                                <small class="text-danger col-sm-offset-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;El R.U.N. ya esta registrado.</small>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Correo Electronico</label>
+                            <div class="col-sm-10"><input ng-change="formUsuario.validar_correo()" ng-model="formUsuario.datos.email_usuario" type="email" class="form-control" maxlength="45" required></div>
+                            <div class="m-t-xs" ng-show="formUsuario.existe_correo == true">
+                                <small class="text-danger col-sm-offset-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;El correo electrónico ya esta registrado.</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Sexo</label>
+                            <div class="col-sm-10">
+                                <select ng-model="formUsuario.datos.sexo_usuario" class="form-control m-b">
+                                    <option>Femenino</option>
+                                    <option>Masculino</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Dirección</label>
+                            <div class="col-sm-10"><input ng-model="formUsuario.datos.direccion_usuario" type="text" class="form-control" maxlength="45" required></div>
+                        </div>
+
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Teléfono</label>
+                            <div class="col-sm-10"><input placeholder="Número de 9 u once Dígitos" ng-model="formUsuario.datos.telefono_usuario" string-to-number type="number" max="99999999999" min="0" type="text" class="form-control" maxlength="15" required></div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Tipo de Usuario</label>
+                            <div class="col-sm-10">
+                                <select ng-model="formUsuario.datos.tipo_usuario" class="form-control m-b">
+                                    <option value="Alumno">Alumno</option>
+                                    <option value="Profesor">Profesor</option>
+                                    <option value="Apoderado">Apoderado</option>
+                                    <option value="Administrador">Administrativo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-show=" formUsuario.datos.tipo_usuario == 'Administrador' ">
+                            <label class="col-sm-2 control-label">Permisos</label>
+                            <div class="col-sm-10">
+                                <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.matricula"> Matricula </label></div>
+                                <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.usuarios"> Usuarios </label></div>
+                                <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.asignaciones"> Asignaciones</label></div>
+                                <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.mi_registro"> Mis Registros</label></div>
+                                <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.registros"> Registros</label></div>
+                                <!-- <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.planificacion"> Planificación</label></div> -->
+                                <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.horario"> Horario</label></div>
+                                <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.implementos"> Implementos</label></div>
+                                <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.tienda"> Tienda</label></div>
+                                <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.talleres"> Talleres</label></div>
+                                <!-- <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.internado"> Internado</label></div> -->
+                                <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.administracion"> Administración</label></div>
+                                <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.biblioteca"> Biblioteca</label></div>
+                                <div><label> <input icheck type="checkbox" ng-model="formUsuario.permisos.moderacion"> Moderación</label></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" ng-show=" formUsuario.datos.tipo_usuario == 'Profesor' "><label class="col-sm-2 control-label">Asignaturas que Imparte</label>
+                            <div class="col-sm-10">
+                                <select multiple chosen placeholder-text-multiple="'Seleccione las Asignaturas'" class="chosen-select" ng-model="formUsuario.info.asignaturas" ng-options="item.id_asignatura as item.nombre_asignatura for item in formUsuario.asignaturas" style="width:550px;" tabindex="4"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-show=" formUsuario.datos.tipo_usuario == 'Profesor' "><label class="col-sm-2 control-label">Cantidad de Horas</label>
+                            <div class="col-sm-10"><input ng-model="formUsuario.info.horas_profesor" string-to-number type="number" max="45" min="0" class="form-control" maxlength="2"></div>
+                        </div>
+
+                        <div class="form-group" ng-show=" formUsuario.datos.tipo_usuario == 'Alumno' "><label class="col-sm-2 control-label">Nivel del Alumno</label>
+                            <div class="col-sm-10">
+                                <select ng-model="formUsuario.info.nivel_alumno" class="form-control m-b">
+                                    <option value="1">Primero Medio</option>
+                                    <option value="2">Segundo Medio</option>
+                                    <option value="3">Tercero Medio</option>
+                                    <option value="4">Cuarto Medio</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-white" ng-click="formUsuario.volver()">Cancelar</button>
+                                <button ladda="formUsuario.loginLoading" class="ladda-button btn btn-primary" type="submit" ng-disabled="!formUsuario.estado_validacion || formUsuario.existe_rut || formUsuario.existe_correo" title="Presione para guardar los cambios a el registro.">Guardar Cambios</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

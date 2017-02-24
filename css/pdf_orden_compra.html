@@ -1,0 +1,20 @@
+<style type="text/css">
+	table{
+		width: 100%;
+		font-size: 12px;
+		font-family: "Lucida Console", Monaco, monospace;
+		text-align: left;
+	}
+	.no_show_print{
+		display: none;
+	}
+</style>
+<script type="text/javascript">
+	/*window.print();
+	window.onfocus = function(){ 
+		window.close();
+	}*/
+	document.title = "Orden de Compra";
+	setTimeout(function () { window.print(); }, 500);
+    window.onfocus = function () { setTimeout(function () { window.close(); }, 500); }
+</script>

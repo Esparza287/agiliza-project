@@ -1,0 +1,187 @@
+<div ng-controller="BibliotecaCtrl as biblioteca" class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <button type="button" class="btn btn-success btn-outline btn-sm pull-right" ng-click="biblioteca.nuevo_libro()" title="Presione para crear un nuevo registro,"><i class="fa fa-book"></i> Crear Nuevo Libro</button>
+                    <h2>Listado de Libros</h2>
+                    <p>
+                        Creación, modificación y busqueda de los textos de la institución. (Para desplegar información, debe hacer click en el código del libro)
+                    </p>
+                    <div class="clients-list">
+
+                        <div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover dataTables-example" datatable="ng" dt-options="biblioteca.dtOptions">
+                                    <thead style="display: none;">
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Título</th>
+                                            <th>Autor</th>
+                                            <th>Cantidad</th>
+                                            <th>Rango de Busqueda</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="libro in biblioteca.libros">
+                                            <td><a title="Presionar para más información" ng-click="biblioteca.mostrar_libro(libro.id_libro)" class="client-link"><span class="badge badge-success">{{libro.codigo_libro}}</span></a></td>
+                                            <td> {{libro.titulo_libro}}</td>
+                                            <td><i class="fa fa-user"></i> {{libro.autor_libro}}</td>
+                                            <td><i class="fa fa-info-circle"></i> {{libro.cantidad}}</td>
+                                            <td><i class="fa fa-map-marker"></i> {{libro.rango_libro}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox ">
+                <div class="ibox-content animated fadeInDown" ng-show="biblioteca.muestra">
+                    <div class="tab-content">
+                        <div id="contact-1" class="tab-pane active">
+                            <div class="row m-b-lg">
+                                <div class="col-lg-12">
+                                    <strong>
+                                        {{biblioteca.libro_show.titulo_libro}}
+                                    </strong>
+
+                                    <p>
+                                        <i class="fa fa-map-marker"></i> {{biblioteca.libro_show.rango_libro}}
+                                    </p>
+                                    <a ng-click="biblioteca.editar_libro(biblioteca.libro_show)" class="btn btn-primary btn-sm btn-block"><i
+                                            class="fa fa-pencil"></i> Modificar
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="client-detail">
+                                <div class="full-height-scroll" full-scroll>
+
+                                    <strong>Información Detallada</strong>
+
+                                    <ul class="list-group clear-list">
+                                        <li class="list-group-item">
+                                            Código
+                                            <span class="pull-right"> {{biblioteca.libro_show.codigo_libro}} </span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            Título de la obra
+                                            <span class="pull-right"> {{biblioteca.libro_show.titulo_libro}} </span>
+                                        </li>
+                                        <li class="list-group-item fist-item">
+                                            Autor
+                                            <span class="pull-right"> {{biblioteca.libro_show.autor_libro}} </span>
+                                        </li>
+                                        <li class="list-group-item fist-item">
+                                            Editorial
+                                            <span class="pull-right"> {{biblioteca.libro_show.editorial_libro}} </span>
+                                        </li>
+                                        <li class="list-group-item fist-item">
+                                            Estado del Libro
+                                            <span class="pull-right"> {{biblioteca.libro_show.estado_libro}} </span>
+                                        </li>
+                                        <li class="list-group-item fist-item">
+                                            Cantidad
+                                            <span class="pull-right"> {{biblioteca.libro_show.cantidad}} </span>
+                                        </li>
+                                        <li class="list-group-item fist-item">
+                                            Valor Unitario
+                                            <span class="pull-right"> ${{biblioteca.libro_show.valor_unitario | number}} </span>
+                                        </li>
+                                        <li class="list-group-item fist-item">
+                                            Valor Total
+                                            <span class="pull-right"> ${{biblioteca.libro_show.valor_unitario * biblioteca.libro_show.cantidad | number}} </span>
+                                        </li>
+                                        <li class="list-group-item fist-item">
+                                            Fecha de Recepción
+                                            <span class="pull-right"> {{biblioteca.libro_show.fecha_recepcion}} </span>
+                                        </li>
+                                        <li class="list-group-item fist-item">
+                                            Origen
+                                            <span class="pull-right"> {{biblioteca.libro_show.origen}} </span>
+                                        </li>
+                                        <li class="list-group-item fist-item">
+                                            Observación
+                                            <br>
+                                            <span class="pull-right"> {{biblioteca.libro_show.observacion}} </span>
+                                        </li>
+                                    </ul>
+
+                                    <!-- <hr/> -->
+
+                                    <!-- <strong>Historial de Prestamos</strong> -->
+                                    <!-- <div id="vertical-timeline" class="vertical-container dark-timeline">
+                                        <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon gray-bg">
+                                                <i class="fa fa-coffee"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <p>Conference on the sales results for the previous year.
+                                                </p>
+                                                <span class="vertical-date small text-muted"> 2:10 pm - 12.06.2014 </span>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon gray-bg">
+                                                <i class="fa fa-briefcase"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <p>Many desktop publishing packages and web page editors now use Lorem.
+                                                </p>
+                                                <span class="vertical-date small text-muted"> 4:20 pm - 10.05.2014 </span>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon gray-bg">
+                                                <i class="fa fa-bolt"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <p>There are many variations of passages of Lorem Ipsum available.
+                                                </p>
+                                                <span class="vertical-date small text-muted"> 06:10 pm - 11.03.2014 </span>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon navy-bg">
+                                                <i class="fa fa-warning"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <p>The generated Lorem Ipsum is therefore.
+                                                </p>
+                                                <span class="vertical-date small text-muted"> 02:50 pm - 03.10.2014 </span>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon gray-bg">
+                                                <i class="fa fa-coffee"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <p>Conference on the sales results for the previous year.
+                                                </p>
+                                                <span class="vertical-date small text-muted"> 2:10 pm - 12.06.2014 </span>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon gray-bg">
+                                                <i class="fa fa-briefcase"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <p>Many desktop publishing packages and web page editors now use Lorem.
+                                                </p>
+                                                <span class="vertical-date small text-muted"> 4:20 pm - 10.05.2014 </span>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Asignaciones</a>
+            </li>
+            <li class="active">
+                <strong>Plan Anual</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="AsignacionCursoCtrl as enlace">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content wizard">
+                    <h2>Asistente</h2>
+                    <p>
+                        Bienvenido al Asistente de creación de Cursos del Año.
+                        <br/>
+                        <strong>Rellene los campos con al información correspondiente, puede salir y continuar cuando lo desee.</strong><br/>
+                    </p>
+                   <!-- <table> <tr><td width="50%"> <div><p><strong>Año Asignación: </strong></p></td><td>
+       <input ng-model="enlace.info.fecha" type="datetime" class="form-control m-b" date-time view="date" auto-close="true" min-view="year" max-view="year" format="YYYY"></div></td></tr></table> -->
+                    <div class="steps clearfix">
+                        <ul>
+                            <li ui-sref-active="current">
+                                <a ui-sref=".paso_uno" class="btn-default" title="Presione para ir al primer paso para modificar la cantidad de cursos."><span>1.</span> Instancias de Cursos</a>
+                            </li>
+                            <li ui-sref-active="current">
+                                <a ui-sref=".paso_dos" class="btn-default" title="Presione para ir al segundo paso para modificar datos básicos del curso."><span>2.</span> Cursos Anuales</a>
+                            </li>
+                            <li ui-sref-active="current">
+                                <a ui-sref=".paso_tres" class="btn-default"  title="Presione para ir al tercer paso para modificar las asignaturas de cada curso."><span>3.</span> Enlazar Asignaturas</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="wizard">
+                        <div class="content">
+                            <form name="signupForm" ng-submit="processForm()" class="p-lg">
+                                <!-- our nested state views will be injected here -->
+                                <div id="form-views" ui-view></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

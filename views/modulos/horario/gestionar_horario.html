@@ -1,0 +1,126 @@
+<div ng-controller="GestionarHorarioCtrl">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>{{$state.current.data.pageTitle}}</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="index.html">Inicio</a>
+                </li>
+                <li>
+                    <a>Horario</a>
+                </li>
+                <li class="active">
+                    <strong>{{$state.current.data.pageTitle}}</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-3">
+            <br>
+            <div class="alert alert-success">
+                Curso Seleccionado: <br><strong>{{nombre_curso_seleccionado}}  &nbsp;&nbsp;&nbsp;</strong> 
+                <label uib-dropdown>
+                    <a class="btn btn-xs btn-primary" href uib-dropdown-toggle>
+                        <i class="fa fa-hand-o-right"></i> Cambiar
+                    </a>
+                    <ul uib-dropdown-menu class="animated fadeInRight m-t-xs">
+                        <li ng-repeat="curso in cursos"><a ng-click="asignar_curso(curso.nombre_curso_anual, curso.id_curso_anual, curso.id_curso)">{{curso.nombre_curso_anual}}</a></li>
+                    </ul>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight ">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Asignaturas Pendientes</h5>
+                    </div>
+                    <div class="ibox-content col-lg-12">
+                        <p class="small"><i class="fa fa-hand-o-up"></i> Tome y arrastre las asignaturas al día de su elección.</p>
+                        <div slimscroll="{height: 500, position: left}">
+                            <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="horario.pendientes">
+                                <li class="{{asignatura.statusClass}}-element" ng-repeat="asignatura in horario.pendientes">
+                                    {{asignatura.nombre}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--         </div>
+<div class="row"> -->
+            <div class="col-lg-10">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Horario del {{nombre_curso_seleccionado}}</h5>
+                        &nbsp&nbsp&nbsp
+                        <a ladda="cargando" class="ladda-button btn btn-{{color_cambios}} btn-xs" title="Clic Aquí para Guardar" ng-click="guardar_horario()" ng-disabled="!nuevos_cambios" data-style="expand-right">{{estado_cambios}}</a>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="10%"></th>
+                                        <th width="18%">Lunes</th>
+                                        <th width="18%">Martes</th>
+                                        <th width="18%">Miercoles</th>
+                                        <th width="18%">Jueves</th>
+                                        <th width="18%">Viernes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <ul class="sortable-list connectList agile-list">
+                                            <li ng-repeat="bloque in bloques">
+                                                {{bloque.hora_inicio_mostrar}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-change="probar()" ng-model="horario.lunes">
+                                            <li class="{{asignatura.statusClass}}-element" ng-repeat="asignatura in horario.lunes">
+                                                {{asignatura.nombre}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="horario.martes">
+                                            <li class="{{asignatura.statusClass}}-element" ng-repeat="asignatura in horario.martes">
+                                                {{asignatura.nombre}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="horario.miercoles">
+                                            <li class="{{asignatura.statusClass}}-element" ng-repeat="asignatura in horario.miercoles">
+                                                {{asignatura.nombre}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="horario.jueves">
+                                            <li class="{{asignatura.statusClass}}-element" ng-repeat="asignatura in horario.jueves">
+                                                {{asignatura.nombre}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="horario.viernes">
+                                            <li class="{{asignatura.statusClass}}-element" ng-repeat="asignatura in horario.viernes">
+                                                {{asignatura.nombre}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

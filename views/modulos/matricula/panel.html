@@ -1,0 +1,184 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Matricula</a>
+            </li>
+            <li class="active">
+                <strong>Gestionar</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="MatriculaCtrl as matricula">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="tabs-container">
+                <uib-tabset>
+                    <uib-tab>
+                        <uib-tab-heading>
+                            Matrícular
+                        </uib-tab-heading>
+                        <div class="panel-body">
+                            <div>
+                                <div class="animated fadeInDown" ng-show="matricula.paso_uno">
+                                    <div class="row">
+                                        <div class="col-sm-7 b-r"><h3 class="m-t-none m-b">Información</h3>
+
+                                            <p>Ingrese, revise & confirme los datos del alumno y su apoderado.</p>
+
+                                            <form role="form">
+                                                <div class="form-group">
+                                                    <label>R.U.N. Alumno</label> <input ng-rut ng-change="matricula.verificar_rut_alm(matricula.rut_alumno)" ng-model="matricula.rut_alumno" type="text" class="form-control" maxlength="12" placeholder="Ingrese el R.U.N. del alumno" required>
+                                                    <!-- VALIDAR RUT -->
+                                                    <div class="m-t-xs" ng-show="matricula.existe_rut_alm == false">
+                                                        <small class="text-danger">&nbsp;El R.U.N. ingresado no esta registrado</small>
+                                                    </div>
+                                                    <div class="m-t-xs" ng-show="matricula.existe_rut_alm && matricula.rut_matriculado">
+                                                        <small class="text-danger">&nbsp;El R.U.N. ingresado ya se encuentra matrículado</small>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>R.U.N. Apoderado</label> <input ng-rut ng-change="matricula.verificar_rut_apd(matricula.rut_apoderado)" ng-model="matricula.rut_apoderado" type="text" class="form-control" maxlength="12"  placeholder="Ingrese el R.U.N. del apoderado" required>
+                                                    <!-- VALIDAR RUT -->
+                                                    <div class="m-t-xs" ng-show="matricula.existe_rut_apd == false">
+                                                        <small class="text-danger">&nbsp;El R.U.N. ingresado no esta registrado</small>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" ng-click="matricula.mostrar_datos()" ng-disabled="!matricula.existe_rut_alm || !matricula.existe_rut_apd || matricula.rut_matriculado" title="Presione para continuar con la matricula"><strong>Aceptar</strong></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-sm-5"><h4>¿Nuevos Registros?</h4>
+
+                                            <p>Click para crear nuevos registros:</p>
+
+                                            <p class="text-center">
+                                                <a ng-click="matricula.nuevo_usuario()" title="Click Aquí"><i class="fa fa-file-text big-icon"></i></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ibox-content animated fadeInDown" ng-show="matricula.paso_dos">
+                                    <div class="row">
+                                        <div class="col-sm-12"><h3 class="m-t-none m-b">Datos del Alumno</h3>
+                                            <form role="form">
+                                                <div class="form-group">
+                                                    <label>R.U.N.</label> <input ng-rut ng-model="matricula.alumno.rut_usuario" type="text" class="form-control" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Nombre</label> <input ng-model="matricula.alumno.nombre" type="text" class="form-control" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Próximo nivel que cursará</label> <input ng-model="matricula.alumno.nuevo_nivel" type="text" class="form-control" disabled>
+                                                    <!-- VALIDAR ESTADO -->
+                                                    <div class="m-t-xs" ng-show="matricula.estado == 'repitente' && !matricula.egresado">
+                                                        <small class="text-danger">&nbsp;El Alumno debe repetir el curso</small>
+                                                    </div>
+                                                    <div class="m-t-xs" ng-show="matricula.estado == 'promovido' && !matricula.egresado">
+                                                        <small class="text-success">&nbsp;El Alumno es promovido</small>
+                                                    </div>
+                                                    <div class="m-t-xs" ng-show="matricula.estado == 'nuevo' && !matricula.egresado">
+                                                        <small class="text-warning">&nbsp;El Alumno no tiene registros anteriores</small>
+                                                    </div>
+                                                    <div class="m-t-xs" ng-show="matricula.egresado">
+                                                        <small class="text-danger">&nbsp;El Alumno ya egresó.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="hr-line-dashed"></div>
+                                                <div class="form-group">
+                                                    <label>Dirección</label> <input ng-model="matricula.alumno.direccion_usuario" type="text" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Teléfono</label> <input ng-model="matricula.alumno.telefono_usuario" type="text" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Correo Electrónico</label> <input ng-model="matricula.alumno.email_usuario" type="text" class="form-control">
+                                                </div>
+                                                <div>
+                                                    <button class="btn btn-sm btn-warning m-t-n-xs" ng-click="matricula.cancelar()"><strong>Volver Atrás</strong></button>
+                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" ng-click="matricula.siguiente_paso()" ng-disabled="matricula.egresado"><strong>Siguiente</strong></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ibox-content animated fadeInDown" ng-show="matricula.paso_tres">
+                                    <div class="row">
+                                        <div class="col-sm-12"><h3 class="m-t-none m-b">Datos del Apoderado</h3>
+                                            <form role="form">
+                                                <div class="form-group">
+                                                    <label>R.U.N.</label> <input ng-rut ng-model="matricula.apoderado.rut_usuario" type="text" class="form-control" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Nombre</label> <input ng-model="matricula.apoderado.nombre" type="text" class="form-control" disabled>
+                                                </div>
+                                                <div class="hr-line-dashed"></div>
+                                                <div class="form-group">
+                                                    <label>Dirección</label> <input ng-model="matricula.apoderado.direccion_usuario" type="text" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Teléfono</label> <input ng-model="matricula.apoderado.telefono_usuario" type="text" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Correo Electrónico</label> <input ng-model="matricula.apoderado.email_usuario" type="text" class="form-control">
+                                                </div>
+                                                <div>
+                                                    <button class="btn btn-sm btn-warning m-t-n-xs" ng-click="matricula.atras()"><strong>Volver Atrás</strong></button>
+                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" ng-click="matricula.hacer_matricula()"><strong>Matrícular</strong></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading>
+                            Matrículas Realizadas ({{$state.year.nombre_year}})
+                        </uib-tab-heading>
+                        <div class="panel-body">
+                            <div title="Matrículas">
+                                <div class="animated fadeInDown">
+                                    <table datatable="ng" dt-options="matricula.dtOptions"                      
+                                    class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
+                                        <tr>
+                                            <th>R.U.N. Alumno</th>
+                                            <th>Nombre Alumno</th>
+                                            <th>R.U.N. Apoderado</th>
+                                            <th>Nombre Apoderado</th>
+                                            <th>Nivel a Cursar</th>
+                                            <th>Fecha de Matrícula</th>
+                                            <th>Anular</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="registro in matricula.matriculas">
+                                            <td>{{ registro.rut_usuario | rut }}</td>
+                                            <td>{{registro.nombres_usuario}} {{registro.apellido_paterno}} {{registro.apellido_materno}}</td>
+                                            <td>{{ registro.rut_apoderado | rut }}</td>
+                                            <td>{{registro.nombres_apoderado}} {{registro.apellido_paterno_apd}} {{registro.apellido_materno_apd}}</td>
+                                            <td>{{ registro.descripcion_curso }}</td>
+                                            <td>{{ registro.fecha_matricula | date: "dd/MM/yyyy" }}</td>
+                                            <td>
+                                                <a class="btn btn-danger btn-circle" type="button" ng-click="matricula.anular_matricula(registro.id_matricula)" title="Anular Matricula"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                <uib-tabset>
+            </div>
+        </div>
+    </div>
+</div>

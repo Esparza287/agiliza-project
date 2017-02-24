@@ -1,0 +1,126 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Registros</a>
+            </li>
+            <li class="active">
+                <strong>{{$state.current.data.pageTitle}}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="CalificacionCtrl as calificacion">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+
+<!-- Calificaciones para profesor -->
+                    <div class="form-group row" ng-show="calificacion.permisos == 'prf'">
+                        <label class="control.label col-md-2">&nbsp;Curso</label>
+                        <label class="control.label col-md-3">&nbsp;Asignatura</label>
+                        <label class="control.label col-md-2">&nbsp;Periodo</label>
+                        <label class="control.label col-md-2">&nbsp;Cantidad</label>
+                        <label class="control.label col-md-3">&nbsp;</label>
+                        <div class="col-md-2">
+                            <select class="form-control" ng-model="calificacion.id_curso" ng-change="calificacion.cambiar_curso()">
+                                <option  ng-repeat="cursos in calificacion.cursos" value="{{cursos.id_curso_anual}}">{{cursos.nombre_curso_anual}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" ng-model="calificacion.id_detalle" ng-change="calificacion.cambiar_asignatura()">
+                                <option  ng-repeat="asignatura in calificacion.asignaturas" value="{{asignatura.id_detalle_curso_anual}}">{{asignatura.nombre_asignatura}} </option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control"   ng-change="calificacion.cambiar_periodo()"  ng-model="calificacion.id_periodo">
+                                <option  ng-repeat="periodos in calificacion.periodos" ng-model="calificacion.id_periodo" value="{{periodos.id_periodo_asignatura_anual}}">{{periodos.nombre_periodo}} </option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input string-to-number type="number" max="10" min="1" class="form-control m-b" ng-change="calificacion.cambiar_cantidad()" ng-model="calificacion.c_notas">
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" ng-model="nota.nombre" placeholder="Filtrar Alumno">
+                        </div>
+                    </div>
+
+<!-- Calificaciones para administrador -->
+                    <div class="form-group row" ng-show="calificacion.permisos == 'adm'">
+                        <label class="control.label col-md-2">&nbsp;Curso</label>
+                        <label class="control.label col-md-3">&nbsp;Asignatura</label>
+                        <label class="control.label col-md-2">&nbsp;Periodo</label>
+                        <label class="control.label col-md-2">&nbsp;Cantidad</label>
+                        <label class="control.label col-md-3">&nbsp;</label>
+                        <div class="col-md-2">
+                            <select class="form-control" ng-model="calificacion.id_curso_selec" ng-change="calificacion.cambiar_curso_adm()">
+                                <option  ng-repeat="cursos in calificacion.cursos_selec" value="{{cursos.id_curso_anual}}">{{cursos.nombre_curso_anual}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" ng-model="calificacion.id_detalle" ng-change="calificacion.cambiar_asignatura_adm()">
+                                <option  ng-repeat="asignatura in calificacion.asignaturas" value="{{asignatura.id_detalle_curso_anual}}">{{asignatura.nombre_asignatura}} </option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control"   ng-change="calificacion.cambiar_periodo_adm()"  ng-model="calificacion.id_periodo">
+                                <option  ng-repeat="periodos in calificacion.periodos" ng-model="calificacion.id_periodo_asignatura_anual" value="{{periodos.id_periodo_asignatura_anual}}">{{periodos.nombre_periodo}} </option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input string-to-number type="number" max="10" min="1" class="form-control m-b" ng-change="calificacion.cambiar_cantidad()" ng-model="calificacion.c_notas">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th width="12%">Alumno</th>
+                                <th width="8%" ng-show="calificacion.cantidad_notas > 0">Nota 1</th>
+                                <th width="8%" ng-show="calificacion.cantidad_notas > 1">Nota 2</th>
+                                <th width="8%" ng-show="calificacion.cantidad_notas > 2">Nota 3</th>
+                                <th width="8%" ng-show="calificacion.cantidad_notas > 3">Nota 4</th>
+                                <th width="8%" ng-show="calificacion.cantidad_notas > 4">Nota 5</th>
+                                <th width="8%" ng-show="calificacion.cantidad_notas > 5">Nota 6</th>
+                                <th width="8%" ng-show="calificacion.cantidad_notas > 6">Nota 7</th>
+                                <th width="8%" ng-show="calificacion.cantidad_notas > 7">Nota 8</th>
+                                <th width="8%" ng-show="calificacion.cantidad_notas > 8">Nota 9</th>
+                                <th width="8%" ng-show="calificacion.cantidad_notas > 9">Nota 10</th>
+                                <th ng-hide="calificacion.cantidad_notas > 9"></th>
+                                <th width="8%">Promedio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="nota in calificacion.notas | filter: nota.nombre">
+                                <td>{{ nota.nombre }}</td>
+                                <td ng-show="calificacion.cantidad_notas > 0"><input string-to-number type="number" max="70" min="0" class="form-control" ng-model="nota.n1" ng-change="calificacion.promediar()"></td>
+                                <td ng-show="calificacion.cantidad_notas > 1"><input string-to-number type="number" max="70" min="0" class="form-control" ng-model="nota.n2" ng-change="calificacion.promediar()"></td>
+                                <td ng-show="calificacion.cantidad_notas > 2"><input string-to-number type="number" max="70" min="0" class="form-control" ng-model="nota.n3" ng-change="calificacion.promediar()"></td>
+                                <td ng-show="calificacion.cantidad_notas > 3"><input string-to-number type="number" max="70" min="0" class="form-control" ng-model="nota.n4" ng-change="calificacion.promediar()"></td>
+                                <td ng-show="calificacion.cantidad_notas > 4"><input string-to-number type="number"  max="70" min="0" class="form-control" ng-model="nota.n5" ng-change="calificacion.promediar()"></td>
+                                <td ng-show="calificacion.cantidad_notas > 5"><input string-to-number type="number"  max="70" min="0" class="form-control" ng-model="nota.n6" ng-change="calificacion.promediar()"></td>
+                                <td ng-show="calificacion.cantidad_notas > 6"><input string-to-number type="number"  max="70" min="0" class="form-control" ng-model="nota.n7" ng-change="calificacion.promediar()"></td>
+                                <td ng-show="calificacion.cantidad_notas > 7"><input string-to-number type="number"  max="70" min="0" class="form-control" ng-model="nota.n8" ng-change="calificacion.promediar()"></td>
+                                <td ng-show="calificacion.cantidad_notas > 8"><input string-to-number type="number"  max="70" min="0" class="form-control" ng-model="nota.n9" ng-change="calificacion.promediar()"></td>
+                                <td ng-show="calificacion.cantidad_notas > 9"><input string-to-number type="number"  max="70" min="0" class="form-control" ng-model="nota.n10" ng-change="calificacion.promediar()"></td>
+                                <th ng-hide="calificacion.cantidad_notas > 9"></th>
+                                <td><input type="text" class="form-control" ng-disabled="true" ng-model="nota.prom"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" ng-click="calificacion.guardar_notas()" ng-disabled="calificacion.bloqueo_year" title="Presione para guardar cambios en las notas.">Guardar Cambios</button>
+                       </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

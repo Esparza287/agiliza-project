@@ -1,0 +1,72 @@
+<div class="row border-bottom" ng-controller="TopNavbarCtrl">
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <span minimaliza-sidebar></span>
+            <form role="search" class="navbar-form-custom" ng-submit="hacer_busqueda()">
+                <div class="form-group">
+                    <input ng-model="busqueda" type="text" placeholder="Búsqueda" class="form-control">
+                </div>
+            </form>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <!-- Selección de Año -->
+            <li uib-dropdown>
+                <a class="count-info" href uib-dropdown-toggle>
+                    <i class="fa fa-calendar-o"></i> {{year.nombre_year}}
+                </a>
+                <ul uib-dropdown-menu class="animated fadeInRight m-t-xs">
+                    <li ng-repeat="data in years"><a ng-click="change_year(data.id_year)" >{{data.nombre_year}}</a></li>
+                    <li ng-show="ver_opcion_year"><a ng-click="crear_year(year.year)">Añadir Año</a></li>
+                </ul>
+            </li>
+            <!-- Ayuda -->
+            <li uib-dropdown>
+                <a class="count-info" href uib-dropdown-toggle>
+                    <i class="fa fa-info-circle"></i> Ayuda
+                </a>
+                <ul uib-dropdown-menu class="animated fadeInRight m-t-xs">
+                    <li><a href="views/manual.pdf" target="_blank">Manual de Usuario WEB</a></li>
+                    <li><a href="views/manualandroid.pdf" target="_blank">Manual de Usuario Android</a></li>
+                    <li><a ui-sref="ayuda.preguntas_frecuentes">Preguntas Frecuentes</a></li>
+                </ul>
+            </li>
+            <!-- Notificaciones -->
+            <li uib-dropdown>
+                <a class="count-info" href uib-dropdown-toggle>
+                    <i class="fa fa-bell"></i> <span class="label label-success">{{filtered.length}}</span>
+                </a>
+                <ul class="dropdown-messages" uib-dropdown-menu>
+                    <div ng-repeat="notify in listado_notificaciones | filter: { id_usuario : id_usuario_actual } as filtered">
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a ng-click="eliminar_notificacion(notify)" class="pull-left">
+                                    <img alt="image" class="img-circle" ng-src="{{notify.imagen_url}}">
+                                </a>
+
+                                <div>
+                                    <small class="pull-right"></small>
+                                    <strong>{{notify.titulo}}</strong> <br>
+                                    {{notify.contenido}}. <br>
+                                    &nbsp;<small class="pull-right text-muted">{{notify.fecha}}</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                    </div>
+                    <li>
+                        <div class="text-center link-block">
+                            <a> <!-- ng-click="eliminar_notificaciones()" -->
+                                <i class="fa fa-bell"></i> <strong>Clic en la imagen para borrar.</strong>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#login">
+                    <i class="fa fa-sign-out"></i> Salir
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,98 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Detalle Producto</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Implemetos</a>
+            </li>
+            <li class="active">
+                <strong>Detalles</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="ProductoCtrl as producto">
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="ibox product-detail">
+                <div class="ibox-content">
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <slick dots="true">
+                                <div>
+                                    <div class="">
+                                        <img ng-src="img/implementos/{{producto.info.ruta_imagen}}" class="col-md-12" >
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="">
+                                        <img ng-src="img/implementos/{{producto.detalle.ruta_imagen_2}}" class="col-md-12" >
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="">
+                                        <img ng-src="img/implementos/{{producto.detalle.ruta_imagen_3}}" class="col-md-12" >
+                                    </div>
+                                </div>
+                            </slick>
+                        </div>
+                        <div class="col-md-7">
+
+                            <h2 class="font-bold m-b-xs">
+                                {{producto.info.nombre_implemento}}
+                            </h2>
+                            <small>{{producto.info.descripcion_implemento}}</small>
+                            <hr>
+                            <!-- <div class="form-group"><label class="col-sm-1 control-label">Cantidad</label>
+                                <div class="col-sm-1"><input ng-model="formProducto.adicional.talla" type="number" class="form-control" maxnumber="10" required></div>
+                            </div> -->
+                            <div>
+                                <button ng-click="producto.agregar_producto()" class="btn btn-primary pull-right"><i class="fa fa-cart-plus"></i> Agregar al Carro</button>
+                                <div class="pull-right col-sm-2"><input ng-model="producto.info.cantidad" type="number" class="form-control pull-right" min="1" max="10" required></div>
+                                <h1 class="product-main-price">${{producto.info.precio_implemento}}<small class="text-muted"> IVA Incluido</small> </h1>
+                            </div>
+                            <hr>
+                            <h4>Descripción del Producto</h4>
+
+                            <div class="small text-muted" data-ng-bind-html="producto.trustAsHtml(producto.detalle.descripcion_detalle)">
+                            </div>
+                            <dl class="dl-horizontal m-t-md small">
+                                <dt>Talla o medidas:</dt>
+                                <dd>S, M, L, XL</dd>
+                                <dt>Devolución:</dt>
+                                <dd>Ante cualquier problema, detalle en el implemento, se dan 7 días de garantia.</dd>
+                                <dt>Entrega:</dt>
+                                <dd>Una vez realizada la compra, puede solicitar un envio a domicilio o retirar el producto en el establecimiento.</dd>
+                            </dl>
+                            <div class="text-right">
+                                <div class="btn-group">
+                                    <button ng-click="producto.ir_carro()" class="btn btn-white btn-sm"><i class="fa fa-shopping-cart"></i> Ir al Carro de Compras </button>
+                                    <button ng-click="producto.volver()" class="btn btn-white btn-sm"><i class="fa fa-mail-reply"></i> Volver </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ibox-footer">
+                            <span class="pull-right">
+                                | Stock  <i class="fa fa-info-circle"></i> {{producto.info.stock_implemento}} Unidades Disponibles <i class="fa fa-clock-o"></i> 14.04.2016 10:04 pm
+                            </span>
+                    En caso de que el stock se agote durante su compra, no se realizará la transacción.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</div>

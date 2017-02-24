@@ -1,0 +1,108 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Registros</a>
+            </li>
+            <li class="active">
+                <strong>{{$state.current.data.pageTitle}}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="AsistenciaCtrl as calificacion">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+<!-- Asistencia profesor -->
+                    <div class="form-group row" ng-show="calificacion.permisos == 'prf'">
+                        <label class="control.label col-md-3">&nbsp;Curso</label>
+                        <label class="control.label col-md-3">&nbsp;Asignatura</label>
+                        <label class="control.label col-md-3">&nbsp;Periodo</label>
+                        <label class="control.label col-md-3">&nbsp;</label>
+                        <div class="col-md-3">
+                            <select class="form-control" ng-model="calificacion.id_curso" ng-change="calificacion.cambiar_curso()">
+                                <option  ng-repeat="cursos in calificacion.cursos" value="{{cursos.id_curso_anual}}">{{cursos.nombre_curso_anual}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" ng-model="calificacion.id_detalle" ng-change="calificacion.cambiar_asignatura()">
+                                <option  ng-repeat="asignatura in calificacion.asignaturas" value="{{asignatura.id_detalle_curso_anual}}">{{asignatura.nombre_asignatura}} </option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <h3>{{calificacion.nombre_periodo}}</h3>
+                        </div>
+                    </div>
+
+<!-- asistencia administrador -->
+                    <div class="form-group row" ng-show="calificacion.permisos == 'adm'">
+                        <label class="control.label col-md-3">&nbsp;Curso</label>
+                        <label class="control.label col-md-3">&nbsp;Asignatura</label>
+                        <label class="control.label col-md-3">&nbsp;Periodo</label>
+                        <label class="control.label col-md-3">&nbsp;Semana</label>
+                        <div class="col-md-3">
+                            <select class="form-control" ng-model="calificacion.id_curso" ng-change="calificacion.cambiar_curso_adm()">
+                                <option  ng-repeat="cursos in calificacion.cursos" value="{{cursos.id_curso_anual}}">{{cursos.nombre_curso_anual}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" ng-model="calificacion.id_detalle" ng-change="calificacion.cambiar_asignatura_adm()">
+                                <option  ng-repeat="asignatura in calificacion.asignaturas" value="{{asignatura.id_detalle_curso_anual}}">{{asignatura.nombre_asignatura}} </option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control"   ng-change="calificacion.cambiar_periodo_adm()"  ng-model="calificacion.id_periodo">
+                                <option  ng-repeat="periodos in calificacion.periodos_actual" ng-model="calificacion.id_periodo_asignatura_anual" value="{{periodos.id_periodo_asignatura_anual}}">{{periodos.nombre_periodo}} </option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control"   ng-change="calificacion.traer_dias_admin()"  ng-model="calificacion.fecha_seleccionada">
+                                <option  ng-repeat="semanas in calificacion.semanas" ng-model="semanas.semana" value="{{semanas.viernes}}">Semana: {{semanas.semana}} | {{semanas.dia}} </option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                    	<div class="form-group">
+                    		<input class="form-control m-b" type="text" ng-model="asistencia.nombre" placeholder="Filtrar por Alumno">
+                    	</div>
+                        <thead>
+                        <tr>
+                            <th>Nombre Alumno</th>
+                            <th width="10%">{{calificacion.lunes}}</th>
+                            <th width="10%">{{calificacion.martes}}</th>
+                            <th width="10%">{{calificacion.miercoles}}</th>
+                            <th width="10%">{{calificacion.jueves}}</th>
+                            <th width="10%">{{calificacion.viernes}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="asistencia in calificacion.asistencias | filter: asistencia.nombre">
+                        	<td>{{ asistencia.nombre }}</td>
+                            <td><div class="checkbox checkbox-success" align="center"><input ng-disabled="calificacion.lu" type="checkbox" ng-checked="asistencia.d1" ng-model="asistencia.d1" ng-true-value="'true'" ng-false-value="'false'"><label></label></div></td>
+                            <td><div class="checkbox checkbox-success" align="center"><input ng-disabled="calificacion.ma" type="checkbox" ng-checked="asistencia.d2" ng-model="asistencia.d2" ng-true-value="'true'" ng-false-value="'false'"><label></label></div></td>
+                            <td><div class="checkbox checkbox-success" align="center"><input ng-disabled="calificacion.mi" type="checkbox" ng-checked="asistencia.d3" ng-model="asistencia.d3" ng-true-value="'true'" ng-false-value="'false'"><label></label></div></td>
+                            <td><div class="checkbox checkbox-success" align="center"><input string-to-boolean ng-disabled="calificacion.ju" type="checkbox" ng-checked="asistencia.d4" ng-model="asistencia.d4" ng-true-value="'true'" ng-false-value="'false'"><label></label></div></td>
+                            <td><div class="checkbox checkbox-success" align="center"><input ng-disabled="calificacion.vi" type="checkbox" ng-checked="asistencia.d5" ng-model="asistencia.d5" ng-true-value="'true'" ng-false-value="'false'"><label></label></div></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                        <div class="modal-footer">
+                            <button type="button" ng-disabled="calificacion.esperar" class="btn btn-primary" ng-click="calificacion.guardar_asistencia()" title="Presione para guardar la la asistencia del curso actual." >Guardar Cambios</button>
+                       </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <i class="fa fa-sort-numeric-asc modal-icon"></i>
+        <h4 class="modal-title">Gestión de Niveles</h4>
+        <small class="font-bold">Ingresa un Descripción y luego una límite a el nuevo Nivel.</small>
+    </div>
+    <div class="modal-body">
+    <br>
+
+    <div>
+        <div><p><strong>Descripción: </strong></p></div>
+        <div><input type="test" class="form-control" ng-model="datos.descripcion_curso" maxlength="100" placeholder="Ej: 1° Medio"></div><br>
+        <div><p><strong>Limite: </strong></p></div>
+        <div><input string-to-number type="number" min="0" class="form-control" ng-model="datos.limite_curso" placeholder="Cantidad de alumnos máximo del curso."></div><br>
+        </select>
+    </div>
+   
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancelar()"   title="Presione para guardar los cancelar del registro.">Salir</button>
+        <button type="button" class="btn btn-primary" ng-click="guardar()"   title="Presione para guardar los cambios del registro.">Guardar Curso</button>
+    </div>
+</div>

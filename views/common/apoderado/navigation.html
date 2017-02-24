@@ -1,0 +1,44 @@
+<nav class="navbar-default navbar-static-side" role="navigation" ng-controller="MainCtrl as main">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="profile-element" uib-dropdown>
+                    <img alt="image" class="img-circle" src="img/profile_small.jpg"/>
+                    <a uib-dropdown-toggle href>
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold">{{main.user_info.nombres_usuario}} {{main.user_info.apellido_paterno}}</strong>
+                             </span>
+                                <span class="text-muted text-xs block">{{main.user_info.tipo_usuario}}<b class="caret"></b></span>
+                            </span>
+                    </a>
+                    <ul uib-dropdown-menu="" class="animated fadeInRight m-t-xs">
+                        <li><a ui-sref="inicio.perfil">Perfil</a></li>
+                        <li><a href="#login">Salir</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    AG+
+                </div>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="home.panel"><i class="fa fa-laptop"></i> <span class="nav-label">Inicio</span> </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="implementos"><i class="fa fa-puzzle-piece"></i> <span class="nav-label">Implementos</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse"">
+                    <li ui-sref-active="active"><a ui-sref="productos.mostrar_implementos">Mostrar Productos</a></li>
+                    <li ui-sref-active="active"><a ui-sref="productos.carro_compra">Carro de Compras</a></li>
+                </ul>
+            </li>
+             <li ui-sref-active="active">
+                <a ui-sref="ayuda"><i class="fa fa-info-circle"></i> <span class="nav-label">Ayuda</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse"">
+                    <li ui-sref-active="active"><a ui-sref="ayuda.preguntas_frecuentes">Preguntas Frecuentes</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>

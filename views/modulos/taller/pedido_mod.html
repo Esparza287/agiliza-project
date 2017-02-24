@@ -1,0 +1,117 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Talleres</a>
+            </li>
+            <li>
+                <a>Solicitudes</a>
+            </li>
+            <li class="active">
+                <strong>{{$state.current.data.pageTitle}}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>SOLICITUD DE MATERIALES DE ENSEÑANZA</h5>
+                </div>
+                <div class="ibox-content">
+                    <form ng-controller="PedidoTallerCtrl as pedidoCtrl" class="form-horizontal">
+                        <div class=" form-group">
+
+                            <label class="col-sm-2 control-label">N° Orden</label>
+                            <div class="col-sm-4"><input ng-model="pedidoCtrl.info.correlativo_orden" type="text" class="form-control" disabled></div>
+
+                            <label class="col-sm-2 control-label">Sector o Subsector</label>
+                            <div class="col-sm-4">
+                                <select ng-change="pedidoCtrl.asignar_nombre()" ng-model="pedidoCtrl.info.id_sector" class="form-control m-b" required ng-disabled="pedidoCtrl.bloquear">
+                                    <option ng-repeat="sector in pedidoCtrl.sectores" value="{{sector.id_sector}}">{{sector.nombre_sector}}</option>
+                                </select>
+                            </div>
+
+                            <label class="col-sm-2 control-label">Responsable</label>
+                            <div class="col-sm-4"><input ng-model="pedidoCtrl.info.nombre_responsable" type="text" class="form-control" disabled></div>
+
+                            <label class="col-sm-2 control-label">Fecha</label>
+                            <div class="col-sm-4">
+                                <input ng-model="pedidoCtrl.info.fecha_orden_material" type="datetime" class="form-control  m-b" date-time view="date" auto-close="true" min-view="date" format="DD/MM/YYYY" required ng-disabled="pedidoCtrl.bloquear">
+                            </div>
+
+                            <label class="col-sm-2 control-label">Plan de Cuentas</label>
+                            <div class="col-sm-4">
+                                <select ng-model="pedidoCtrl.info.id_plan_cuenta" lista-cuentas class="form-control" required ng-disabled="pedidoCtrl.bloquear"></select>
+                            </div>
+
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="ibox float-e-margins" title="Registro">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="30%">Material</th>
+                                        <th width="10%">Cantidad</th>
+                                        <th width="8%">Unidad</th>
+                                        <th>Marca</th>
+                                        <th>Módelo</th>
+                                        <th>Medida</th>
+                                        <th>Observación</th>
+                                        <th width="8%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="fila in pedidoCtrl.data.filas">
+                                        <td>
+                                            <div ng-controller="SelectCtrl as seleccion" url-get="API/material/get_materiales/1" >
+                                                <ui-select ng-change="pedidoCtrl.mostrar_material(fila)" ng-model="fila.id_material" theme="bootstrap" on-select="" ng-disabled="pedidoCtrl.bloquear">
+                                                    <ui-select-match># {{$select.selected.codigo_material}} | {{$select.selected.descripcion_material}}</ui-select-match>
+                                                    <ui-select-choices repeat="item.id_material as item in seleccion.data | filter: $select.search" >
+                                                        <div class="cuenta-div nivel-{{item.nivel}}" >
+                                                            <div ng-bind-html="(item.codigo_material + ' | ' + item.descripcion_material) | highlight: $select.search"></div>
+                                                        </div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </td>
+                                        <td><input class="form-control" string-to-number type="number" min="0" ng-model="fila.cantidad_material" ng-disabled="pedidoCtrl.bloquear"></td>
+                                        <td><input class="form-control" type="text" ng-model="fila.unidad_medida" disabled></td>
+                                        <td><input class="form-control" type="text" ng-model="fila.marca_material" disabled></td>
+                                        <td><input class="form-control" type="text" ng-model="fila.modelo_material" disabled></td>
+                                        <td><input class="form-control" type="text" ng-model="fila.medida_material" disabled></td>
+                                        <td><textarea class="form-control" type="text" maxlength="298" ng-model="fila.observacion" ng-disabled="pedidoCtrl.bloquear"></textarea></td>
+                                        <td><button class="btn btn-danger" ng-click="pedidoCtrl.eliminar(fila)" ng-disabled="pedidoCtrl.bloquear"><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12"><a class="btn btn-w-m btn-primary" ng-click="pedidoCtrl.addFila()" ng-disabled="pedidoCtrl.bloquear"><i class="fa fa-plus"></i> Añadir Fila</a></div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <div class="pull-right">
+                                <a ng-click="pedidoCtrl.volver()" class="btn btn-white" title="Presione para cancelar los cambios.">Cancelar</a>
+                                <button ng-click="pedidoCtrl.subir()" class="btn btn-primary" type="submit" ng-disabled="pedidoCtrl.bloquear"><i class="fa fa-save" title="Presione para guardar los cambios al pedido."></i> Guardar</button>
+                                <button ng-click="pedidoCtrl.confirmacion()" class="btn btn-success" type="submit" ng-disabled="pedidoCtrl.bloquear"><i class="fa fa-send" title="Presione para enviar el pedido."></i> Enviar</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

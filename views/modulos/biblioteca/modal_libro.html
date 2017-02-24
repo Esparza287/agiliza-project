@@ -1,0 +1,47 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">Libros</h4>
+        <small class="font-bold">Ingrese & Verifique los datos del libro.</small>
+    </div>
+    <form class="form-horizontal" ng-submit="guardar()">
+        <div class="modal-body">
+            <div class="form-group"><label class="col-sm-3 control-label">Codigo:</label>
+                    <div class="col-sm-9 m-b"><input ng-model="datos.codigo_libro" string-to-number type="number" max="999999999" min="0" class="form-control" placeholder="Ej: 1010" required></div>
+            </div>
+            <div class="form-group"><label class="col-sm-3 control-label">Rango:</label>
+                    <div class="col-sm-9 m-b"><input ng-model="datos.rango_libro" type="text" class="form-control" maxlength="45" placeholder="Ej: 1010 - 1015" required></div>
+            </div>
+            <div class="form-group"><label class="col-sm-3 control-label">Título:</label>
+                    <div class="col-sm-9 m-b"><input ng-model="datos.titulo_libro" type="text" class="form-control" maxlength="100" required></div>
+            </div>
+            <div class="form-group"><label class="col-sm-3 control-label">Autor:</label>
+                    <div class="col-sm-9 m-b"><input ng-model="datos.autor_libro" type="text" class="form-control" maxlength="45" required></div>
+            </div>
+            <div class="form-group"><label class="col-sm-3 control-label">Editorial:</label>
+                    <div class="col-sm-9 m-b"><input ng-model="datos.editorial_libro" type="text" class="form-control" maxlength="45" required></div>
+            </div>
+            <div class="form-group"><label class="col-sm-3 control-label">Estado:</label>
+                    <div class="col-sm-9 m-b"><input ng-model="datos.estado_libro" type="text" class="form-control"  maxlength="45"required></div>
+            </div>
+            <div class="form-group"><label class="col-sm-3 control-label">Cantidad:</label>
+                    <div class="col-sm-9 m-b"><input string-to-number type="number" min="0" class="form-control" ng-model="datos.cantidad" required></div>
+            </div>
+            <div class="form-group"><label class="col-sm-3 control-label">Valor Unitario:</label>
+                    <div class="col-sm-9 m-b"><input string-to-number type="number" min="0" class="form-control" ng-model="datos.valor_unitario" required></div>
+            </div>
+            <div class="form-group"><label class="col-sm-3 control-label">Fecha Recepcion:</label>
+                    <div class="col-sm-9 m-b"><input ng-model="datos.fecha_recepcion" type="datetime" class="form-control  m-b" date-time view="date" auto-close="true" min-view="date" format="DD/MM/YYYY" required></div>
+            </div>
+            <div class="form-group"><label class="col-sm-3 control-label">Origen:</label>
+                    <div class="col-sm-9 m-b"><input ng-model="datos.origen" type="text" class="form-control" maxlength="45" placeholder="Procedencia del libro" required></div>
+            </div>
+            <div class="form-group"><label class="col-sm-3 control-label">Observacion:</label>
+                    <div class="col-sm-9 m-b"><textarea ng-model="datos.observacion" type="text" class="form-control" maxlength="100" placeholder="Opcional: Breves observaciones sobre el libro"></textarea></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" ng-click="cancelar()" title="Presione para cancelar los cambios.">Salir</button>
+            <button ladda="cargando" type="submit" class="ladda-button btn btn-primary" data-style="slide-left" title="Presione para guardar los cambios.">Guardar libro</button>
+        </div>
+    </form>
+</div>

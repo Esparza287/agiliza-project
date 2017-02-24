@@ -1,0 +1,71 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Proveedores</a>
+            </li>
+            <li class="active">
+                <strong>Gestión de Proveedor</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Datos del Proveedor
+                        
+                    </h5>
+                    
+                </div>
+                <div class="ibox-content">
+                    <form ng-controller="FormularioProveedor as formProveedor" ng-submit="formProveedor.subir()" class="form-horizontal">
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Razón Social</label>
+                            <div class="col-sm-10"><input ng-model="formProveedor.datos.razon_social" type="text" class="form-control" maxlength="45" required></div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">R.U.T. Proveedor</label>
+                            <div class="col-sm-10"><input ng-model="formProveedor.datos.rut_proveedor" type="text" class="form-control" maxlength="13" required></div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Dirección</label>
+                            <div class="col-sm-10"><input ng-model="formProveedor.datos.direccion_proveedor" type="text" class="form-control" maxlength="100" required></div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Contacto</label>
+                            <div class="col-sm-10"><input ng-model="formProveedor.datos.contacto_proveedor" type="text" class="form-control" maxlength="45" required></div>
+                        </div>
+                        
+                        <div class="form-group"><label class="col-sm-2 control-label">Teléfono</label>
+                            <div class="col-sm-10"><input ng-model="formProveedor.datos.telefono_proveedor" type="text" class="form-control" maxlength="45" required></div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-2 control-label">Correo Electronico</label>
+                            <div class="col-sm-10"><input ng-model="formProveedor.datos.correo_proveedor" type="email" class="form-control" maxlength="100" required></div>
+                        </div>
+                       
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button ng-click="formProveedor.volver()" class="btn btn-white">Cancelar</button>
+                                <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

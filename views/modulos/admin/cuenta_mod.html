@@ -1,0 +1,22 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <i class="fa fa-book modal-icon"></i>
+        <h4 class="modal-title">Nueva Cuenta</h4>
+        <small class="font-bold">Creación de un nuevo Plan de Cuentas.</small>
+    </div>
+    <div class="modal-body">
+    <br>
+
+    <div>
+        <div><p><strong>Nombre: </strong></p></div>
+        <div><input type="test" class="form-control" ng-model="datos.nombre_plan_cuenta" maxlength="45" placeholder="Ej: Gastos generales"></div><br>
+        <div><p><strong>Descripción: </strong></p></div>
+        <div><textarea type="test" class="form-control" maxlength="298" ng-model="datos.descripcion_plan_cuenta" placeholder="Opcional: Breve descripción del la cuenta"></textarea></div><br>
+    </div>
+   
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancelar()" title="Presione para cancelar los cambios del registro">Salir</button>
+        <button type="button" class="btn btn-primary" ng-click="guardar()" title="Presione para guardar los cambios del registro">Guardar Cuenta</button>
+    </div>
+</div>

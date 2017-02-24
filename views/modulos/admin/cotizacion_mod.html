@@ -1,0 +1,136 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Administración</a>
+            </li>
+            <li>
+                <a>Cotizaciones</a>
+            </li>
+            <li class="active">
+                <strong>{{$state.current.data.pageTitle}}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>COTIZACIÓN DE MATERIALES DE ENSEÑANZA</h5>
+                </div>
+                <div class="ibox-content">
+                    <form ng-controller="PedidoTallerCtrl as pedidoCtrl" class="form-horizontal">
+                        <div class=" form-group">
+
+                            <label class="col-sm-2 control-label">N° Orden</label>
+                            <div class="col-sm-4"><input ng-model="pedidoCtrl.info.correlativo_orden" type="text" class="form-control" disabled></div>
+
+                            <label class="col-sm-2 control-label">Sector o Subsector</label>
+                            <div class="col-sm-4">
+                                <select ng-change="pedidoCtrl.asignar_nombre()" ng-model="pedidoCtrl.info.id_sector" class="form-control m-b" required ng-disabled="pedidoCtrl.bloquear">
+                                    <option ng-repeat="sector in pedidoCtrl.sectores" value="{{sector.id_sector}}">{{sector.nombre_sector}}</option>
+                                </select>
+                            </div>
+
+                            <label class="col-sm-2 control-label">Responsable</label>
+                            <div class="col-sm-4"><input ng-model="pedidoCtrl.info.nombre_responsable" type="text" class="form-control" disabled></div>
+
+                            <label class="col-sm-2 control-label">Fecha</label>
+                            <div class="col-sm-4">
+                                <input ng-model="pedidoCtrl.info.fecha_orden_material" type="datetime" class="form-control  m-b" date-time view="date" auto-close="true" min-view="date" format="DD/MM/YYYY" required ng-disabled="pedidoCtrl.bloquear">
+                            </div>
+
+                            <label class="col-sm-2 control-label">Plan de Cuentas</label>
+                            <div class="col-sm-4">
+                                <select ng-model="pedidoCtrl.info.id_plan_cuenta" lista-cuentas class="form-control" required ng-disabled="pedidoCtrl.bloquear"></select>
+                            </div>
+
+                            <label class="col-sm-2 control-label">Cantidad de Proveedores</label>
+                            <div class="col-sm-2">
+                                <select ng-model="pedidoCtrl.info.cantidad_proveedores" class="form-control" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="ibox float-e-margins" title="Registro">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th width="14%">Descripción</th>
+                                        <!-- <th>Cantidad</th> -->
+                                        <th>Unidad</th>
+                                        <th>Marca</th>
+                                        <th>Módelo</th>
+                                        <th>Medida</th>
+                                        <!-- <th width="20%">Observación</th> -->
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 0">
+                                            <select ng-model="pedidoCtrl.proveedores[0].id_proveedor_material" lista-proveedor-material class="form-control" required"></select>
+                                        </th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 1">
+                                            <select ng-model="pedidoCtrl.proveedores[1].id_proveedor_material" lista-proveedor-material class="form-control" required"></select>
+                                        </th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 2">
+                                            <select ng-model="pedidoCtrl.proveedores[2].id_proveedor_material" lista-proveedor-material class="form-control" required"></select>
+                                        </th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 3">
+                                            <select ng-model="pedidoCtrl.proveedores[3].id_proveedor_material" lista-proveedor-material class="form-control" required"></select>
+                                        </th>
+                                        <th ng-show="pedidoCtrl.info.cantidad_proveedores > 4">
+                                            <select ng-model="pedidoCtrl.proveedores[4].id_proveedor_material" lista-proveedor-material class="form-control" required"></select>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="fila in pedidoCtrl.data.filas">
+                                        <td ng-init="pedidoCtrl.conseguir_descripcion(fila)">{{fila.id_material}}</td>
+                                        <td ng-attr-title="{{fila.observacion}}">{{fila.descripcion_material}}</td>
+                                        <!-- <td>{{fila.cantidad_material}}</td> -->
+                                        <td>{{fila.unidad_medida}}</td>
+                                        <td>{{fila.marca_material}}</td>
+                                        <td>{{fila.modelo_material}}</td>
+                                        <td>{{fila.medida_material}}</td>
+                                        <!-- <td>{{fila.observacion}}</textarea></td> -->
+                                        <!-- <td><div class="input-group"><span class="input-group-addon">$</span><input formato-to-moneda ng-model="fila.proveedor_1" min="0" class="form-control"></div></td> -->
+                                        <!-- <td><input ng-change="pedidoCtrl.validar(fila)" formato-to-moneda ng-model="fila.proveedor_1" min="0" class="form-control"></td> -->
+                                        <td ng-show="pedidoCtrl.info.cantidad_proveedores > 0"><div class="input-group"><span class="input-group-addon">$</span><input formato-to-moneda ng-change="pedidoCtrl.validar(fila)" ng-model="fila.proveedor_1" class="form-control"></div></td>
+                                        <td ng-show="pedidoCtrl.info.cantidad_proveedores > 1"><div class="input-group"><span class="input-group-addon">$</span><input formato-to-moneda ng-change="pedidoCtrl.validar(fila)" ng-model="fila.proveedor_2" class="form-control"></div></td>
+                                        <td ng-show="pedidoCtrl.info.cantidad_proveedores > 2"><div class="input-group"><span class="input-group-addon">$</span><input formato-to-moneda ng-change="pedidoCtrl.validar(fila)" ng-model="fila.proveedor_3" class="form-control"></div></td>
+                                        <td ng-show="pedidoCtrl.info.cantidad_proveedores > 3"><div class="input-group"><span class="input-group-addon">$</span><input formato-to-moneda ng-change="pedidoCtrl.validar(fila)" ng-model="fila.proveedor_4" class="form-control"></div></td>
+                                        <td ng-show="pedidoCtrl.info.cantidad_proveedores > 4"><div class="input-group"><span class="input-group-addon">$</span><input formato-to-moneda ng-change="pedidoCtrl.validar(fila)" ng-model="fila.proveedor_5" class="form-control"></div></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <div class="pull-right">
+                                <a ng-click="pedidoCtrl.volver_cotizacion()" class="btn btn-white" title="Presione para cancelar los cambios del registro">Cancelar</a>
+                                <button ng-click="pedidoCtrl.subir_cotizacion()" class="btn btn-primary" type="submit"><i class="fa fa-save" title="Presione para guardar los cambios del registro"></i> Guardar</button>
+                                <button ng-click="pedidoCtrl.confirmacion_cotizacion()" class="btn btn-success" type="submit"><i class="fa fa-check-square-o" title="Presione para confirmar la cotización"></i> Confirmar Cotización</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

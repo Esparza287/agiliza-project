@@ -1,0 +1,24 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">Gestión de Proveedores</h4>
+        <small class="font-bold">Ingresa la información del proveedor a crear.</small>
+    </div>
+    <div class="modal-body">
+
+    <div>
+        <div><p><strong>R.U.T. </strong></p></div>
+        <div><input type="test" class="form-control" ng-model="datos.rut_proveedor_material"></div><br>
+        <div><p><strong>Razón Social </strong></p></div>
+        <div><input type="test" class="form-control" ng-model="datos.razon_social"></div><br>
+        <div><p><strong>Dirección </strong></p></div>
+        <div><input type="test" class="form-control" ng-model="datos.direccion_proveedor_material"></div><br>
+        <div><p><strong>Teléfono </strong></p></div>
+        <div><input type="test" class="form-control" ng-model="datos.telefono_proveedor_material"></div><br>
+    </div>
+   
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancelar()" title="Presione para cancelar los cambios">Salir</button>
+        <button type="button" class="btn btn-primary" ng-click="guardar()" title="Presione para guardar los cambios">Guardar Proveedor</button>
+    </div>
+</div>

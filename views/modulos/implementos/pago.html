@@ -1,0 +1,181 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{$state.current.data.pageTitle}}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a>Implementos</a>
+            </li>
+            <li class="active">
+                <strong>Formulario de Pago</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="PagoCtrl as pago">
+
+    <div class="row">
+
+        <div class="col-lg-12">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    Seleccione su metodo de Pago
+                </div>
+                <div class="ibox-content">
+
+
+                    <uib-accordion class="panel-group payments-method">
+                        <uib-accordion-group>
+                            <uib-accordion-heading>
+                                <div class="pull-right">
+                                    <i class="fa fa-cc-paypal text-success"></i>
+                                </div>
+                                <h5 class="panel-title">
+                                    PayPal
+                                </h5>
+                            </uib-accordion-heading>
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <h2>Resumen de la Compra</h2>
+                                        <strong>Total:</strong> <span class="text-navy">${{ pago.detalle.neto }}</span>
+                                        <p class="m-t">
+                                            Al realizar la transsacción via Paypal, la compra será validada por Paypal, recuerde siempre realizar sus compras a traves de un navegador moderno y paginas que cifren su información (HTTPS).
+                                        </p>
+                                        <a ladda="pago.loginLoading" ng-click="pago.paypal()" class="ladda-button btn btn-success"  data-style="expand-right">
+                                            <i class="fa fa-cc-paypal">
+                                                Pagar via PayPal
+                                            </i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-accordion-group>
+                        <uib-accordion-group is-open="true">
+                            <uib-accordion-heading>
+                                <div class="pull-right">
+                                    <i class="fa fa-cc-visa text-success"></i>
+                                    <i class="fa fa-cc-amex text-success"></i>
+                                    <i class="fa fa-cc-mastercard text-warning"></i>
+                                    <i class="fa fa-cc-discover text-danger"></i>
+                                </div>
+                                <h5 class="panel-title">
+                                    Tarjeta de Crédito
+                                </h5>
+                            </uib-accordion-heading>
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h2>Resumen de la Compra</h2>
+                                        
+                                        <p class="m-t">
+                                            Seleccione la cantidad de cuotas:
+                                        </p>
+                                        <div class="col-md-6">
+                                            <select ng-init="pago.detalle.cantidad_cuotas=1" ng-change="pago.calcular_cuotas()" ng-model="pago.detalle.cantidad_cuotas" type="number" class="form-control">
+                                                <option ng-selected="true" value="1" >1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10" >10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                            </select>
+                                        </div>
+                                        <br><br>
+                                        <p class="m-t">
+                                            Al selecciónar 3 cuotas o menos, no se le cargará interes alguno.
+                                            <br>
+                                            <br>Luego de esto se agregara el 1% de Interes.
+                                        </p>
+
+                                        Valor Cuota: <span class="text-navy">${{pago.detalle.cuota_total | number:0}}</span><br>
+                                        <strong>Total</strong>: <span class="text-navy">${{pago.detalle.cuota_total * pago.detalle.cantidad_cuotas | number:0}}</span>
+                                    </div>
+                                    <div class="col-md-8">
+
+                                        <form role="form" id="payment-form">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Número de la Tarjeta</label>
+                                                        <div class="input-group">
+                                                            <input ng-change="pago.verificar_tipo_tarjeta()" ng-model="pago.tarjeta.numero_cuenta" type="text" class="form-control" name="Number" maxlength="16" placeholder="Número de Tarjeta Válido" required />
+                                                            <span class="input-group-addon"><i class="fa {{pago.tarjeta.icono}} fa-lg"></i></span>
+                                                        </div>
+                                                        <div class="m-t-xs" ng-show="true">
+                                                            <small class="text-danger" ng-hide="pago.tarjeta.valida">Favor ingrese un código de tarjeta válido.</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-7 col-md-7">
+                                                    <div class="form-group">
+                                                        <label>Fecha de Expiración</label>
+                                                        <input ng-model="pago.tarjeta.fecha_vencimiento" type="datetime" class="form-control" date-time view="months" auto-close="true" min-view="month" format="MM/YYYY">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-5 col-md-5 pull-right">
+                                                    <div class="form-group">
+                                                        <label>Código CV</label>    
+                                                        <input ng-model="pago.tarjeta.codigo_cvc" type="number" min="100" max="999" class="form-control" placeholder="CVC" required/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Nombre del Titular</label>
+                                                        <input ng-model="pago.tarjeta.nombre_titular" type="text" class="form-control" required/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Dirección</label>
+                                                        <input ng-model="pago.tarjeta.direccion" type="text" class="form-control" required/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <button ng-click="pago.volver()" class="btn btn-default"><i class="fa fa-mail-reply"></i> Volver</button>
+                                                    <button ladda="pago.loginLoading" ng-click="pago.realizar_pago()" class="ladda-button btn btn-primary" data-style="expand-right" type="submit"><i class="fa fa-check-square-o"></i> Realizar el Pago</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </uib-accordion-group>
+                    </uib-accordion>
+
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
